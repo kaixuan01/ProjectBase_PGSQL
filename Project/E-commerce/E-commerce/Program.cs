@@ -1,3 +1,8 @@
+using DAL;
+using DAL.UserService;
+using E_commerce.Extension;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add services to the container.
+var sqlConnString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddSqlServer<MyDbContext>(sqlConnString);
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
@@ -21,5 +31,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Auto Create Database or Update Database table
+// Not sure can use in production or not
+app.CreatOrUpdateDatabase();
 
 app.Run();

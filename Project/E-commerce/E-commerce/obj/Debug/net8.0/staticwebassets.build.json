@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "o2r6YeLfDK5+tVrWLN8VjyDXOB18RWcPeJlR8u2xD2Q=",
+  "Hash": "haUsrlGJ+FA0PRmCFVV6U92Mk6Tfck3K4nkTLzpZ32Q=",
   "Source": "E-commerce",
   "BasePath": "_content/E-commerce",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils2\\Utils.csproj",
+      "Identity": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj",
       "Version": 2,
       "Source": "Utils",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
