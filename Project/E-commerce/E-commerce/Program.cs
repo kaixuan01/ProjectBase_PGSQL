@@ -38,7 +38,10 @@ builder.Services.AddAuthentication(options =>
 // Add services to the container.
 var sqlConnString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddSqlServer<MyDbContext>(sqlConnString);
-builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<IUserService, UserService>();
+
+// Add All Services
+builder.Services.AddAllService();
 
 var app = builder.Build();
 
