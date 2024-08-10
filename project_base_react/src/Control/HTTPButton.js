@@ -7,16 +7,16 @@ const HTTPButton = ({ method = 'GET', url, data = null, onSuccess, onError, chil
         try {
             let options = {
                 method: method,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
             };
 
             if (method === 'POST' && data) {
                 options.body = JSON.stringify(data);
+                options.headers = {
+                    'Content-Type': 'application/json',
+                }
             }
-
-            const response = await fetch(url, options);
+            debugger;
+            const response = await fetch("https://localhost:7032" + url, options);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

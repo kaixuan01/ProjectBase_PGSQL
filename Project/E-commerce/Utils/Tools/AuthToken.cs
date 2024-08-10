@@ -10,7 +10,7 @@ namespace Utils.Tools
         public string GenerateJwtToken(string username)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes("your_secret_key");
+            var key = Encoding.UTF8.GetBytes("12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -18,9 +18,7 @@ namespace Utils.Tools
                 {
                 new Claim(ClaimTypes.Name, username)
                 }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                Issuer = "your_issuer",
-                Audience = "your_audience",
+                Expires = DateTime.Now.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

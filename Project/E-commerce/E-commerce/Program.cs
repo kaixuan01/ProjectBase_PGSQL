@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var key = "your_secret_key"; // This should be stored securely
+var key = "12345678901234567890ABCDEFG";
 
 builder.Services.AddAuthentication(options =>
 {

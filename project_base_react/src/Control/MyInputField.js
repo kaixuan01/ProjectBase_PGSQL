@@ -1,6 +1,9 @@
 import { Row, Col, Input } from 'reactstrap';
 
 const InputField = ({ type = 'text', placeholder = '', label, ...props }) => {
+    
+
+
     return (
         <Row className='p-1'>
             {label &&
