@@ -1,5 +1,4 @@
 using DAL;
-using DAL.UserService;
 using E_commerce.Extension;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

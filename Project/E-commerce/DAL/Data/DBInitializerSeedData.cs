@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils.Tools;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace DAL.Data
@@ -19,8 +20,9 @@ namespace DAL.Data
 
             var AdminUser = new User
             {
+                Id = IdGeneratorHelper.GenerateId(),
                 UserName = "admin1",
-                Password = "admin",
+                Password = "FJOm89g6wpAfl+NGO9pcwzipujlvEtVOvT4D/NjxObcHQMkTP6MsCA8HRuReyRTg",
                 Name = "Admin 1",
                 Address = "admin",
                 Email = "woonyap616@gmail.com",

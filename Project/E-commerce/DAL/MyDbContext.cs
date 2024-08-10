@@ -13,8 +13,10 @@ namespace DAL
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
         public DbSet<User> User { get; set; }
+        public DbSet<UserLoginHistory> UserLoginHistory { get; set; }
+
     }
 
-    
+
 
 }

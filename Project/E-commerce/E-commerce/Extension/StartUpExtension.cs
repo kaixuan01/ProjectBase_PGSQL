@@ -1,6 +1,6 @@
 ﻿using DAL;
 using DAL.Data;
-using DBL.UserService;
+using DBL.User_Service.UserService;
 using EFCore.AutomaticMigrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
