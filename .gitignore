@@ -1,1 +1,13 @@
 ﻿*.vsidx
+Project/E-commerce/E-commerce/bin
+Project/E-commerce/E-commerce/obj
+Project/E-commerce/Utils/bin
+Project/E-commerce/.vs
+Project/E-commerce/DBL/bin
+Project/E-commerce/DBL/obj
+Project/E-commerce/E-commerce/bin
+Project/E-commerce/Utils/bin
+Project/E-commerce/Utils/obj/Debug
+Project/E-commerce/Utils/obj
+Project/E-commerce/E-commerce/obj
+Project/E-commerce/DAL/bin
