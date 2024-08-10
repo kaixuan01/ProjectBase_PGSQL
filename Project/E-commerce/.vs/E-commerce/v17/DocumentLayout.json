@@ -3,28 +3,36 @@
   "WorkspaceRootPath": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\e-commerce\\extension\\startupextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\extension\\startupextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8B80B4D-AD1E-46E8-90A0-9E654CB5B84E}|DBL\\DBL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dbl\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8B80B4D-AD1E-46E8-90A0-9E654CB5B84E}|DBL\\DBL.csproj|solutionrelative:dbl\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dal\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dal\\data\\dbinitializerseeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\data\\dbinitializerseeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A8B80B4D-AD1E-46E8-90A0-9E654CB5B84E}|DBL\\DBL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dbl\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8B80B4D-AD1E-46E8-90A0-9E654CB5B84E}|DBL\\DBL.csproj|solutionrelative:dbl\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dal\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\userservice\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dal\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\userservice\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dal\\userrepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\userrepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\dal\\data\\dbinitializerseeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\data\\dbinitializerseeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|d:\\kai xuan\\projectbase\\project\\e-commerce\\e-commerce\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -38,89 +46,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\UserService\\UserService.cs",
-              "RelativeDocumentMoniker": "DAL\\UserService\\UserService.cs",
-              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\UserService\\UserService.cs",
-              "RelativeToolTip": "DAL\\UserService\\UserService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAABAAAA",
+              "DocumentIndex": 1,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DBL\\UserService\\IUserService.cs",
+              "RelativeDocumentMoniker": "DBL\\UserService\\IUserService.cs",
+              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DBL\\UserService\\IUserService.cs",
+              "RelativeToolTip": "DBL\\UserService\\IUserService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAsAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T14:06:52.504Z",
+              "WhenOpened": "2024-08-10T07:57:00.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DBL\\UserService\\UserService.cs",
+              "RelativeDocumentMoniker": "DBL\\UserService\\UserService.cs",
+              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DBL\\UserService\\UserService.cs",
+              "RelativeToolTip": "DBL\\UserService\\UserService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-10T07:27:52.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Program.cs",
+              "RelativeDocumentMoniker": "E-commerce\\Program.cs",
+              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Program.cs",
+              "RelativeToolTip": "E-commerce\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-10T07:08:26.481Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "StartUpExtension.cs",
+              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Extension\\StartUpExtension.cs",
+              "RelativeDocumentMoniker": "E-commerce\\Extension\\StartUpExtension.cs",
+              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Extension\\StartUpExtension.cs",
+              "RelativeToolTip": "E-commerce\\Extension\\StartUpExtension.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-10T07:07:22.842Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\UserController.cs",
               "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\UserController.cs",
               "RelativeToolTip": "E-commerce\\Controllers\\UserController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-09T14:16:36.882Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IUserService.cs",
-              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\UserService\\IUserService.cs",
-              "RelativeDocumentMoniker": "DAL\\UserService\\IUserService.cs",
-              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\UserService\\IUserService.cs",
-              "RelativeToolTip": "DAL\\UserService\\IUserService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAhAAAA",
+              "DocumentIndex": 5,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\UserRepository\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "DAL\\UserRepository\\IUserRepository.cs",
+              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\UserRepository\\IUserRepository.cs",
+              "RelativeToolTip": "DAL\\UserRepository\\IUserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAoAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-09T14:04:05.049Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DBInitializerSeedData.cs",
-              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
-              "RelativeDocumentMoniker": "DAL\\Data\\DBInitializerSeedData.cs",
-              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
-              "RelativeToolTip": "DAL\\Data\\DBInitializerSeedData.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T13:28:40.7Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MyDbContext.cs",
-              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\MyDbContext.cs",
-              "RelativeDocumentMoniker": "DAL\\MyDbContext.cs",
-              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\MyDbContext.cs",
-              "RelativeToolTip": "DAL\\MyDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-09T13:58:37.786Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "E-commerce\\Properties\\launchSettings.json",
-              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Properties\\launchSettings.json",
-              "RelativeToolTip": "E-commerce\\Properties\\launchSettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-08-03T14:38:29.851Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "WeatherForecastController.cs",
               "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\WeatherForecastController.cs",
@@ -130,6 +138,31 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-03T14:29:26.633Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DBInitializerSeedData.cs",
+              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
+              "RelativeDocumentMoniker": "DAL\\Data\\DBInitializerSeedData.cs",
+              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
+              "RelativeToolTip": "DAL\\Data\\DBInitializerSeedData.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABsAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-09T13:28:40.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "E-commerce\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\Kai Xuan\\projectBase\\Project\\E-commerce\\E-commerce\\Properties\\launchSettings.json",
+              "RelativeToolTip": "E-commerce\\Properties\\launchSettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-03T14:38:29.851Z"
             }
           ]
         }

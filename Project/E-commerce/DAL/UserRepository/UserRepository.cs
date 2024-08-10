@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace DAL.UserService
 {
-    public class UserService : IUserService
+    public class UserRepository : IUserRepository
     {
         private readonly MyDbContext _myDbContext;
 
-        public UserService(MyDbContext context)
+        public UserRepository(MyDbContext context)
         {
             _myDbContext = context;
         }
