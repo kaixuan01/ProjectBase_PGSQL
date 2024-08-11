@@ -1,44 +1,35 @@
 
 import React, { useState } from 'react';
-import { Card, CardBody, CardFooter, CardHeader, Container, Input } from 'reactstrap';
-import InputField from '../Control/MyInputField';
-import './base.css'
-import HTTPButton from '../Control/HTTPButton';
-
+import { Card, CardBody, CardFooter, CardHeader, Container, Button } from 'reactstrap';
+import './base.css';
+import HTTPReq from '../Control/HTTPReq';
+import MyInputField from '../Control/MyInputField'
 export default function Login() {
     const [ username, SetUsername ] = useState('');
     const [ password, SetPassword ] = useState('');
-    console.log(username);
-    console.log(password)
-
     return (
-        <>
             <Container className="d-flex justify-content-center align-items-center min-vh-100">
                 <Card className="centered-card">
                     <CardHeader>
                         <div>Login Page</div>
                     </CardHeader>
                     <CardBody>
-                        <Input onChange={(e) => {SetUsername(e.target.value)}}></Input>
-                        <Input onChange={(e) => {SetPassword(e.target.value)}}></Input>
-                        {/* <InputField type='text' label="username" onChange={(e) => {SetUsername(e.target.value)}} />
-                        <InputField type='password' label="password" onChange={(e) => {SetPassword(e.target.value)}} /> */}
+                        <MyInputField label="username" onChange={(e) => SetUsername(e.target.value)}></MyInputField>
+                        <MyInputField label="password" onChange={(e) => SetPassword(e.target.value)}></MyInputField>
                     </CardBody>
                     <CardFooter>
-                    <HTTPButton
+                    <HTTPReq
                         method="GET"
                         url={`/OAuth?username=${username}&password=${password}`}
-                        onSuccess={(result) => console.log(result)}
-                        onError={(error) => console.error(error)}
-                        color="success"
-                        className="float-right"
+                        onSuccess={(result) =>  console.log(result)}
+                        credentials='omit'
                     >
-                        Login
-                    </HTTPButton>
+                        {({ handleClick }) => (
+                            <Button onClick={handleClick} color="success" className="float-right">Login</Button>
+                        )}
+                    </HTTPReq>
                     </CardFooter>
                 </Card>
             </Container>
-
-        </>
     );
 }

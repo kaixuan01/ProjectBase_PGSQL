@@ -1,7 +1,6 @@
 import { Row, Col, Input } from 'reactstrap';
 
-const InputField = ({ type = 'text', placeholder = '', label, ...props }) => {
-    
+export default function MyInputField ({ type = 'text', placeholder = '', label, ...props }) {
 
 
     return (
@@ -14,6 +13,7 @@ const InputField = ({ type = 'text', placeholder = '', label, ...props }) => {
                 <Input
                     type={type}
                     placeholder={placeholder}
+                    {...props}
                 >
                 </Input>
             </Col>
@@ -22,4 +22,3 @@ const InputField = ({ type = 'text', placeholder = '', label, ...props }) => {
     );
 };
 
-export default InputField;

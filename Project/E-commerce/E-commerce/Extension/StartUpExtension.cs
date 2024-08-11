@@ -20,7 +20,7 @@ namespace E_commerce.Extension
             myContext.Database.EnsureCreated();
 
             // Upgrate database to latest version
-            myContext.MigrateToLatestVersion();
+            myContext.MigrateToLatestVersion(new DbMigrationsOptions { ResetDatabaseSchema = true });
 
             // Auto insert default data (Keep it if needed)
             DBInitializerSeedData.InitializeDatabase(myContext);

@@ -5,6 +5,7 @@ using DBL.User_Service.UserService.VerifyUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.Json;
 using Utils.Tools;
 namespace E_commerce.Controllers
 {
@@ -20,24 +21,33 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet(Name = "GetOAuth")]
-        public async Task<string> Get([FromQuery] VerifyUser_REQ user)
+        public async Task<IActionResult> Get([FromQuery] VerifyUser_REQ user)
         {
-            if(!string.IsNullOrEmpty(user.username) || !string.IsNullOrEmpty(user.password))
+            if (!string.IsNullOrEmpty(user.username) && !string.IsNullOrEmpty(user.password))
             {
                 var _authToken = new AuthToken();
                 var success = await _userService.VerifyUserAsync(user);
-
-                if (success)//sucess authorization
+                if (success)
                 {
-                    return _authToken.GenerateJwtToken(user.username);
+                    var token = _authToken.GenerateJwtToken(user.username);
+
+                    Response.Cookies.Append("authToken", token, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict,
+                        Expires = DateTimeOffset.UtcNow.AddHours(1)
+                    });
+
+                    return Ok();
                 }
                 else
                 {
-                    return "";
+                    return Unauthorized();
                 }
             }
-            return "";
-
+            return BadRequest();
         }
+
     }
 }
