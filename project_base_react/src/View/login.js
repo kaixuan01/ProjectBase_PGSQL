@@ -4,6 +4,7 @@ import { Card, CardBody, CardFooter, CardHeader, Container, Button } from 'react
 import './base.css';
 import HTTPReq from '../Control/HTTPReq';
 import MyInputField from '../Control/MyInputField'
+import { showSuccessAlert } from '../Comon/common';
 export default function Login() {
     const [ username, SetUsername ] = useState('');
     const [ password, SetPassword ] = useState('');
@@ -15,17 +16,18 @@ export default function Login() {
                     </CardHeader>
                     <CardBody>
                         <MyInputField label="username" onChange={(e) => SetUsername(e.target.value)}></MyInputField>
-                        <MyInputField label="password" onChange={(e) => SetPassword(e.target.value)}></MyInputField>
+                        <MyInputField label="password" type="password" onChange={(e) => SetPassword(e.target.value)}></MyInputField>
                     </CardBody>
                     <CardFooter>
                     <HTTPReq
-                        method="GET"
-                        url={`/OAuth?username=${username}&password=${password}`}
-                        onSuccess={(result) =>  console.log(result)}
+                        method="POST"
+                        url={`/OAuth`}
                         credentials='omit'
+                        onSuccess={showSuccessAlert("Login Sucessfully!")}
+                        data={{username, password}}
                     >
-                        {({ handleClick }) => (
-                            <Button onClick={handleClick} color="success" className="float-right">Login</Button>
+                        {({ sendRequest }) => (
+                            <Button onClick={sendRequest} color="success" className="float-right">Login</Button>
                         )}
                     </HTTPReq>
                     </CardFooter>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
 using Utils.Tools;
+using Utils.Model;
 namespace E_commerce.Controllers
 {
     [ApiController]
@@ -20,8 +21,8 @@ namespace E_commerce.Controllers
             _userService = userService;
         }
 
-        [HttpGet(Name = "GetOAuth")]
-        public async Task<IActionResult> Get([FromQuery] VerifyUser_REQ user)
+        [HttpPost(Name = "OAuth")]
+        public async Task<IActionResult> OAuth([FromBody] VerifyUser_REQ user)
         {
             if (!string.IsNullOrEmpty(user.username) && !string.IsNullOrEmpty(user.password))
             {
@@ -31,6 +32,7 @@ namespace E_commerce.Controllers
                 {
                     var token = _authToken.GenerateJwtToken(user.username);
 
+                    // Set the token as an HttpOnly, Secure cookie
                     Response.Cookies.Append("authToken", token, new CookieOptions
                     {
                         HttpOnly = true,
@@ -39,7 +41,10 @@ namespace E_commerce.Controllers
                         Expires = DateTimeOffset.UtcNow.AddHours(1)
                     });
 
-                    return Ok();
+                    // Create a success response using ApiResponse<T>
+                    var response = ApiResponse<string>.CreateSuccessResponse(null, "Login successful");
+
+                    return Ok(response);
                 }
                 else
                 {

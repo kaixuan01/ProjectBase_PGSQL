@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace E_commerce.Model
+namespace Utils.Model
 {
     public class ApiResponse<T>
     {
@@ -19,7 +19,7 @@ namespace E_commerce.Model
             ErrorCode = errorCode;
         }
 
-        public static ApiResponse<T> CreateSuccessResponse(T data, string message = "Request was successful")
+        public static ApiResponse<T> CreateSuccessResponse(T? data = default, string message = "Request was successful")
         {
             return new ApiResponse<T>(true, message, data);
         }
