@@ -14,7 +14,17 @@ namespace DAL
 
         public DbSet<User> User { get; set; }
         public DbSet<UserLoginHistory> UserLoginHistory { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Disabled to identity the primary key
+            modelBuilder.Entity<UserRole>()
+                .Property(ur => ur.Id)
+                .ValueGeneratedNever();  // Disable auto-increment
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 
 

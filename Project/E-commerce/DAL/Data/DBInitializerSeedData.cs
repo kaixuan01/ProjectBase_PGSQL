@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils.Enums;
 using Utils.Tools;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -18,51 +19,51 @@ namespace DAL.Data
                 return;
             }
 
-            var AdminUser = new User
+            var users = new List<User>
             {
-                Id = IdGeneratorHelper.GenerateId(),
-                UserName = "admin1",
-                Password = "admin",
-                Name = "Admin 1",
-                Address = "admin",
-                Email = "woonyap616@gmail.com",
-                Phone = "0123456789",
-                Role = "Admin"
+                CreateUser("admin1", "admin", "Admin 1", "admin", "woonyap616@gmail.com", "0123456789", UserRoleEnum.Admin),
+                CreateUser("admin2", "admin", "Admin 2", "admin 2", "kaixuan0131@gmail.com", "0123456789", UserRoleEnum.Admin),
+                CreateUser("testUser", "test", "test User 3", "test 3", "test@test.com", "0123456789", UserRoleEnum.Tester)
             };
 
-            var AdminUser2 = new User
+            var userRoles = new List<UserRole>
             {
-                Id = IdGeneratorHelper.GenerateId(),
-                UserName = "admin2",
-                Password = "admin",
-                Name = "Admin 2",
-                Address = "admin 2",
-                Email = "kaixuan0131@gmail.com",
-                Phone = "0123456789",
-                Role = "Admin"
+                CreateUserRole(UserRoleEnum.Admin, "Admin", "Administrator"),
+                CreateUserRole(UserRoleEnum.Tester, "Tester", "Tester"),
+                CreateUserRole(UserRoleEnum.Developer, "Developer", "Software Developer"),
+                CreateUserRole(UserRoleEnum.NormalUser, "Normal User", "Customer Account"),
             };
 
-            var testUser = new User
-            {
-                Id = IdGeneratorHelper.GenerateId(),
-                UserName = "testUser",
-                Password = "test",
-                Name = "test User 3",
-                Address = "test 3",
-                Email = "test@test.com",
-                Phone = "0123456789",
-                Role = "test"
-            };
-
-            AdminUser.Password = PasswordHelper.HashPassword(AdminUser.Password);
-            AdminUser2.Password = PasswordHelper.HashPassword(AdminUser2.Password);
-            testUser.Password = PasswordHelper.HashPassword(testUser.Password);
-
-            myDbContext.User.Add(AdminUser);
-            myDbContext.User.Add(AdminUser2);
-            myDbContext.User.Add(testUser);
+            myDbContext.UserRole.AddRange(userRoles);
+            myDbContext.User.AddRange(users);
 
             myDbContext.SaveChanges();
+        }
+
+        // Method to create a User object with hashed password
+        private static User CreateUser(string userName, string password, string name, string address, string email, string phone, UserRoleEnum role)
+        {
+            return new User
+            {
+                Id = IdGeneratorHelper.GenerateId(),
+                UserName = userName,
+                Password = PasswordHelper.HashPassword(password),
+                Name = name,
+                Address = address,
+                Email = email,
+                Phone = phone,
+                UserRoleId = (int)role
+            };
+        }
+
+        private static UserRole CreateUserRole(UserRoleEnum role, string name, string description)
+        {
+            return new UserRole
+            {
+                Id = (int)role,
+                Name = name,
+                Description = description
+            };
         }
     }
 }
