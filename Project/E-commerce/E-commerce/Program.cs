@@ -43,9 +43,8 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 var sqlConnString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddSqlServer<MyDbContext>(sqlConnString);
-//builder.Services.AddScoped<IUserService, UserService>();
 
-// Add All Services
+// Auto Add All Services
 builder.Services.AddAllService();
 
 var app = builder.Build();

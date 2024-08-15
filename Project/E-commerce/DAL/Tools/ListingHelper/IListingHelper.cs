@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.Tools.ListingHelper
+﻿namespace DAL.Tools.ListingHelper
 {
     public interface IListingHelper<TEntity> where TEntity : class
     {

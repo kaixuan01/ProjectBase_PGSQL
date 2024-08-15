@@ -1,12 +1,5 @@
-﻿using DAL;
-using DAL.Entity;
+﻿using DAL.Entity;
 using DAL.Repository.UserRP.UserLoginHistoryRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utils.Tools;
 
 namespace DBL.User_Service.UserLoginHistoryService
 {

@@ -30,9 +30,37 @@ namespace DAL.Data
                 Role = "Admin"
             };
 
+            var AdminUser2 = new User
+            {
+                Id = IdGeneratorHelper.GenerateId(),
+                UserName = "admin2",
+                Password = "admin",
+                Name = "Admin 2",
+                Address = "admin 2",
+                Email = "kaixuan0131@gmail.com",
+                Phone = "0123456789",
+                Role = "Admin"
+            };
+
+            var testUser = new User
+            {
+                Id = IdGeneratorHelper.GenerateId(),
+                UserName = "testUser",
+                Password = "test",
+                Name = "test User 3",
+                Address = "test 3",
+                Email = "test@test.com",
+                Phone = "0123456789",
+                Role = "test"
+            };
+
             AdminUser.Password = PasswordHelper.HashPassword(AdminUser.Password);
+            AdminUser2.Password = PasswordHelper.HashPassword(AdminUser2.Password);
+            testUser.Password = PasswordHelper.HashPassword(testUser.Password);
 
             myDbContext.User.Add(AdminUser);
+            myDbContext.User.Add(AdminUser2);
+            myDbContext.User.Add(testUser);
 
             myDbContext.SaveChanges();
         }

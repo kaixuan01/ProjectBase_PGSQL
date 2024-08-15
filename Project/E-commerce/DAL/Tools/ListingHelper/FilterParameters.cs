@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.Tools.ListingHelper
+﻿namespace DAL.Tools.ListingHelper
 {
     public class FilterParameters
     {
-        public string SearchTerm { get; set; }
+        public string? SearchTerm { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
-        public string SortBy { get; set; }
-        public bool SortDescending { get; set; } = false;
+        public string? SortBy { get; set; }
+        public bool? SortDescending { get; set; } = false;
     }
 
     public class PagedResult<T>

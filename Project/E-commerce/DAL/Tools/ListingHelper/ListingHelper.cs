@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Tools.ListingHelper
 {
@@ -25,10 +20,10 @@ namespace DAL.Tools.ListingHelper
                 query = query.SearchByFields(parameters.SearchTerm);
             }
 
-            if (!string.IsNullOrEmpty(parameters.SortBy))
+            if (!string.IsNullOrEmpty(parameters.SortBy) && parameters.SortDescending.HasValue)
             {
                 // Apply sorting based on SortBy and SortDescending
-                query = query.OrderByProperty(parameters.SortBy, parameters.SortDescending);
+                query = query.OrderByProperty(parameters.SortBy, (bool)parameters.SortDescending);
             }
 
             var totalCount = await query.CountAsync();
