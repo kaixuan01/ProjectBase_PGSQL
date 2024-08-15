@@ -1,6 +1,7 @@
 ﻿using DAL;
 using DAL.Entity;
 using DAL.Repository.UserRP.UserRepository;
+using DAL.Tools.ListingHelper;
 using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.VerifyUser;
 using System;
@@ -112,5 +113,12 @@ namespace DBL.User_Service.UserService
         }
 
         #endregion
+
+        public async Task<PagedResult<User>> GetPagedListAsync(FilterParameters filterParameters)
+        {
+            var oUserList = await _userRepository.GetPagedListAsync(filterParameters);
+
+            return oUserList;
+        }
     }
 }

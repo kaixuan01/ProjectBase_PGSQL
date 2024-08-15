@@ -22,13 +22,16 @@ namespace DAL.Data
             {
                 Id = IdGeneratorHelper.GenerateId(),
                 UserName = "admin1",
-                Password = "FJOm89g6wpAfl+NGO9pcwzipujlvEtVOvT4D/NjxObcHQMkTP6MsCA8HRuReyRTg",
+                Password = "admin",
                 Name = "Admin 1",
                 Address = "admin",
                 Email = "woonyap616@gmail.com",
                 Phone = "0123456789",
                 Role = "Admin"
             };
+
+            AdminUser.Password = PasswordHelper.HashPassword(AdminUser.Password);
+
             myDbContext.User.Add(AdminUser);
 
             myDbContext.SaveChanges();

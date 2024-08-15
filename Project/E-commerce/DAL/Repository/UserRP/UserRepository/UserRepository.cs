@@ -1,4 +1,5 @@
 ﻿using DAL.Entity;
+using DAL.Tools.ListingHelper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.UserRP.UserRepository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : ListingHelper<User>, IUserRepository
     {
         private readonly MyDbContext _myDbContext;
 
-        public UserRepository(MyDbContext context)
+        public UserRepository(MyDbContext context) : base(context)
         {
             _myDbContext = context;
         }

@@ -24,7 +24,6 @@ namespace E_commerce.Extension
 
             // Auto insert default data (Keep it if needed)
             DBInitializerSeedData.InitializeDatabase(myContext);
-
         }
 
         public static void AddAllService(this IServiceCollection services)

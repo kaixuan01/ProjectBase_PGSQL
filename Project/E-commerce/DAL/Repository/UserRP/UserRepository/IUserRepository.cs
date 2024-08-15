@@ -1,4 +1,5 @@
 ﻿using DAL.Entity;
+using DAL.Tools.ListingHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository.UserRP.UserRepository
 {
-    public interface IUserRepository
+    public interface IUserRepository : IListingHelper<User>
     {
         Task<List<User>> GetAllAsync();
         Task<User> GetByIdAsync(string id);

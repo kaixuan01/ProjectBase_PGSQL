@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Entity;
+using DAL.Tools.ListingHelper;
 using DBL.User_Service.UserService.VerifyUser;
 
 namespace DBL.User_Service.UserService
@@ -16,6 +17,6 @@ namespace DBL.User_Service.UserService
         Task<int> UpdateAsync(int id, User user);
         Task<int> DeleteAsync(int id);
         Task<bool> VerifyUserAsync(VerifyUser_REQ user);
-
+        Task<PagedResult<User>> GetPagedListAsync(FilterParameters filterParameters);
     }
 }
