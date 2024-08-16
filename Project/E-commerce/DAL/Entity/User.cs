@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Entity
 {
-    public class User
+    public class T_User
     {
         [MaxLength(20)]
         public string Id { get; set; }
@@ -23,10 +23,10 @@ namespace DAL.Entity
         public int iCountFailedLogin { get; set; } = 0;
 
         [ForeignKey("UserRoleId")] // Assign Foreign Key
-        public UserRole UserRole { get; set; } // Navigation property
+        public E_UserRole UserRole { get; set; } // Navigation property
     }
 
-    public class UserLoginHistory
+    public class T_UserLoginHistory
     {
         [MaxLength(20)]
         public string Id { get; set; }
@@ -37,10 +37,10 @@ namespace DAL.Entity
         public string? Remark { get; set; }
 
         [ForeignKey("UserId")] // Assign Foreign Key
-        public User User { get; set; } // Navigation property
+        public T_User T_User { get; set; } // Navigation property
     }
 
-    public class UserRole
+    public class E_UserRole
     {
         public int Id { get; set; }
         public string Name { get; set; }

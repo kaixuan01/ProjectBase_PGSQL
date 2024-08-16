@@ -1,8 +1,11 @@
 ﻿using DAL.Entity;
 using DAL.Repository.UserRP.UserRepository;
 using DAL.Tools.ListingHelper;
+using DBL.AuditTrail_Service;
+using DBL.Tools;
 using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.UserActionClass;
+using Microsoft.AspNetCore.Components.Routing;
 using Utils;
 using Utils.Tools;
 
@@ -12,23 +15,25 @@ namespace DBL.User_Service.UserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserLoginHistoryService _userLoginHistoryService;
+        private readonly IAuditTrailService _auditTrailService;
 
-        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService)
+        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService)
         {
             _userRepository = userRepository;
             _userLoginHistoryService = userLoginHistoryService;
+            _auditTrailService = auditTrailService;
         }
 
-        #region [ Get User ]
+        #region [ Get T_User ]
 
         public async Task<PagedResult<dynamic>> GetPagedListAsync(FilterParameters filterParameters)
         {
-            var oUserList = await _userRepository.GetPagedListDynamicAsync(filterParameters, false, "Password");
+            var oUserList = await _userRepository.GetPagedListDynamicAsync(filterParameters, true, "Password");
 
             return oUserList;
         }
 
-        public async Task<User> GetByIdAsync(string id)
+        public async Task<T_User> GetByIdAsync(string id)
         {
             var oUserList = await _userRepository.GetByIdAsync(id);
 
@@ -59,7 +64,7 @@ namespace DBL.User_Service.UserService
                     return rtnValue;
                 }
 
-                var createUser = new User
+                var createUser = new T_User
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     UserName = oUser.username,
@@ -71,6 +76,8 @@ namespace DBL.User_Service.UserService
                 };
 
                 await _userRepository.CreateAsync(createUser);
+
+                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Create, null, createUser);
 
                 rtnValue.UserId = createUser.Id;
                 rtnValue.Code = RespCode.RespCode_Success;
@@ -87,7 +94,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Update User ]
+        #region [ Update T_User ]
 
         public async Task<EditUser_RESP> UpdateAsync(EditUser_REQ oReq)
         {
@@ -117,6 +124,7 @@ namespace DBL.User_Service.UserService
                     rtnValue.Message = "User not found.";
                     return rtnValue;
                 }
+                var copyUser = oUser.Clone();
 
                 if (!string.IsNullOrEmpty(oReq.password))
                 {
@@ -130,6 +138,8 @@ namespace DBL.User_Service.UserService
                 oUser.UserRoleId = oReq.userRoleId;
 
                 await _userRepository.UpdateAsync(oUser);
+
+                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Edit, copyUser, oUser);
 
                 rtnValue.UserId = oUser.Id;
                 rtnValue.Code = RespCode.RespCode_Success;
@@ -147,7 +157,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Delete User ]
+        #region [ Delete T_User ]
 
         public async Task<DeleteUser_RESP> DeleteAsync(string id)
         {
@@ -165,6 +175,8 @@ namespace DBL.User_Service.UserService
 
                 await _userRepository.DeleteAsync(user);
 
+                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Delete, user, null);
+
                 rtnValue.Code = RespCode.RespCode_Success;
                 rtnValue.Message = RespCode.RespMessage_Delete_Successfully;
             }
@@ -179,7 +191,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Verify User (Login) ]
+        #region [ Verify T_User (Login) ]
 
         public async Task<VerifyUser_RESP> VerifyUserAsync(VerifyUser_REQ user)
         {
@@ -187,7 +199,7 @@ namespace DBL.User_Service.UserService
 
             try
             {
-                var oUser = new User();
+                var oUser = new T_User();
 
                 if (!string.IsNullOrEmpty(user.username))
                 {
@@ -212,7 +224,7 @@ namespace DBL.User_Service.UserService
 
                     bool success = PasswordHelper.VerifyPassword(user.password, oUser.Password);
 
-                    var oLoginHistory = new UserLoginHistory()
+                    var oLoginHistory = new T_UserLoginHistory()
                     {
                         Id = IdGeneratorHelper.GenerateId(),
                         UserId = oUser.Id,
@@ -241,7 +253,7 @@ namespace DBL.User_Service.UserService
                         // Insert Login History
                         await _userLoginHistoryService.CreateAsync(oLoginHistory);
 
-                        // Update User Count
+                        // Update T_User Count
                         await _userRepository.UpdateAsync(oUser);
                     }
                     catch (Exception ex)

@@ -3,13 +3,13 @@ using DAL.Tools.ListingHelper;
 
 namespace DAL.Repository.UserRP.UserRepository
 {
-    public interface IUserRepository : IListingHelper<User>
+    public interface IUserRepository : IListingHelper<T_User>
     {
-        Task<User> GetByIdAsync(string id);
-        Task<User> GetByUsernameAsync(string username);
-        Task<User> CreateAsync(User user);
-        Task<string> UpdateAsync(User user);
-        Task<string> DeleteAsync(User user);
+        Task<T_User> GetByIdAsync(string id);
+        Task<T_User> GetByUsernameAsync(string username);
+        Task<T_User> CreateAsync(T_User user);
+        Task<string> UpdateAsync(T_User user);
+        Task<string> DeleteAsync(T_User user);
 
     }
 }

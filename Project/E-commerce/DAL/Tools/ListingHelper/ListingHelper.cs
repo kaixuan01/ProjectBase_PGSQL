@@ -47,6 +47,7 @@ namespace DAL.Tools.ListingHelper
             var items = await query
                 .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                 .Take(parameters.PageSize)
+                .AsNoTracking()  // Ensure no tracking to avoid unintended side effects
                 .ToListAsync();
 
             return new PagedResult<TEntity>

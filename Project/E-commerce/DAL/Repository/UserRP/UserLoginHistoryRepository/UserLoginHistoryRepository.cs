@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.UserRP.UserLoginHistoryRepository
 {
-    public class UserLoginHistoryRepository : ListingHelper<UserLoginHistory>, IUserLoginHistoryRepository
+    public class UserLoginHistoryRepository : ListingHelper<T_UserLoginHistory>, IUserLoginHistoryRepository
     {
         private readonly MyDbContext _myDbContext;
 
@@ -13,20 +13,19 @@ namespace DAL.Repository.UserRP.UserLoginHistoryRepository
             _myDbContext = context;
         }
 
-        #region [ Get User ]
+        #region [ Get T_User ]
 
-        public async Task<List<UserLoginHistory>> GetAllAsync()
+        public async Task<List<T_UserLoginHistory>> GetAllAsync()
         {
-            return await _myDbContext.UserLoginHistory.ToListAsync();
+            return await _myDbContext.T_UserLoginHistory.ToListAsync();
         }
 
         #endregion
 
-        public async Task<UserLoginHistory> CreateAsync(UserLoginHistory userLoginHistory)
+        public async Task CreateAsync(T_UserLoginHistory userLoginHistory)
         {
-            await _myDbContext.UserLoginHistory.AddAsync(userLoginHistory);
+            await _myDbContext.T_UserLoginHistory.AddAsync(userLoginHistory);
             await _myDbContext.SaveChangesAsync();
-            return userLoginHistory;
         }
     }
 }

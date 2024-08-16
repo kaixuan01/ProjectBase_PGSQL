@@ -1,12 +1,6 @@
 ﻿using DAL.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils.Enums;
 using Utils.Tools;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DAL.Data
 {
@@ -14,19 +8,19 @@ namespace DAL.Data
     {
         public static void InitializeDatabase(MyDbContext myDbContext)
         {
-            if(myDbContext.User.Any())
+            if(myDbContext.T_User.Any())
             {
                 return;
             }
 
-            var users = new List<User>
+            var users = new List<T_User>
             {
                 CreateUser("admin1", "admin", "Admin 1", "admin", "woonyap616@gmail.com", "0123456789", UserRoleEnum.Admin),
                 CreateUser("admin2", "admin", "Admin 2", "admin 2", "kaixuan0131@gmail.com", "0123456789", UserRoleEnum.Admin),
                 CreateUser("testUser", "test", "test User 3", "test 3", "test@test.com", "0123456789", UserRoleEnum.Tester)
             };
 
-            var userRoles = new List<UserRole>
+            var userRoles = new List<E_UserRole>
             {
                 CreateUserRole(UserRoleEnum.Admin, "Admin", "Administrator"),
                 CreateUserRole(UserRoleEnum.Tester, "Tester", "Tester"),
@@ -34,16 +28,16 @@ namespace DAL.Data
                 CreateUserRole(UserRoleEnum.NormalUser, "Normal User", "Customer Account"),
             };
 
-            myDbContext.UserRole.AddRange(userRoles);
-            myDbContext.User.AddRange(users);
+            myDbContext.E_UserRole.AddRange(userRoles);
+            myDbContext.T_User.AddRange(users);
 
             myDbContext.SaveChanges();
         }
 
-        // Method to create a User object with hashed password
-        private static User CreateUser(string userName, string password, string name, string address, string email, string phone, UserRoleEnum role)
+        // Method to create a T_User object with hashed password
+        private static T_User CreateUser(string userName, string password, string name, string address, string email, string phone, UserRoleEnum role)
         {
-            return new User
+            return new T_User
             {
                 Id = IdGeneratorHelper.GenerateId(),
                 UserName = userName,
@@ -56,9 +50,9 @@ namespace DAL.Data
             };
         }
 
-        private static UserRole CreateUserRole(UserRoleEnum role, string name, string description)
+        private static E_UserRole CreateUserRole(UserRoleEnum role, string name, string description)
         {
-            return new UserRole
+            return new E_UserRole
             {
                 Id = (int)role,
                 Name = name,

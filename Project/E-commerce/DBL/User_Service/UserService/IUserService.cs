@@ -6,7 +6,7 @@ namespace DBL.User_Service.UserService
 {
     public interface IUserService
     {
-        Task<User> GetByIdAsync(string id);
+        Task<T_User> GetByIdAsync(string id);
         Task<CreateUser_RESP> CreateAsync(CreateUser_REQ user);
         Task<EditUser_RESP> UpdateAsync(EditUser_REQ user);
         Task<DeleteUser_RESP> DeleteAsync(string id);

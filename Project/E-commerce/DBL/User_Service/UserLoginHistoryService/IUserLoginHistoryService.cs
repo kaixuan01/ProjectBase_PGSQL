@@ -5,11 +5,11 @@ namespace DBL.User_Service.UserLoginHistoryService
 {
     public interface IUserLoginHistoryService
     {
-        Task<List<UserLoginHistory>> GetAllUserLoginHistoryAsync();
+        Task<List<T_UserLoginHistory>> GetAllUserLoginHistoryAsync();
 
-        Task<UserLoginHisotry_Create_RESP> CreateAsync(UserLoginHistory userLoginHistory);
+        Task<UserLoginHisotry_Create_RESP> CreateAsync(T_UserLoginHistory userLoginHistory);
 
-        Task<PagedResult<UserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false);
+        Task<PagedResult<T_UserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false);
 
 
     }

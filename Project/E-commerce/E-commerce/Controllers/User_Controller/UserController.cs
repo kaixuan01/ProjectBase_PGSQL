@@ -1,12 +1,9 @@
-﻿using DAL.Entity;
-using DAL.Tools.ListingHelper;
-using DBL.User_Service.UserLoginHistoryService;
+﻿using DAL.Tools.ListingHelper;
 using DBL.User_Service.UserService;
 using DBL.User_Service.UserService.UserActionClass;
 using Microsoft.AspNetCore.Mvc;
 using Utils;
 using Utils.Model;
-using Utils.Tools;
 
 namespace E_commerce.Controllers.User_Controller
 {
@@ -23,7 +20,7 @@ namespace E_commerce.Controllers.User_Controller
         }
 
         [HttpGet]
-        [Route("GerUserList")]
+        [Route("GetUserList")]
         public async Task<IActionResult> GetUserList([FromQuery] FilterParameters filterParameters)
         {
             ApiResponse<PagedResult<dynamic>>? apiResponse = null;

@@ -1,6 +1,7 @@
 ﻿using DAL.Entity;
 using DAL.Repository.UserRP.UserLoginHistoryRepository;
 using DAL.Tools.ListingHelper;
+using Utils;
 
 namespace DBL.User_Service.UserLoginHistoryService
 {
@@ -13,7 +14,7 @@ namespace DBL.User_Service.UserLoginHistoryService
             _userLoginHistoryRepository = userLoginHistoryRepository;
         }
 
-        public async Task<List<UserLoginHistory>> GetAllUserLoginHistoryAsync()
+        public async Task<List<T_UserLoginHistory>> GetAllUserLoginHistoryAsync()
         {
             var oUserLoginHistoryList = await _userLoginHistoryRepository.GetAllAsync();
 
@@ -21,29 +22,28 @@ namespace DBL.User_Service.UserLoginHistoryService
             return oUserLoginHistoryList;
         }
 
-        public async Task<UserLoginHisotry_Create_RESP> CreateAsync(UserLoginHistory oUserLoginHistory)
+        public async Task<UserLoginHisotry_Create_RESP> CreateAsync(T_UserLoginHistory oUserLoginHistory)
         {
             var rtnValue = new UserLoginHisotry_Create_RESP();
 
             try
             {
-
                 await _userLoginHistoryRepository.CreateAsync(oUserLoginHistory);
 
-                rtnValue.Code = 0;
-                rtnValue.Message = "Record created successful.";
+                rtnValue.Code = RespCode.RespCode_Success;
+                rtnValue.Message = RespCode.RespMessage_Insert_Successfully;
             }
             catch (Exception ex)
             {
 
-                rtnValue.Code = 9999;
+                rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = ex.Message;
             }
 
             return rtnValue;
         }
 
-        public async Task<PagedResult<UserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false)
+        public async Task<PagedResult<T_UserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false)
         {
             var oUserLoginHistoryList = await _userLoginHistoryRepository.GetPagedListAsync(filterParameters, includeForeignRelationship);
 
