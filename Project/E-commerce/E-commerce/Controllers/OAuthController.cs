@@ -1,13 +1,9 @@
-using DAL;
-using DAL.Entity;
 using DBL.User_Service.UserService;
-using DBL.User_Service.UserService.VerifyUser;
-using Microsoft.AspNetCore.Authorization;
+using DBL.User_Service.UserService.UserActionClass;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Text.Json;
-using Utils.Tools;
+using Utils;
 using Utils.Model;
+using Utils.Tools;
 namespace E_commerce.Controllers
 {
     [ApiController]
@@ -27,28 +23,43 @@ namespace E_commerce.Controllers
             if (!string.IsNullOrEmpty(user.username) && !string.IsNullOrEmpty(user.password))
             {
                 var _authToken = new AuthToken();
-                var success = await _userService.VerifyUserAsync(user);
-                if (success)
-                {
-                    var token = _authToken.GenerateJwtToken(user.username);
+                var oVerifyResp = await _userService.VerifyUserAsync(user);
 
-                    // Set the token as an HttpOnly, Secure cookie
-                    Response.Cookies.Append("authToken", token, new CookieOptions
+                if (oVerifyResp != null)
+                {
+                    switch (oVerifyResp.Code)
                     {
-                        HttpOnly = true,
-                        Secure = true,
-                        SameSite = SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddHours(1)
-                    });
+                        case RespCode.RespCode_Success:
+                            var token = _authToken.GenerateJwtToken(user.username);
 
-                    // Create a success response using ApiResponse<T>
-                    var response = ApiResponse<string>.CreateSuccessResponse(null, "Login successful");
+                            // Set the token as an HttpOnly, Secure cookie
+                            Response.Cookies.Append("authToken", token, new CookieOptions
+                            {
+                                HttpOnly = true,
+                                Secure = true,
+                                SameSite = SameSiteMode.Strict,
+                                Expires = DateTimeOffset.UtcNow.AddHours(1)
+                            });
 
-                    return Ok(response);
-                }
-                else
-                {
-                    return Unauthorized();
+                            // Create a success response using ApiResponse<T>
+                            var response = ApiResponse<string>.CreateSuccessResponse(null, "Login successful");
+
+                            return Ok(response);
+
+                        case RespCode.RespCode_Failed:
+                            // Create a error response using ApiResponse<T>
+                            var errorResponse = ApiResponse<string>.CreateErrorResponse(oVerifyResp.Message);
+
+                            return Ok(errorResponse);
+
+                            
+                        default: // Default is throw exception message
+                            // Create a error response using ApiResponse<T>
+                            var exceptionResponse = ApiResponse<string>.CreateErrorResponse(oVerifyResp.Message);
+
+                            return Ok(exceptionResponse);
+                            // return Unauthorized();
+                    }
                 }
             }
             return BadRequest();

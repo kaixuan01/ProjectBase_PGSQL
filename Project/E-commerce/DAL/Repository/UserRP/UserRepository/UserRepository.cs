@@ -15,11 +15,6 @@ namespace DAL.Repository.UserRP.UserRepository
 
         #region [ Get User ]
 
-        public async Task<List<User>> GetAllAsync()
-        {
-            return await _myDbContext.User.ToListAsync();
-        }
-
         public async Task<User> GetByIdAsync(string id)
         {
             return await _myDbContext.User.FirstOrDefaultAsync(x => x.Id == id);
@@ -39,32 +34,29 @@ namespace DAL.Repository.UserRP.UserRepository
             return user;
         }
 
-        public async Task<string> UpdateAsync(string id, User nUser)
+        public async Task<string> UpdateAsync(User oUser)
         {
-            var oUser = await _myDbContext.User.FirstOrDefaultAsync(x => x.Id == id);
-            if (oUser != null)
-            {
-                oUser.Name = nUser.Name;
-                oUser.Email = nUser.Email;
-                oUser.Phone = nUser.Phone;
-                oUser.Address = nUser.Address;
+            // Attach the user entity to the context
+            _myDbContext.Attach(oUser);
 
-                await _myDbContext.SaveChangesAsync();
-            }
+            // Mark all properties as modified
+            _myDbContext.Entry(oUser).State = EntityState.Modified;
 
-            return id;
+            // Save changes to the database
+            await _myDbContext.SaveChangesAsync();
+
+            return oUser.Id;
         }
 
-        public async Task<string> DeleteAsync(string id)
+        public async Task<string> DeleteAsync(User user)
         {
-            var user = await _myDbContext.User.FirstOrDefaultAsync(x => x.Id == id);
             if (user != null)
             {
                 _myDbContext.User.Remove(user);
                 await _myDbContext.SaveChangesAsync();
             }
 
-            return id;
+            return user.Id;
         }
     }
 }

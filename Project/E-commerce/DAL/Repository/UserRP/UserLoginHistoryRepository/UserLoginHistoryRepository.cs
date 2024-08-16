@@ -1,13 +1,14 @@
 ﻿using DAL.Entity;
+using DAL.Tools.ListingHelper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.UserRP.UserLoginHistoryRepository
 {
-    public class UserLoginHistoryRepository : IUserLoginHistoryRepository
+    public class UserLoginHistoryRepository : ListingHelper<UserLoginHistory>, IUserLoginHistoryRepository
     {
         private readonly MyDbContext _myDbContext;
 
-        public UserLoginHistoryRepository(MyDbContext context)
+        public UserLoginHistoryRepository(MyDbContext context) : base(context)
         {
             _myDbContext = context;
         }

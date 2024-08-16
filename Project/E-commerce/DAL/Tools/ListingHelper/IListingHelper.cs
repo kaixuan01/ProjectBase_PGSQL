@@ -26,6 +26,8 @@
         /// This function is designed to be reusable across different entities in the application. It provides a standardized way to handle
         /// listing operations with filtering, sorting, and paging, ensuring consistency and reducing the need for repetitive code.
         /// </summary>
-        Task<PagedResult<TEntity>> GetPagedListAsync(FilterParameters parameters);
+        Task<PagedResult<dynamic>> GetPagedListDynamicAsync(FilterParameters parameters, bool includeForeignRelationship = false, params string[] excludeProperties);
+        Task<PagedResult<TEntity>> GetPagedListAsync(FilterParameters parameters, bool includeForeignRelationship = false);
+
     }
 }

@@ -16,7 +16,7 @@ namespace DAL.Entity
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
-        public int? UserRoleId { get; set; }
+        public int? UserRoleId { get; set; }  // Foreign Key for UserRole
 
         // Non-nullable with default value of 0
         [Description("Count of failed login attempts, Default Value = 0")]

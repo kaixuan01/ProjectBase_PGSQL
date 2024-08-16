@@ -1,5 +1,6 @@
 ﻿using DAL.Entity;
 using DAL.Repository.UserRP.UserLoginHistoryRepository;
+using DAL.Tools.ListingHelper;
 
 namespace DBL.User_Service.UserLoginHistoryService
 {
@@ -42,5 +43,12 @@ namespace DBL.User_Service.UserLoginHistoryService
             return rtnValue;
         }
 
+        public async Task<PagedResult<UserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false)
+        {
+            var oUserLoginHistoryList = await _userLoginHistoryRepository.GetPagedListAsync(filterParameters, includeForeignRelationship);
+
+
+            return oUserLoginHistoryList;
+        }
     }
 }
