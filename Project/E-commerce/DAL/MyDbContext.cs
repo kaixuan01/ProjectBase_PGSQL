@@ -17,6 +17,7 @@ namespace DAL
         public DbSet<E_UserRole> E_UserRole { get; set; }
         public DbSet<T_AuditTrail> T_AuditTrail { get; set; }
         public DbSet<T_AuditTrailDetails> T_AuditTrailDetails { get; set; }
+        public DbSet<T_SystemConfig> T_SystemConfig { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

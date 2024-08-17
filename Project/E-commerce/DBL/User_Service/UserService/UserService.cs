@@ -105,7 +105,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Update T_User ]
+        #region [ Update User ]
 
         public async Task<EditUser_RESP> UpdateAsync(EditUser_REQ oReq)
         {
