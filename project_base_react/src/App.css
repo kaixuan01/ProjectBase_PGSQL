@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
+.top-bar {
+  width: 100%;
+  background-color: #2E3B4E;
+  color: #FFF;
+  /* Add styling for the top bar if needed */
+}
+
+.content-container {
+  display: flex;
+  flex: 1;
+}
+
+.my-sidebar {
+  width: auto; /* Set a fixed width for consistency */
+  height: 100%;
+  background-color: #2E3B4E;
+  color: #FFF;
+  /* Add other styling for the sidebar */
+}
+
+.my-page-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background color */
+  color: #333;
+  overflow-y: auto; /* Add scrolling if the content is long */
+}

@@ -2,6 +2,7 @@ using DBL.User_Service.UserService;
 using DBL.User_Service.UserService.UserActionClass;
 using Microsoft.AspNetCore.Mvc;
 using Utils;
+using Utils.Enums;
 using Utils.Model;
 using Utils.Tools;
 namespace E_commerce.Controllers
@@ -32,7 +33,6 @@ namespace E_commerce.Controllers
                         case RespCode.RespCode_Success:
                             var token = _authToken.GenerateJwtToken(user.username);
 
-                            // Set the token as an HttpOnly, Secure cookie
                             Response.Cookies.Append("authToken", token, new CookieOptions
                             {
                                 HttpOnly = true,
@@ -41,20 +41,14 @@ namespace E_commerce.Controllers
                                 Expires = DateTimeOffset.UtcNow.AddHours(1)
                             });
 
-                            // Create a success response using ApiResponse<T>
                             var response = ApiResponse<string>.CreateSuccessResponse(null, "Login successful");
-
                             return Ok(response);
 
                         case RespCode.RespCode_Failed:
-                            // Create a error response using ApiResponse<T>
                             var errorResponse = ApiResponse<string>.CreateErrorResponse(oVerifyResp.Message);
-
                             return Ok(errorResponse);
 
-                            
-                        default: // Default is throw exception message
-                            // Create a error response using ApiResponse<T>
+                        default:
                             var exceptionResponse = ApiResponse<string>.CreateErrorResponse(oVerifyResp.Message);
 
                             return Ok(exceptionResponse);
@@ -62,7 +56,7 @@ namespace E_commerce.Controllers
                     }
                 }
             }
-            return BadRequest();
+            return Ok(ApiResponse<string>.CreateErrorResponse("Username or password cannot be empty"));
         }
 
     }

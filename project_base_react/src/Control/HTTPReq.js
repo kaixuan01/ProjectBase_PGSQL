@@ -1,3 +1,5 @@
+import { showErrorAlert } from "../Comon/common";
+
 const HTTPReq = ({
     method = 'GET',
     url,
@@ -40,14 +42,23 @@ const HTTPReq = ({
             } else {
                 result = await response.blob();
             }
-
-            if (onSuccess) {
-                onSuccess(result);
+            
+            if (responseType === 'json' && result.success) {
+                if (onSuccess) {
+                    const data = {
+                        ...result.data,
+                        message: result.message
+                    };
+                    onSuccess(data);
+                }
+            } else {
+                showErrorAlert(result.message);
             }
         } catch (error) {
             if (onError) {
                 onError(error);
             } else {
+                showErrorAlert(error);
                 console.error('HTTP Request Failed:', error);
             }
         }

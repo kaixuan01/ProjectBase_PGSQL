@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-
+using Utils.Enums;
+using YourProject.Utilities;
 namespace Utils.Model
 {
     public class ApiResponse<T>
@@ -8,15 +9,13 @@ namespace Utils.Model
         public bool Success { get; set; }
         public string Message { get; set; }
         public T? Data { get; set; }
-        public string? ErrorCode { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
-        public ApiResponse(bool success, string message, T? data, string? errorCode = null)
+        public ApiResponse(bool success, string message, T? data)
         {
             Success = success;
             Message = message;
             Data = data;
-            ErrorCode = errorCode;
         }
 
         public static ApiResponse<T> CreateSuccessResponse(T? data = default, string message = "Request was successful")
@@ -24,9 +23,9 @@ namespace Utils.Model
             return new ApiResponse<T>(true, message, data);
         }
 
-        public static ApiResponse<T> CreateErrorResponse(string message, string? errorCode = null)
+        public static ApiResponse<T> CreateErrorResponse(string msg)
         {
-            return new ApiResponse<T>(false, message, default(T), errorCode);
+            return new ApiResponse<T>(false, msg, default(T));
         }
     }
 }

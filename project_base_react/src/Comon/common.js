@@ -11,12 +11,17 @@ export const showBasicAlert = (title, text, icon = 'info') => {
 };
 
 // Success alert
-export const showSuccessAlert = (title = 'Success', text = '') => {
+export const showSuccessAlert = (title = 'Success', text = '', timer = 1000) => {
   Swal.fire({
     title,
     text,
     icon: 'success',
     confirmButtonText: 'Great!',
+    timer,  // Set the timeout in milliseconds
+    timerProgressBar: true,  // Optional: show a progress bar indicating the time remaining
+    willClose: () => {
+      Swal.stopTimer(); // Optional: stops the timer if the user closes the alert manually
+    }
   });
 };
 

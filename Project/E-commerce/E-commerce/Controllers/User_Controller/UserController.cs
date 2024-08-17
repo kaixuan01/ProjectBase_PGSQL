@@ -134,6 +134,7 @@ namespace E_commerce.Controllers.User_Controller
             }
             catch (Exception ex)
             {
+                apiResponse = ApiResponse<String>.CreateErrorResponse(ex.Message);
                 apiResponse = ApiResponse<String>.CreateErrorResponse($"Edit User Failed. Exception: {ex.Message}");
 
                 LogHelper.FormatMainLogMessage(LogLevelEnums.Error, $"Exception when edit user, Message: {ex.Message}", ex);
@@ -181,7 +182,6 @@ namespace E_commerce.Controllers.User_Controller
 
                 apiResponse = ApiResponse<String>.CreateErrorResponse($"Delete User Failed. Exception: {ex.Message}");
             }
-
 
             return Ok(apiResponse);
         }

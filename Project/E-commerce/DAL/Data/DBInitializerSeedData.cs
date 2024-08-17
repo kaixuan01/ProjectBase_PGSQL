@@ -14,10 +14,10 @@ namespace DAL.Data
 
             var userRoles = new List<E_UserRole>
             {
-                CreateUserRole(UserRoleEnum.Admin, "Admin", "Administrator"),
-                CreateUserRole(UserRoleEnum.Tester, "Tester", "Tester"),
-                CreateUserRole(UserRoleEnum.Developer, "Developer", "Software Developer"),
-                CreateUserRole(UserRoleEnum.NormalUser, "Normal User", "Customer Account"),
+                CreateUserRole(E_UserRole.Admin, "Admin", "Administrator"),
+                CreateUserRole(E_UserRole.Tester, "Tester", "Tester"),
+                CreateUserRole(E_UserRole.Developer, "Developer", "Software Developer"),
+                CreateUserRole(E_UserRole.NormalUser, "Normal User", "Customer Account"),
             };
 
             var systemConfig = new List<T_SystemConfig>
