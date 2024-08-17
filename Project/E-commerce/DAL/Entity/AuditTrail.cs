@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace DAL.Entity
 {
@@ -14,15 +8,14 @@ namespace DAL.Entity
         [MaxLength(20)]
         public string Id { get; set; }
         public string Module { get; set; }
+        public string TableName { get; set; }
         public string Action { get; set; }
-        public string? UserId { get; set; }
+        public string? UserName { get; set; }
         public string? Remark { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         // Navigation property for the related Audit_Trail_Details
         public ICollection<T_AuditTrailDetails> AuditTrailDetails { get; set; }
-
-        [ForeignKey("UserId")] // Assign Foreign Key
-        public T_User User { get; set; } // Navigation property
     }
 
     public class T_AuditTrailDetails
