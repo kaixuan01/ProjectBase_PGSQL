@@ -1,11 +1,22 @@
 using DAL;
 using E_commerce.Extension;
+using E_commerce.Tools;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+// Register log event to DBL
+DBL.Tools.LogHelper.OnLogEvent += LogHelper.LogMessage;
 
 // Add services to the container.
 builder.Services.AddControllers();

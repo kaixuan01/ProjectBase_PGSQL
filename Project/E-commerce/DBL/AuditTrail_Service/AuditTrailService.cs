@@ -3,11 +3,6 @@ using DAL.Entity;
 using DAL.Repository.AuditTrailRP;
 using DAL.Repository.UserRP.UserRepository;
 using DAL.Tools.ListingHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils.Tools;
 
 namespace DBL.AuditTrail_Service
@@ -29,8 +24,6 @@ namespace DBL.AuditTrail_Service
         {
             try
             {
-                var user = await _userRepository.GetByUsernameAsync("admin1");
-
                 // Get the primary key property name
                 var keyName = _myDbContext.Model.FindEntityType(typeof(T))?
                     .FindPrimaryKey()?
@@ -57,13 +50,25 @@ namespace DBL.AuditTrail_Service
                             : null;
                 }
 
+                string userName = string.Empty;
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    var user = await _userRepository.GetByIdAsync(userId);
+                    if (user.UserName != null)
+                    {
+                        userName = user.UserName;
+                    }
+                }
+
                 var auditTrail = new T_AuditTrail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     Module = module,
+                    TableName = typeof(T).Name,
                     Action = action,
-                    UserId = user.Id,
+                    UserName = userName,
                     Remark = $"{action} {typeof(T).Name} record, id: {primaryKeyValue}",
+                    CreatedDate = DateTime.Now,
                     AuditTrailDetails = new List<T_AuditTrailDetails>()
                 };
 
