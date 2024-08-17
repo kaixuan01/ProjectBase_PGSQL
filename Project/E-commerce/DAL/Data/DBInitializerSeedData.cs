@@ -22,7 +22,7 @@ namespace DAL.Data
 
             var systemConfig = new List<T_SystemConfig>
             {
-                CreateSystemConfig(ConstantCode.SystemConfig_Key.MaxLoginFailedAttempt, "3", "Maximum number of login attempts before lockout")
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.MaxLoginFailedAttempt, "3", "Maximum number of login attempts before lockout, set value to 0 to disable this function")
             };
 
             var users = new List<T_User>

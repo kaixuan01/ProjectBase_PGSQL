@@ -2,6 +2,7 @@
 using DAL.Repository.UserRP.UserRepository;
 using DAL.Tools.ListingHelper;
 using DBL.AuditTrail_Service;
+using DBL.SystemConfig_Service;
 using DBL.Tools;
 using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.UserActionClass;
@@ -18,15 +19,17 @@ namespace DBL.User_Service.UserService
         private readonly IUserRepository _userRepository;
         private readonly IUserLoginHistoryService _userLoginHistoryService;
         private readonly IAuditTrailService _auditTrailService;
+        private readonly ISystemConfigService _systemConfigService;
 
-        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService)
+        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService)
         {
             _userRepository = userRepository;
             _userLoginHistoryService = userLoginHistoryService;
             _auditTrailService = auditTrailService;
+            _systemConfigService = systemConfigService;
         }
 
-        #region [ Get T_User ]
+        #region [ Get User ]
 
         public async Task<PagedResult<dynamic>> GetPagedListAsync(FilterParameters filterParameters)
         {
@@ -172,7 +175,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Delete T_User ]
+        #region [ Delete User ]
 
         public async Task<DeleteUser_RESP> DeleteAsync(string id)
         {
@@ -212,7 +215,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Verify T_User (Login) ]
+        #region [ Verify User (Login) ]
 
         public async Task<VerifyUser_RESP> VerifyUserAsync(VerifyUser_REQ user)
         {
@@ -229,14 +232,24 @@ namespace DBL.User_Service.UserService
 
                 if (oUser != null)
                 {
-                    if (oUser.iCountFailedLogin > 2)
+                    var oSystemConfig = await _systemConfigService.GetSystemConfigList();
+                    var maxLoginFailedAttempt = oSystemConfig.FirstOrDefault(i => i.Key == ConstantCode.SystemConfig_Key.MaxLoginFailedAttempt);
+
+                    if (maxLoginFailedAttempt != null && int.TryParse(maxLoginFailedAttempt.Value, out int maxAttempts))
                     {
-                        rtnValue.Code = RespCode.RespCode_Failed;
-                        rtnValue.Message = "You have exceeded the maximum number of login attempts. Please contact admin to proceed.";
+                        // Disable the check if max attemps == 0
+                        if (maxAttempts != 0)
+                        {
+                            if (oUser.iCountFailedLogin > maxAttempts)
+                            {
+                                rtnValue.Code = RespCode.RespCode_Failed;
+                                rtnValue.Message = "You have exceeded the maximum number of login attempts. Please contact admin to proceed.";
 
-                        LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"User have been block. User Name: {oUser.Name}");
+                                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"User have been block. User Name: {oUser.Name}");
 
-                        return rtnValue;
+                                return rtnValue;
+                            }
+                        }
                     }
 
                     if (string.IsNullOrEmpty(oUser.Password))
