@@ -52,7 +52,7 @@ namespace DBL.SystemConfig_Service
 
                     if (oSystemConfig == null)
                     {
-                        LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"System Config not found. Key: {item.key}");
+                        LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"System Config not found. Key: {item.key}");
 
                         rtnValue.Code = RespCode.RespCode_Failed;
                         rtnValue.Message = "System Config not found.";
@@ -69,13 +69,13 @@ namespace DBL.SystemConfig_Service
 
                 rtnValue.Code = RespCode.RespCode_Success;
                 rtnValue.Message = RespCode.RespMessage_Update_Successfully;
-                LogHelper.RaiseLogEvent(LogLevelEnums.Information, $"{RespCode.RespMessage_Update_Successfully}.");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successfully}.");
             }
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = ex.Message;
-                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"Exception Message: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
             
             return rtnValue;

@@ -2,7 +2,7 @@
 
 namespace Utils.Enums
 {
-    public enum LogLevelEnums
+    public enum Enum_LogLevel
     {
         Verbose = 1,
         Debug = 2,

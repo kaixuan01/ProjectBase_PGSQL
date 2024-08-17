@@ -35,7 +35,7 @@ namespace DBL.User_Service.UserService
         {
             var oUserList = await _userRepository.GetPagedListDynamicAsync(filterParameters, true, "Password");
 
-            LogHelper.RaiseLogEvent(LogLevelEnums.Information, $"Response User List: {JsonConvert.SerializeObject(oUserList)}");
+            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Response User List: {JsonConvert.SerializeObject(oUserList)}");
 
             return oUserList;
         }
@@ -44,7 +44,7 @@ namespace DBL.User_Service.UserService
         {
             var oUserList = await _userRepository.GetByIdAsync(id);
 
-            LogHelper.RaiseLogEvent(LogLevelEnums.Information, $"Response User List: {JsonConvert.SerializeObject(oUserList)}");
+            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Response User List: {JsonConvert.SerializeObject(oUserList)}");
 
             return oUserList;
         }
@@ -62,7 +62,7 @@ namespace DBL.User_Service.UserService
                 rtnValue.Code = RespCode.RespCode_Failed;
                 rtnValue.Message = "Please enter user's details";
 
-                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"oUser is null");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"oUser is null");
                 return rtnValue;
             }
 
@@ -94,13 +94,13 @@ namespace DBL.User_Service.UserService
                 rtnValue.Code = RespCode.RespCode_Success;
                 rtnValue.Message = RespCode.RespMessage_Insert_Successfully;
 
-                LogHelper.RaiseLogEvent(LogLevelEnums.Information, $"{RespCode.RespMessage_Insert_Successfully}. user id: {rtnValue.UserId}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Insert_Successfully}. user id: {rtnValue.UserId}");
             }
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = ex.Message;
-                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"Exception Message: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
 
             return rtnValue;
@@ -134,7 +134,7 @@ namespace DBL.User_Service.UserService
 
                 if (oUser == null)
                 {
-                    LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"User not found. user id: {oReq.id}");
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. user id: {oReq.id}");
 
                     rtnValue.Code = RespCode.RespCode_Failed;
                     rtnValue.Message = "User not found.";
@@ -160,13 +160,13 @@ namespace DBL.User_Service.UserService
                 rtnValue.UserId = oUser.Id;
                 rtnValue.Code = RespCode.RespCode_Success;
                 rtnValue.Message = RespCode.RespMessage_Update_Successfully;
-                LogHelper.RaiseLogEvent(LogLevelEnums.Information, $"{RespCode.RespMessage_Update_Successfully}. User Id: {rtnValue.UserId}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successfully}. User Id: {rtnValue.UserId}");
             }
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = ex.Message;
-                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"Exception Message: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
 
             return rtnValue;
@@ -189,7 +189,7 @@ namespace DBL.User_Service.UserService
                     rtnValue.Code = RespCode.RespCode_Failed;
                     rtnValue.Message = "User not found";
 
-                    LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"User not found, User Id: {id}");
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found, User Id: {id}");
                     return rtnValue;
                 }
 
@@ -199,7 +199,7 @@ namespace DBL.User_Service.UserService
 
                 rtnValue.Code = RespCode.RespCode_Success;
                 rtnValue.Message = RespCode.RespMessage_Delete_Successfully;
-                LogHelper.RaiseLogEvent(LogLevelEnums.Information, $"{RespCode.RespMessage_Delete_Successfully}. User Id: {id}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Delete_Successfully}. User Id: {id}");
 
             }
             catch (Exception ex)
@@ -207,7 +207,7 @@ namespace DBL.User_Service.UserService
                 rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = ex.Message;
 
-                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"Exception Message: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
 
             return rtnValue;
@@ -245,7 +245,7 @@ namespace DBL.User_Service.UserService
                                 rtnValue.Code = RespCode.RespCode_Failed;
                                 rtnValue.Message = "You have exceeded the maximum number of login attempts. Please contact admin to proceed.";
 
-                                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"User have been block. User Name: {oUser.Name}");
+                                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User have been block. User Name: {oUser.Name}");
 
                                 return rtnValue;
                             }
@@ -256,7 +256,7 @@ namespace DBL.User_Service.UserService
                     {
                         rtnValue.Code = RespCode.RespCode_Exception;
                         rtnValue.Message = "Something error, Please contact admin.";
-                        LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"User Password not found. User Id: {oUser.Id}, User Name: {oUser.Name}");
+                        LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User Password not found. User Id: {oUser.Id}, User Name: {oUser.Name}");
                         return rtnValue;
                     }
 
@@ -297,7 +297,7 @@ namespace DBL.User_Service.UserService
                     rtnValue.Code = RespCode.RespCode_Exception;
                     rtnValue.Message = $"Username / Password incorrect. Please try again.";
 
-                    LogHelper.RaiseLogEvent(LogLevelEnums.Information, $"User not found. User Name: {user.username}");
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User not found. User Name: {user.username}");
                 }
 
             }
@@ -307,7 +307,7 @@ namespace DBL.User_Service.UserService
                 rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = $"Throw Exception when verify user. Exception: {ex}";
 
-                LogHelper.RaiseLogEvent(LogLevelEnums.Error, $"Exception Message: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
 
                 throw;
             }

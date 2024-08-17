@@ -14,10 +14,10 @@ namespace DAL.Data
 
             var userRoles = new List<E_UserRole>
             {
-                CreateUserRole(E_UserRole.Admin, "Admin", "Administrator"),
-                CreateUserRole(E_UserRole.Tester, "Tester", "Tester"),
-                CreateUserRole(E_UserRole.Developer, "Developer", "Software Developer"),
-                CreateUserRole(E_UserRole.NormalUser, "Normal User", "Customer Account"),
+                CreateUserRole(Enum_UserRole.Admin, "Admin", "Administrator"),
+                CreateUserRole(Enum_UserRole.Tester, "Tester", "Tester"),
+                CreateUserRole(Enum_UserRole.Developer, "Developer", "Software Developer"),
+                CreateUserRole(Enum_UserRole.NormalUser, "Normal User", "Customer Account"),
             };
 
             var systemConfig = new List<T_SystemConfig>
@@ -27,8 +27,8 @@ namespace DAL.Data
 
             var users = new List<T_User>
             {
-                CreateUser("admin1", "admin", "Admin 1", "admin", "woonyap616@gmail.com", "0123456789", UserRoleEnum.Admin),
-                CreateUser("admin2", "admin", "Admin 2", "admin 2", "kaixuan0131@gmail.com", "0123456789", UserRoleEnum.Admin)
+                CreateUser("admin1", "admin", "Admin 1", "admin", "woonyap616@gmail.com", "0123456789", Enum_UserRole.Admin),
+                CreateUser("admin2", "admin", "Admin 2", "admin 2", "kaixuan0131@gmail.com", "0123456789", Enum_UserRole.Admin)
             };
 
             #endregion
@@ -74,7 +74,7 @@ namespace DAL.Data
         }
 
         // Method to create a T_User object with hashed password
-        private static T_User CreateUser(string userName, string password, string name, string address, string email, string phone, UserRoleEnum role)
+        private static T_User CreateUser(string userName, string password, string name, string address, string email, string phone, Enum_UserRole role)
         {
             return new T_User
             {
@@ -89,7 +89,7 @@ namespace DAL.Data
             };
         }
 
-        private static E_UserRole CreateUserRole(UserRoleEnum role, string name, string description)
+        private static E_UserRole CreateUserRole(Enum_UserRole role, string name, string description)
         {
             return new E_UserRole
             {

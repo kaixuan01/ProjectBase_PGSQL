@@ -28,7 +28,7 @@ namespace E_commerce.Controllers.User_Controller
         public async Task<IActionResult> GetUserList([FromQuery] FilterParameters filterParameters)
         {
             ApiResponse<PagedResult<dynamic>>? apiResponse = null;
-            LogHelper.FormatMainLogMessage(LogLevelEnums.Information, $"Receive Request Get User List, FilterParameters: {JsonConvert.SerializeObject(filterParameters)}");
+            LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request Get User List, FilterParameters: {JsonConvert.SerializeObject(filterParameters)}");
 
             try
             {
@@ -39,7 +39,7 @@ namespace E_commerce.Controllers.User_Controller
             }
             catch (Exception ex)
             {
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Error, $"Exception when Get User List, Message: {ex.Message}", ex);
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when Get User List, Message: {ex.Message}", ex);
 
                 apiResponse = ApiResponse<PagedResult<dynamic>>.CreateErrorResponse($"Get User List Failed. Exception: {ex.Message}");
             }
@@ -60,7 +60,7 @@ namespace E_commerce.Controllers.User_Controller
                     oUser.password = PasswordHelper.HashPassword(oUser.password);
                 }
 
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Information, $"Receive Request to add user, Request: {JsonConvert.SerializeObject(oUser)}");
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to add user, Request: {JsonConvert.SerializeObject(oUser)}");
 
                 var oResp = await _userService.CreateAsync(oUser);
 
@@ -88,7 +88,7 @@ namespace E_commerce.Controllers.User_Controller
             {
                 apiResponse = ApiResponse<String>.CreateErrorResponse($"Create User Failed. Exception: {ex.Message}");
 
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Error, $"Exception when create user, Message: {ex.Message}", ex);
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when create user, Message: {ex.Message}", ex);
             }
 
 
@@ -108,7 +108,7 @@ namespace E_commerce.Controllers.User_Controller
                     oUser.password = PasswordHelper.HashPassword(oUser.password);
                 }
 
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Information, $"Receive Request to edit user, Request: {JsonConvert.SerializeObject(oUser)}");
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to edit user, Request: {JsonConvert.SerializeObject(oUser)}");
 
                 var oResp = await _userService.UpdateAsync(oUser);
 
@@ -134,10 +134,9 @@ namespace E_commerce.Controllers.User_Controller
             }
             catch (Exception ex)
             {
-                apiResponse = ApiResponse<String>.CreateErrorResponse(ex.Message);
                 apiResponse = ApiResponse<String>.CreateErrorResponse($"Edit User Failed. Exception: {ex.Message}");
 
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Error, $"Exception when edit user, Message: {ex.Message}", ex);
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when edit user, Message: {ex.Message}", ex);
             }
 
 
@@ -150,7 +149,7 @@ namespace E_commerce.Controllers.User_Controller
         {
             ApiResponse<string>? apiResponse = null;
 
-            LogHelper.FormatMainLogMessage(LogLevelEnums.Information, $"Receive Request to delete user, userId: {userId}");
+            LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to delete user, userId: {userId}");
 
             try
             {
@@ -178,7 +177,7 @@ namespace E_commerce.Controllers.User_Controller
             }
             catch (Exception ex)
             {
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Error, $"Exception when Delete, Message: {ex.Message}", ex);
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when Delete, Message: {ex.Message}", ex);
 
                 apiResponse = ApiResponse<String>.CreateErrorResponse($"Delete User Failed. Exception: {ex.Message}");
             }

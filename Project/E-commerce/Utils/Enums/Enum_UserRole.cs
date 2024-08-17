@@ -2,7 +2,7 @@
 
 namespace Utils.Enums
 {
-    public enum E_UserRole 
+    public enum Enum_UserRole 
     {
         [Description("Administrator")]
         Admin = 0,

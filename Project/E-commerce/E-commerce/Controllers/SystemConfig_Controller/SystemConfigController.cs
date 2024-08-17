@@ -36,7 +36,7 @@ namespace E_commerce.Controllers.SystemConfig_Controller
             }
             catch (Exception ex)
             {
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Error, $"Exception when System Config List, Message: {ex.Message}", ex);
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when System Config List, Message: {ex.Message}", ex);
 
                 apiResponse = ApiResponse<List<T_SystemConfig>>.CreateErrorResponse($"Get System Config Failed. Exception: {ex.Message}");
             }
@@ -52,7 +52,7 @@ namespace E_commerce.Controllers.SystemConfig_Controller
 
             try
             {
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Information, $"Receive Request to update system config, Request: {JsonConvert.SerializeObject(oReq)}");
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to update system config, Request: {JsonConvert.SerializeObject(oReq)}");
 
                 var oResp = await _systemConfigService.UpdateAsync(oReq);
 
@@ -80,7 +80,7 @@ namespace E_commerce.Controllers.SystemConfig_Controller
             {
                 apiResponse = ApiResponse<String>.CreateErrorResponse($"Create User Failed. Exception: {ex.Message}");
 
-                LogHelper.FormatMainLogMessage(LogLevelEnums.Error, $"Exception when create user, Message: {ex.Message}", ex);
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when create user, Message: {ex.Message}", ex);
             }
 
 
