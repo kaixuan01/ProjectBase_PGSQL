@@ -1,23 +1,60 @@
 import { useLocation } from 'react-router-dom';
-import myURLRoutes from '../Comon/RoutePath';
+import myURLRoutes from '../Common/RoutePath';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 export default function MySidebar({ setIsLogin }) {
-    const [collapse, setCollapse] = useState(false);
+    const [collapse, setCollapse] = useState(true);
     const location = useLocation();
 
-    const handleLogout = () => {
-        localStorage.removeItem('isLogin');
-        setIsLogin(false);
-    };
+    // const handleLogout = () => {
+    //     localStorage.removeItem('isLogin');
+    //     setIsLogin(false);
+    // };
+
+    const SidebarHeader = () => (
+        <div style={{ display: 'flex', alignItems: 'center', padding: '15px', backgroundColor: '#2E3B4E',whiteSpace: 'nowrap' }} className='ms-1'>
+            <div
+                style={{
+                    width: '40px',
+                    height: '40px',
+                    minWidth: '40px',
+                    borderRadius: '50%',
+                    backgroundColor: '#2E3B4E',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '0.5px solid #595959',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease, border-color 0.3s ease',
+                }}
+                onClick={() => setCollapse(!collapse)}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#3D4F6A';
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#2E3B4E';
+                }}
+            >
+                <FontAwesomeIcon
+                    icon={faBars}
+                    style={{
+                        color: '#FFF',
+                    }}
+                />
+            </div>
+            {!collapse && <span style={{ backgroundColor: '#f7ab1e', color: 'black', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold', fontSize:'20px' }} className='ms-2'>PB</span>}
+        </div>
+    );
+    
+
 
     return (
         <Sidebar
-            style={{ height: "100vh", display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+            style={{ height: "94vh", display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
             collapsed={collapse}
             backgroundColor='#2E3B4E'
         >
@@ -28,14 +65,14 @@ export default function MySidebar({ setIsLogin }) {
                             fontSize: '16px',
                             color: '#BBB',
                             transition: 'color 0.3s, background-color 0.3s',
-                            fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", // Font style
+                            fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
                         },
                         icon: {
                             color: '#FFF',
                             fontSize: '18px',
                         },
                         label: {
-                            fontWeight: 'bold',
+                            // fontWeight: 'bold',
                         },
                         subMenuContent: {
                             backgroundColor: '#444d5c',
@@ -44,7 +81,7 @@ export default function MySidebar({ setIsLogin }) {
                             let styles = {
                                 ':hover': {
                                     backgroundColor: '#3D4F6A',
-                                    color: '#FFF', // Hover color
+                                    color: '#FFF',
                                 },
                             };
 
@@ -65,7 +102,7 @@ export default function MySidebar({ setIsLogin }) {
                         },
                     }}
                 >
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <FontAwesomeIcon
                                 icon={faBars}
@@ -76,7 +113,8 @@ export default function MySidebar({ setIsLogin }) {
                             />}
                         onClick={() => setCollapse(!collapse)}
                     >
-                    </MenuItem>
+                    </MenuItem> */}
+                     <SidebarHeader /> 
                     {myURLRoutes.map((route, index) => (
                         route.excludedMenu ? null :
                             route.subRoutes && route.subRoutes.length > 0 ? (

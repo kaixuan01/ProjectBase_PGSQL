@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { Card, CardBody, CardFooter, CardHeader, Container, Button } from 'reactstrap';
-import './base.css';
+import '../CSS/base.css'
 import HTTPReq from '../Control/HTTPReq';
 import MyInputField from '../Control/MyInputField';
-import { showSuccessAlert } from '../Comon/common';
+import { showSuccessAlert } from '../Common/common';
 
 export default function Login({onLogin}) {
     const [username, SetUsername] = useState('');

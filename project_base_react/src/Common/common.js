@@ -59,3 +59,7 @@ export const showConfirmAlert = ({
     }
   });
 };
+
+export const buildQueryString = (params) => {
+  return new URLSearchParams(params).toString();
+};

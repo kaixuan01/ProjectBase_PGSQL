@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { initData, updateData, deleteData } from '../Redux/actions';
-import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import { Link } from 'react-router-dom';
+import { Row, Col, Container } from 'reactstrap';
 const Dashboard = () => {
   // const dispatch = useDispatch();
   // useSelector((state) => {console.log(state)});
@@ -23,8 +22,13 @@ const Dashboard = () => {
 
 
 
-  return (
-    <div>zzzzzzzzs</div>
+  return (<>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    </>
   );
 };
 

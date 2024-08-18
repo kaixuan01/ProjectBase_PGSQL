@@ -76,9 +76,9 @@ builder.Services.AddCors(options =>
         builder => builder
             .WithOrigins("http://localhost:3000")
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .AllowCredentials()); // Allow credentials like cookies
 });
-
 // Add services to the container.
 var sqlConnString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddSqlServer<MyDbContext>(sqlConnString);

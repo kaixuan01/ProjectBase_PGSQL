@@ -2,6 +2,7 @@
 import { faDashboard, faGear, faList, faShield, faUser } from "@fortawesome/free-solid-svg-icons";
 import Dashboard from "../View/dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UserListing from "../View/Admin/User/UserListing";
 const myURLRoutes = [
     {
       path: '/',
@@ -20,7 +21,7 @@ const myURLRoutes = [
           path: '/userListing',
           name: 'UserListing',
           icon: <FontAwesomeIcon icon={faList}/>,
-          component: '',
+          component: <UserListing/>,
         },
       ],
     },

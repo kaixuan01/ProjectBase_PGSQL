@@ -1,4 +1,4 @@
-import './App.css';
+import './CSS/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MySidebar from './Control/MySidebar';
@@ -6,7 +6,7 @@ import { MyPageContainer } from './Control/MyPageContainer';
 import Login from './View/login';
 import MyTopBar from './Control/MyTopBar';
 import { useEffect, useState } from 'react';
-import Example from './Comon/Example';
+import Example from './Common/Example';
 
 function App() {
   const [isLogin, setIsLogin] = useState(() => {
@@ -18,7 +18,7 @@ function App() {
   }, [isLogin]);
 
   return (
-    <>
+    <div className='app-container'>
       {isLogin ? (
         <Router>
           <div className="app-container">
@@ -36,7 +36,7 @@ function App() {
       ) : (
         <Login onLogin={() => setIsLogin(!isLogin)} />
       )}
-    </>
+    </div>
   );
 }
 

@@ -1,11 +1,11 @@
-import { showErrorAlert } from "../Comon/common";
+import { showErrorAlert } from "../Common/common";
 
 const HTTPReq = ({
     method = 'GET',
     url,
     baseUrl = 'https://localhost:7032',
     data = null,
-    credentials = 'include',
+    credentials = 'omit',
     headers = {},
     responseType = 'json',
     onSuccess,

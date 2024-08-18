@@ -1,4 +1,4 @@
-import myURLRoutes from '../Comon/RoutePath';
+import myURLRoutes from '../Common/RoutePath';
 import { Routes, Route } from 'react-router-dom';
 
 export function MyPageContainer(){
