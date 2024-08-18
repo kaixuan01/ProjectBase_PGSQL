@@ -1,7 +1,9 @@
-﻿using DAL.Tools.ListingHelper;
+﻿using DAL.Entity;
+using DAL.Tools.ListingHelper;
 using DBL.User_Service.UserService;
 using DBL.User_Service.UserService.UserActionClass;
 using E_commerce.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Utils;
@@ -11,7 +13,7 @@ using Utils.Tools;
 
 namespace E_commerce.Controllers.User_Controller
 {
-
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserController : BaseAPIController
@@ -47,8 +49,33 @@ namespace E_commerce.Controllers.User_Controller
             return Ok(apiResponse);
         }
 
+        [HttpGet]
+        [Route("ViewUser")]
+        public async Task<IActionResult> ViewUser([FromQuery] string id)
+        {
+            ApiResponse<T_User>? apiResponse = null;
+            LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request Get User List, User Id: {id}");
+
+            try
+            {
+                var result = await _userService.GetByIdAsync(id);
+
+                // Create a success response using ApiResponse<T>
+                apiResponse = ApiResponse<T_User>.CreateSuccessResponse(result, "Get User Successful");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when Get User, Message: {ex.Message}", ex);
+
+                apiResponse = ApiResponse<T_User>.CreateErrorResponse($"Get User Failed. Exception: {ex.Message}");
+            }
+
+            return Ok(apiResponse);
+        }
+
         [HttpPost]
         [Route("AddUser")]
+        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
         public async Task<IActionResult> AddUser([FromBody] CreateUser_REQ oUser)
         {
             ApiResponse<string>? apiResponse = null;
@@ -97,6 +124,7 @@ namespace E_commerce.Controllers.User_Controller
 
         [HttpPost]
         [Route("EditUser")]
+        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
         public async Task<IActionResult> EditUser([FromBody] EditUser_REQ oUser)
         {
             ApiResponse<string>? apiResponse = null;
@@ -145,6 +173,7 @@ namespace E_commerce.Controllers.User_Controller
 
         [HttpPost]
         [Route("DeleteUser")]
+        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
         public async Task<IActionResult> DeleteUser([FromBody] string userId)
         {
             ApiResponse<string>? apiResponse = null;

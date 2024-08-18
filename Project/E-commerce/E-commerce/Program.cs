@@ -1,11 +1,14 @@
 using DAL;
 using E_commerce.Extension;
 using E_commerce.Tools;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
+using Utils.Enums;
+using Utils.Tools;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,18 +21,27 @@ Log.Logger = new LoggerConfiguration()
 // Register log event to DBL
 DBL.Tools.LogHelper.OnLogEvent += LogHelper.LogMessage;
 
+builder.Services.AddSingleton<AuthToken>(); // Register AuthToken as a singleton
+
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var key = "12345678901234567890ABCDEFG";
+
+// Load the key from appsettings.json
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var key = jwtSettings["Key"];
+var issuer = jwtSettings["Issuer"];
+var audience = jwtSettings["Audience"];
+var expireHours = int.Parse(jwtSettings["ExpireHours"]);
 
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -38,8 +50,23 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+        ValidIssuer = issuer,
+        ValidAudience = audience
     };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["authToken"];
+            return Task.CompletedTask;
+        }
+    };
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole(Enum_UserRole.Admin.ToString()));
+    options.AddPolicy("UserOnly", policy => policy.RequireRole(Enum_UserRole.NormalUser.ToString()));
 });
 
 builder.Services.AddCors(options =>

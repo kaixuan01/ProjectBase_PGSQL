@@ -1,3 +1,5 @@
+using Utils.Tools;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 

@@ -83,7 +83,8 @@ namespace DBL.User_Service.UserService
                     Name = oUser.name,
                     Email = oUser.email,
                     Phone = oUser.phone,
-                    Address = oUser.address
+                    Address = oUser.address,
+                    UserRoleId = oUser.userRoleId
                 };
 
                 await _userRepository.CreateAsync(createUser);
@@ -291,6 +292,8 @@ namespace DBL.User_Service.UserService
 
                     // Update User's login failed Count
                     await _userRepository.UpdateAsync(oUser);
+
+                    rtnValue.UserRoleId = oUser.UserRoleId;
                 }
                 else
                 {

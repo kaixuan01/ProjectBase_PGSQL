@@ -12,10 +12,16 @@ namespace E_commerce.Controllers
     public class OAuthController : BaseAPIController
     {
         private readonly IUserService _userService;
+        private readonly AuthToken _authToken;
+        private readonly int _expireHours;
 
-        public OAuthController(IUserService userService)
+        public OAuthController(IUserService userService, AuthToken authToken, IConfiguration configuration)
         {
             _userService = userService;
+            _authToken = authToken;
+
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            _expireHours = int.Parse(jwtSettings["ExpireHours"]);
         }
 
         [HttpPost(Name = "OAuth")]
@@ -23,7 +29,6 @@ namespace E_commerce.Controllers
         {
             if (!string.IsNullOrEmpty(user.username) && !string.IsNullOrEmpty(user.password))
             {
-                var _authToken = new AuthToken();
                 var oVerifyResp = await _userService.VerifyUserAsync(user);
 
                 if (oVerifyResp != null)
@@ -31,14 +36,14 @@ namespace E_commerce.Controllers
                     switch (oVerifyResp.Code)
                     {
                         case RespCode.RespCode_Success:
-                            var token = _authToken.GenerateJwtToken(user.username);
+                            var token = _authToken.GenerateJwtToken(user.username, (Enum_UserRole)oVerifyResp.UserRoleId);
 
                             Response.Cookies.Append("authToken", token, new CookieOptions
                             {
-                                HttpOnly = true,
-                                Secure = true,
-                                SameSite = SameSiteMode.Strict,
-                                Expires = DateTimeOffset.UtcNow.AddHours(1)
+                                HttpOnly = true, // Prevent access via JavaScript
+                                Secure = true,   // Ensure the cookie is sent only over HTTPS
+                                Expires = DateTime.UtcNow.AddHours(_expireHours),
+                                SameSite = SameSiteMode.Strict // Prevent CSRF attacks
                             });
 
                             var response = ApiResponse<string>.CreateSuccessResponse(null, "Login successful");
@@ -57,6 +62,13 @@ namespace E_commerce.Controllers
                 }
             }
             return Ok(ApiResponse<string>.CreateErrorResponse("Username or password cannot be empty"));
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("authToken");
+            return Ok(new { Message = "Logout successful" });
         }
 
     }

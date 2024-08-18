@@ -15,8 +15,6 @@ namespace DAL.Data
             var userRoles = new List<E_UserRole>
             {
                 CreateUserRole(Enum_UserRole.Admin, "Admin", "Administrator"),
-                CreateUserRole(Enum_UserRole.Tester, "Tester", "Tester"),
-                CreateUserRole(Enum_UserRole.Developer, "Developer", "Software Developer"),
                 CreateUserRole(Enum_UserRole.NormalUser, "Normal User", "Customer Account"),
             };
 
