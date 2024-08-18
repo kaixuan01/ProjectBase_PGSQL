@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem('isLogin', isLogin);
   }, [isLogin]);
-
+  console.log(12)
   return (
     <div className='app-container'>
       {isLogin ? (

@@ -1,6 +1,6 @@
 import MyTable from "../../../Control/MyTable"
 import React from "react";
-export default function UserListing(){
+export default function UserListing() {
 
     const columns = React.useMemo(() => [
         {
@@ -26,16 +26,15 @@ export default function UserListing(){
         {
             Header: 'User Role',
             accessor: 'userRole',
-            Cell: ({value}) => value.description
+            Cell: ({ value }) => { return 1 }
         }
     ], []);
 
-
     return <>
-    <h1>User Listing</h1>
-    <hr/>
-    <MyTable
-        url={'/User/GetUserList'}
-        columns={columns}
-/></>
+        <h1>User Listing</h1>
+        <hr />
+        <MyTable
+            url={'/User/GetUserList'}
+            columns={columns}
+        /></>
 }

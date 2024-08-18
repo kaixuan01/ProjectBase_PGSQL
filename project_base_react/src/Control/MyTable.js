@@ -16,7 +16,7 @@ const MyTable = ({ url, columns }) => {
         prepareRow,
         state: { pageIndex, pageSize, sortBy, filters }, 
         setPageSize,
-        gotoPage,
+        // gotoPage,
         canPreviousPage,
         canNextPage,
         previousPage,
@@ -34,18 +34,11 @@ const MyTable = ({ url, columns }) => {
         useSortBy,
         usePagination
     );
-
-    useEffect(() => {
-
-        // Temporary data
-        setData([
-            { id: 1, name: 'John Doe', age: 28, country: 'USA' },
-            { id: 2, name: 'Jane Smith', age: 34, country: 'Canada' },
-            { id: 3, name: 'Carlos Johnson', age: 45, country: 'Mexico' },
-            { id: 4, name: 'Maria Garcia', age: 23, country: 'Spain' },
-        ]);
-    }, []);
-
+    console.log(pageIndex);
+    console.log(sortBy);
+    console.log(filters);
+    console.log(url);
+    console.log(pageSize);
 
     useEffect(() => {
         async function fetchData() {
