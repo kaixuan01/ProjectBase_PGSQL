@@ -2,35 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import '../CSS/MyTable.css'; // Import the CSS file
 import FuncHTTPReq from '../Common/funcHTTPReq';
-import {buildQueryString} from '../Common/common'
-const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
+import { buildQueryString } from '../Common/common';
+
+const MyTable = ({ url, columns }) => {
     const [data, setData] = useState([]);
-    const [columns, setColumns] =useState([]);
+    const [totalItems, setTotalItems] = useState(0);
+    
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
         rows,
         prepareRow,
-        state: { pageIndex, pageSize, sortBy, filters },
+        state: { pageIndex, pageSize, sortBy, filters }, 
         setPageSize,
         gotoPage,
-        setSortBy,
-        setFilter,
         canPreviousPage,
         canNextPage,
-        pageCount,
         previousPage,
-        nextPage
+        nextPage,
     } = useTable(
         {
             columns,
             data,
-            initialState: { pageIndex: 1, pageSize: 10 },
+            initialState: { pageIndex: 0, pageSize: 1 },
             manualPagination: true,
             manualSortBy: true,
             manualFilters: true,
-            pageCount: controlledPageCount,
         },
         useFilters,
         useSortBy,
@@ -38,25 +36,6 @@ const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
     );
 
     useEffect(() => {
-        // Temporary columns
-        setColumns([
-            {
-                Header: 'ID',
-                accessor: 'id',
-            },
-            {
-                Header: 'Name',
-                accessor: 'name',
-            },
-            {
-                Header: 'Age',
-                accessor: 'age',
-            },
-            {
-                Header: 'Country',
-                accessor: 'country',
-            },
-        ]);
 
         // Temporary data
         setData([
@@ -67,15 +46,15 @@ const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
         ]);
     }, []);
 
+
     useEffect(() => {
         async function fetchData() {
             try {
-                // Construct the query parameters object
                 const queryParams = {
-                    PageNumber: pageIndex,
+                    PageNumber: pageIndex + 1,
                     PageSize: pageSize,
                     SortBy: sortBy,
-                    ...filters // Assuming filters is an object with key-value pairs
+                    ...filters,
                 };
 
                 // Build the query string
@@ -88,12 +67,12 @@ const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
                     url: fullUrl,
                     method: 'GET',
                     onSuccess: (data) => {
-                        setData(data);
-                        console.log('Request succeeded with data:', data);
+                        setData(data.items);
+                        setTotalItems(data.totalCount); // Update total items count
                     },
                     onError: (error) => {
                         console.error('Request failed with error:', error);
-                    }
+                    },
                 });
             } catch (error) {
                 console.error('Error in fetchData:', error);
@@ -102,16 +81,21 @@ const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
 
         fetchData();
     }, [pageIndex, pageSize, sortBy, filters, url]);
-    
+
+    const firstItemIndex = pageIndex * pageSize + 1;
+    const lastItemIndex = Math.min((pageIndex + 1) * pageSize, totalItems);
 
     return (
         <div className="table-container">
             <table {...getTableProps()} className="my-table">
                 <thead>
-                    {headerGroups.map(headerGroup => (
+                    {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()} key={`row_${headerGroup.id}`}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())} key={`col_${column.id}`}>
+                            {headerGroup.headers.map((column) => (
+                                <th
+                                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                                    key={`col_${column.id}`}
+                                >
                                     {column.render('Header')}
                                     <span>
                                         {column.isSorted
@@ -126,11 +110,11 @@ const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {rows.map(row => {
+                    {rows.map((row) => {
                         prepareRow(row);
                         return (
                             <tr {...row.getRowProps()} key={`row_${row.id}`}>
-                                {row.cells.map(cell => (
+                                {row.cells.map((cell) => (
                                     <td {...cell.getCellProps()} key={`cell_${cell.column.id}`}>
                                         {cell.render('Cell')}
                                     </td>
@@ -141,29 +125,30 @@ const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
                 </tbody>
             </table>
             <div className="pagination-controls">
-                <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} className="pagination-button">
-                    {'<<'}
-                </button>
-                <button onClick={() => gotoPage(pageIndex - 1)} disabled={!canPreviousPage} className="pagination-button">
-                    {'<'}
-                </button>
-                <button onClick={() => gotoPage(pageIndex + 1)} disabled={!canNextPage} className="pagination-button">
-                    {'>'}
-                </button>
-                <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} className="pagination-button">
-                    {'>>'}
-                </button>
+                <span>Show Rows per page</span>
                 <select
                     value={pageSize}
-                    onChange={e => setPageSize(Number(e.target.value))}
+                    onChange={(e) => setPageSize(Number(e.target.value))}
                     className="page-size-selector"
                 >
-                    {[10, 20, 30, 40, 50].map(size => (
+                    {[1, 2, 3, 4, 5].map((size) => (
                         <option key={size} value={size}>
-                            Show {size}
+                            {size}
                         </option>
                     ))}
                 </select>
+
+                <div className="pagination-buttons">
+                    <div className="rows-info">
+                        {`${firstItemIndex}-${lastItemIndex} of ${totalItems}`}
+                    </div>
+                    <button onClick={() => previousPage()} disabled={!canPreviousPage} className="pagination-button">
+                        {'<'}
+                    </button>
+                    <button onClick={() => nextPage()} disabled={!canNextPage} className="pagination-button">
+                        {'>'}
+                    </button>
+                </div>
             </div>
         </div>
     );

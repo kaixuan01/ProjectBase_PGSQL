@@ -32,8 +32,14 @@
   .pagination-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-  }
+    justify-content: space-between; /* This will distribute space between elements */
+    padding: 10px 0;
+}
+.rows-info {
+  font-size: 14px;
+  color: #555;
+  margin-right: 10px;
+}
   
   .pagination-button {
     padding: 6px 12px;
@@ -54,3 +60,30 @@
     border-radius: 4px;
   }
   
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* This will push the content to the sides */
+    padding: 10px 0;
+}
+
+.pagination-controls .pagination-button {
+    margin: 0 5px;
+}
+
+.pagination-controls .page-size-selector {
+    margin-left: 10px;
+}
+
+.pagination-controls .pagination-buttons {
+    margin-left: auto; /* This pushes the buttons to the right */
+}
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Pushes the buttons to the right */
+}
+
+.pagination-buttons .pagination-button {
+  margin-left: 5px;
+}

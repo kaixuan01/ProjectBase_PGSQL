@@ -22,7 +22,6 @@ const FuncHTTPReq = async ({
         if (['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) && data) {
             options.body = JSON.stringify(data);
         }
-        console.log(options);
         const response = await fetch(baseUrl + url, options);
 
         if (!response.ok) {

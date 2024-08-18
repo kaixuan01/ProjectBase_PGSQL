@@ -6,7 +6,7 @@ import { showSuccessAlert } from '../Common/common';
 export default function MyTopBar({ onLogout }) {
 
   const successLogout = useCallback((result) => {
-    showSuccessAlert(result.message);
+    // showSuccessAlert(result.message);
     onLogout();
   }, []);
 
