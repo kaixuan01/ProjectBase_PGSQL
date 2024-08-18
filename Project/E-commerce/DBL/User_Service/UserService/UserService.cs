@@ -93,9 +93,9 @@ namespace DBL.User_Service.UserService
 
                 rtnValue.UserId = createUser.Id;
                 rtnValue.Code = RespCode.RespCode_Success;
-                rtnValue.Message = RespCode.RespMessage_Insert_Successfully;
+                rtnValue.Message = RespCode.RespMessage_Insert_Successful;
 
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Insert_Successfully}. user id: {rtnValue.UserId}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Insert_Successful}. user id: {rtnValue.UserId}");
             }
             catch (Exception ex)
             {
@@ -160,8 +160,8 @@ namespace DBL.User_Service.UserService
 
                 rtnValue.UserId = oUser.Id;
                 rtnValue.Code = RespCode.RespCode_Success;
-                rtnValue.Message = RespCode.RespMessage_Update_Successfully;
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successfully}. User Id: {rtnValue.UserId}");
+                rtnValue.Message = RespCode.RespMessage_Update_Successful;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Id: {rtnValue.UserId}");
             }
             catch (Exception ex)
             {
@@ -199,8 +199,8 @@ namespace DBL.User_Service.UserService
                 await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Delete, user, null);
 
                 rtnValue.Code = RespCode.RespCode_Success;
-                rtnValue.Message = RespCode.RespMessage_Delete_Successfully;
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Delete_Successfully}. User Id: {id}");
+                rtnValue.Message = RespCode.RespMessage_Delete_Successful;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Delete_Successful}. User Id: {id}");
 
             }
             catch (Exception ex)
@@ -319,6 +319,11 @@ namespace DBL.User_Service.UserService
         }
 
         #endregion
+
+        public async Task<int> GetUserRoleByUsernameAsync(string username)
+        {
+            return await _userRepository.GetUserRoleByUsernameAsync(username);
+        }
 
     }
 }

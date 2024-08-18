@@ -1,5 +1,6 @@
 using DAL;
 using E_commerce.Extension;
+using E_commerce.Middleware;
 using E_commerce.Tools;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,7 +35,6 @@ var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = jwtSettings["Key"];
 var issuer = jwtSettings["Issuer"];
 var audience = jwtSettings["Audience"];
-var expireHours = int.Parse(jwtSettings["ExpireHours"]);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -63,6 +63,7 @@ builder.Services.AddAuthentication(options =>
         }
     };
 });
+
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOnly", policy => policy.RequireRole(Enum_UserRole.Admin.ToString()));
@@ -100,6 +101,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Register custom JWT middleware
+app.UseMiddleware<JwtMiddleware>();
 
 // Auto Create Database or Update Database table
 // Not sure can use in production or not

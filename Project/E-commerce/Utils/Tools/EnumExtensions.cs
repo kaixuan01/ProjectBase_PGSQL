@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace YourProject.Utilities
+namespace Utils.Tools
 {
     public static class EnumExtensions
     {

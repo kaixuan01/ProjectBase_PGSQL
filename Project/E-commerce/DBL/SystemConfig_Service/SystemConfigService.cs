@@ -68,8 +68,8 @@ namespace DBL.SystemConfig_Service
                 await CreateAuditTrailAsync(ConstantCode.Module.SystemConfig, ConstantCode.Action.Edit, copySystemConfig, systemConfig, oReq.userId);
 
                 rtnValue.Code = RespCode.RespCode_Success;
-                rtnValue.Message = RespCode.RespMessage_Update_Successfully;
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successfully}.");
+                rtnValue.Message = RespCode.RespMessage_Update_Successful;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}.");
             }
             catch (Exception ex)
             {

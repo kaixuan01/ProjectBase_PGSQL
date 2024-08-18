@@ -8,9 +8,9 @@
 
         public const string RespCode_Exception = "99"; // Use this RespCode when throw exception.
 
-        public const string RespMessage_Insert_Successfully = "Record Insert Successfully";
-        public const string RespMessage_Update_Successfully = "Record Update Successfully";
-        public const string RespMessage_Delete_Successfully = "Record Delete Successfully";
+        public const string RespMessage_Insert_Successful = "Record Insert Successful";
+        public const string RespMessage_Update_Successful = "Record Update Successful";
+        public const string RespMessage_Delete_Successful = "Record Delete Successful";
 
     }
 }

@@ -31,7 +31,7 @@ namespace DBL.User_Service.UserLoginHistoryService
                 await _userLoginHistoryRepository.CreateAsync(oUserLoginHistory);
 
                 rtnValue.Code = RespCode.RespCode_Success;
-                rtnValue.Message = RespCode.RespMessage_Insert_Successfully;
+                rtnValue.Message = RespCode.RespMessage_Insert_Successful;
             }
             catch (Exception ex)
             {

@@ -58,5 +58,13 @@ namespace DAL.Repository.UserRP.UserRepository
 
             return user.Id;
         }
+
+        public async Task<int> GetUserRoleByUsernameAsync(string username)
+        {
+            return await _myDbContext.T_User
+                .Where(x => x.UserName == username)
+                .Select(x => x.UserRoleId)
+                .FirstOrDefaultAsync();
+        }
     }
 }
