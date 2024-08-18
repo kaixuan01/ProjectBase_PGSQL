@@ -5,8 +5,7 @@ import MySidebar from './Control/MySidebar';
 import { MyPageContainer } from './Control/MyPageContainer';
 import Login from './View/login';
 import MyTopBar from './Control/MyTopBar';
-import { useEffect, useState } from 'react';
-import Example from './Common/Example';
+import { useEffect, useState, useCallback } from 'react';
 
 function App() {
   const [isLogin, setIsLogin] = useState(() => {
@@ -16,13 +15,21 @@ function App() {
   useEffect(() => {
     localStorage.setItem('isLogin', isLogin);
   }, [isLogin]);
-  console.log(12)
+
+  const handleLogin = useCallback(() => {
+    setIsLogin(true);
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    setIsLogin(false);
+  }, []);
+
   return (
     <div className='app-container'>
       {isLogin ? (
         <Router>
           <div className="app-container">
-            <MyTopBar onLogout={() => setIsLogin(!isLogin)}/>
+            <MyTopBar onLogout={handleLogout} />
             <div className="d-flex">
               <div className="my-sidebar">
                 <MySidebar setIsLogin={setIsLogin} />
@@ -34,7 +41,7 @@ function App() {
           </div>
         </Router>
       ) : (
-        <Login onLogin={() => setIsLogin(!isLogin)} />
+        <Login onLogin={handleLogin} />
       )}
     </div>
   );
