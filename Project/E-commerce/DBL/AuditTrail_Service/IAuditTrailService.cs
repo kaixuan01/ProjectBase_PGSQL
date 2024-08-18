@@ -1,16 +1,23 @@
 ﻿using DAL.Entity;
 using DAL.Tools.ListingHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DBL.AuditTrail_Service
 {
     public interface IAuditTrailService
     {
-        Task CreateAuditTrailAsync<T>(string module, string action, T originalObject, T newObject, string userId = "");
+        Task CreateAuditTrailAsync<T>(string module, string action, T originalObject, T newObject);
+
+        /// <summary>
+        /// Create Audit Trail with Dictionary, compare Key & Value
+        /// </summary>
+        /// <param name="module"></param>
+        /// <param name="action"></param>
+        /// <param name="originalObject"></param>
+        /// <param name="newObject"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task CreateAuditTrailAsync(string module, string action, string tableName, Dictionary<string, string> originalObject, Dictionary<string, string> newObject);
+
         Task<PagedResult<T_AuditTrail>> GetPagedListAsync(FilterParameters filterParameters);
     }
 }

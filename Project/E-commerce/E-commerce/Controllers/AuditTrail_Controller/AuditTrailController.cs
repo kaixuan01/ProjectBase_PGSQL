@@ -1,13 +1,16 @@
 ﻿using DAL.Entity;
 using DAL.Tools.ListingHelper;
 using DBL.AuditTrail_Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Utils.Enums;
 using Utils.Model;
 
 namespace E_commerce.Controllers.AuditTrail_Controller
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = nameof(Enum_UserRole.Admin))]
     public class AuditTrailController : BaseAPIController
     {
         private IAuditTrailService _auditTrailService;

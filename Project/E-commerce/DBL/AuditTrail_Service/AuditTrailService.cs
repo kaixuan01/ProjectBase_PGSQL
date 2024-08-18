@@ -1,8 +1,11 @@
 ﻿using DAL;
 using DAL.Entity;
 using DAL.Repository.AuditTrailRP;
-using DAL.Repository.UserRP.UserRepository;
 using DAL.Tools.ListingHelper;
+using DBL.Tools;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Utils.Enums;
 using Utils.Tools;
 
 namespace DBL.AuditTrail_Service
@@ -10,17 +13,20 @@ namespace DBL.AuditTrail_Service
     public class AuditTrailService : IAuditTrailService
     {
         private IAuditTrailRepository _auditTrailRepository;
-        private IUserRepository _userRepository;
         private readonly MyDbContext _myDbContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private string username = string.Empty;
 
-        public AuditTrailService(IAuditTrailRepository auditTrailRepository, MyDbContext myDbContext, IUserRepository userRepository)
+        public AuditTrailService(IAuditTrailRepository auditTrailRepository, MyDbContext myDbContext, IHttpContextAccessor httpContextAccessor)
         {
             _auditTrailRepository = auditTrailRepository;
             _myDbContext = myDbContext;
-            _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
+
+            username = _httpContextAccessor.HttpContext.Items["Username"] as string;
         }
 
-        public async Task CreateAuditTrailAsync<T>(string module, string action, T originalObject, T newObject, string userId = "")
+        public async Task CreateAuditTrailAsync<T>(string module, string action, T originalObject, T newObject)
         {
             try
             {
@@ -50,23 +56,13 @@ namespace DBL.AuditTrail_Service
                             : null;
                 }
 
-                string userName = string.Empty;
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    var user = await _userRepository.GetByIdAsync(userId);
-                    if (user.UserName != null)
-                    {
-                        userName = user.UserName;
-                    }
-                }
-
                 var auditTrail = new T_AuditTrail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     Module = module,
                     TableName = typeof(T).Name,
                     Action = action,
-                    UserName = userName,
+                    Username = username,
                     Remark = $"{action} {typeof(T).Name} record, id: {primaryKeyValue}",
                     CreatedDate = DateTime.Now,
                     AuditTrailDetails = new List<T_AuditTrailDetails>()
@@ -148,10 +144,61 @@ namespace DBL.AuditTrail_Service
 
                 // Save the audit trail
                 await _auditTrailRepository.CreateAsync(auditTrail);
+
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Insert Audit Trail successful (Object). Record: {JsonConvert.SerializeObject(auditTrail)}");
             }
             catch (Exception ex)
             {
-                // Log
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Error when Insert Audit Trail (Object). Exception Message: {ex.Message}");
+            }
+        }
+
+        public async Task CreateAuditTrailAsync(string module, string action, string tableName, Dictionary<string, string> originalObject, Dictionary<string, string> newObject)
+        {
+            try
+            {
+                var auditTrail = new T_AuditTrail
+                {
+                    Id = IdGeneratorHelper.GenerateId(),
+                    Module = module,
+                    TableName = tableName,
+                    Action = action,
+                    Username = username,
+                    Remark = $"{action} {module}.",
+                    CreatedDate = DateTime.Now,
+                    AuditTrailDetails = new List<T_AuditTrailDetails>()
+                };
+
+                // Compare the original and new objects
+                foreach (var key in originalObject.Keys)
+                {
+                    if (newObject.ContainsKey(key))
+                    {
+                        var originalValue = originalObject[key];
+                        var newValue = newObject[key];
+
+                        if (originalValue != newValue)
+                        {
+                            var auditTrailDetail = new T_AuditTrailDetails
+                            {
+                                Id = IdGeneratorHelper.GenerateId(),
+                                Field = key,
+                                Original_Data = originalValue,
+                                New_Data = newValue
+                            };
+                            auditTrail.AuditTrailDetails.Add(auditTrailDetail);
+                        }
+                    }
+                }
+
+                // Save the audit trail
+                await _auditTrailRepository.CreateAsync(auditTrail);
+
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Insert Audit Trail successful (Dictionary). Record: {JsonConvert.SerializeObject(auditTrail)}");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Error when Insert Audit Trail (Dictionary). Exception Message: {ex.Message}");
             }
         }
 
@@ -161,5 +208,6 @@ namespace DBL.AuditTrail_Service
 
             return rtnValue;
         }
+    
     }
 }

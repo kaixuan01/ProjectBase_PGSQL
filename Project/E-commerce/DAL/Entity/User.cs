@@ -19,6 +19,7 @@ namespace DAL.Entity
         // Non-nullable with default value of 0
         [Description("Count of failed login attempts, Default Value = 0")]
         public int iCountFailedLogin { get; set; } = 0;
+        public bool IsBlocked { get; set; } = false;
 
         [ForeignKey("UserRoleId")] // Assign Foreign Key
         public E_UserRole UserRole { get; set; } // Navigation property

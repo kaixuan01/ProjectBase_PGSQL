@@ -2,8 +2,6 @@
 using DAL.Data;
 using DBL.User_Service.UserService;
 using EFCore.AutomaticMigrations;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace E_commerce.Extension

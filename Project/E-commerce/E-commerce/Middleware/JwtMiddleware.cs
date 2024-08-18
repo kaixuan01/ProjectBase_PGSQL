@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace E_commerce.Middleware
@@ -39,14 +40,11 @@ namespace E_commerce.Middleware
 
                 try
                 {
-                    context.Request.Headers.Add("Authorization", $"Bearer {token}");
-
                     var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out _);
                     context.User = principal;
-
-                    // ## Noted Use this method to get username
-                    // var userName = User.FindFirstValue(ClaimTypes.Name);
-
+                    var username = principal.FindFirstValue(ClaimTypes.Name);
+                    // Store the username in HttpContext.Items to be accessible throughout the request
+                    context.Items["Username"] = username;
                 }
                 catch
                 {

@@ -6,7 +6,6 @@ using E_commerce.Tools;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Security.Claims;
 using Utils;
 using Utils.Enums;
 using Utils.Model;
@@ -73,6 +72,8 @@ namespace E_commerce.Controllers.User_Controller
 
             return Ok(apiResponse);
         }
+
+        #region [ Create, Edit, Delete ]
 
         [HttpPost]
         [Route("AddUser")]
@@ -145,7 +146,7 @@ namespace E_commerce.Controllers.User_Controller
                 {
                     case RespCode.RespCode_Success:
                         // Create a success response using ApiResponse<T>
-                        apiResponse = ApiResponse<string>.CreateSuccessResponse(oResp.UserId, oResp.Message);
+                        apiResponse = ApiResponse<string>.CreateSuccessResponse(null, oResp.Message);
                         break;
 
                     case RespCode.RespCode_Failed:
@@ -214,5 +215,54 @@ namespace E_commerce.Controllers.User_Controller
 
             return Ok(apiResponse);
         }
+
+        #endregion
+
+        #region [ Set User Status ]
+
+        [HttpPost]
+        [Route("SetUserStatus")]
+        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
+        public async Task<IActionResult> SetUserStatus([FromBody] string userId)
+        {
+            ApiResponse<string>? apiResponse = null;
+
+            LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to set user's status, User Id: {userId}");
+
+            try
+            {
+                var oResp = await _userService.SetUserStatusAsync(userId);
+
+                switch (oResp.Code)
+                {
+                    case RespCode.RespCode_Success:
+                        // Create a success response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateSuccessResponse(null, oResp.Message);
+                        break;
+
+                    case RespCode.RespCode_Failed:
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                    default: // Default is throw exception
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                        // return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when set user's status, Message: {ex.Message}", ex);
+
+                apiResponse = ApiResponse<String>.CreateErrorResponse($"Set User's Status Failed. Exception: {ex.Message}");
+            }
+
+            return Ok(apiResponse);
+        }
+
+        #endregion
     }
 }

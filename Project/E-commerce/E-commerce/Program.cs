@@ -1,4 +1,5 @@
 using DAL;
+using E_commerce.AttributeOrFilter;
 using E_commerce.Extension;
 using E_commerce.Middleware;
 using E_commerce.Tools;
@@ -21,10 +22,15 @@ Log.Logger = new LoggerConfiguration()
 // Register log event to DBL
 DBL.Tools.LogHelper.OnLogEvent += LogHelper.LogMessage;
 
-builder.Services.AddSingleton<AuthToken>(); // Register AuthToken as a singleton
+// Register AuthToken as a singleton
+builder.Services.AddSingleton<AuthToken>();
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(CustomAuthorizeFilter)); // Add the custom authorization filter globally
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -78,12 +84,15 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowCredentials()); // Allow credentials like cookies
 });
+
 // Add services to the container.
 var sqlConnString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddSqlServer<MyDbContext>(sqlConnString);
 
 // Auto Add All Services
 builder.Services.AddAllService();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -98,7 +107,6 @@ app.UseHttpsRedirection();
 
 // Apply CORS policy before authentication
 app.UseCors("AllowLocalhost");
-
 
 // Register custom JWT middleware before authentication and authorization
 app.UseMiddleware<JwtMiddleware>();

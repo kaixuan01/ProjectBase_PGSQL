@@ -1,35 +1,23 @@
 ﻿using DAL.Entity;
 using DAL.Repository.SystemConfigRP;
-using DAL.Tools.ListingHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
-using Utils.Enums;
-using Utils;
-using Microsoft.AspNetCore.Components.Routing;
-using DBL.Tools;
-using DAL.Repository.AuditTrailRP;
 using DBL.AuditTrail_Service;
-using DAL;
-using Utils.Tools;
-using DAL.Repository.UserRP.UserRepository;
+using DBL.Shared.Class;
+using DBL.Tools;
+using Utils;
+using Utils.Enums;
 
 namespace DBL.SystemConfig_Service
 {
     public class SystemConfigService : ISystemConfigService
     {
         private readonly ISystemConfigRepository _systemConfigRepository;
-        private readonly IAuditTrailRepository _auditTrailRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IAuditTrailService _auditTrailService;
 
-        public SystemConfigService(ISystemConfigRepository systemConfigRepository, IAuditTrailRepository auditTrailRepository, IUserRepository userRepository) {
+        public SystemConfigService(ISystemConfigRepository systemConfigRepository, IAuditTrailService auditTrailService) {
             _systemConfigRepository = systemConfigRepository;
-            _auditTrailRepository = auditTrailRepository;
-            _userRepository = userRepository;
+            _auditTrailService = auditTrailService;
         }
+
         public async Task<List<T_SystemConfig>> GetSystemConfigList()
         {
             var result = await _systemConfigRepository.GetAllAsync();
@@ -37,13 +25,14 @@ namespace DBL.SystemConfig_Service
             return result;
          }
 
-        public async Task<UpdateSystemConfig_RESP> UpdateAsync(UpdateSystemConfig_REQ oReq)
+        public async Task<ShareResp> UpdateAsync(UpdateSystemConfig_REQ oReq)
         {
-            var rtnValue = new UpdateSystemConfig_RESP();
+            var rtnValue = new ShareResp();
 
             try
             {
                 var systemConfig = await GetSystemConfigList();
+                // Used to create audit trail record
                 var copySystemConfig = systemConfig.Clone();
 
                 foreach (var item in oReq.sysConfigList)
@@ -65,7 +54,12 @@ namespace DBL.SystemConfig_Service
                     await _systemConfigRepository.UpdateAsync(oSystemConfig);
                 }
 
-                await CreateAuditTrailAsync(ConstantCode.Module.SystemConfig, ConstantCode.Action.Edit, copySystemConfig, systemConfig, oReq.userId);
+                // Updated List
+                var systemConfigDictionary = systemConfig.ToDictionary(config => config.Key, config => config.Value);
+                // Old List
+                var copySystemConfigDictionary = copySystemConfig.ToDictionary(config => config.Key, config => config.Value);
+
+                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.SystemConfig, ConstantCode.Action.Edit, ConstantCode.TableName.SystemConfig, copySystemConfigDictionary, systemConfigDictionary);
 
                 rtnValue.Code = RespCode.RespCode_Success;
                 rtnValue.Message = RespCode.RespMessage_Update_Successful;
@@ -79,66 +73,6 @@ namespace DBL.SystemConfig_Service
             }
             
             return rtnValue;
-        }
-
-        private async Task CreateAuditTrailAsync(string module, string action, List<T_SystemConfig> originalObject, List<T_SystemConfig> newObject, string userId = "")
-        {
-            try
-            {
-                string userName = string.Empty;
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    var user = await _userRepository.GetByIdAsync(userId);
-                    if (user.UserName != null)
-                    {
-                        userName = user.UserName;
-                    }
-                }
-
-                var auditTrail = new T_AuditTrail
-                {
-                    Id = IdGeneratorHelper.GenerateId(),
-                    Module = module,
-                    TableName = typeof(T_SystemConfig).Name,
-                    Action = action,
-                    UserName = userName,
-                    Remark = $"{action} System Config.",
-                    CreatedDate = DateTime.Now,
-                    AuditTrailDetails = new List<T_AuditTrailDetails>()
-                };
-
-                // Compare the original and new objects if both are not null
-                if (originalObject != null && newObject != null)
-                {
-                    foreach (var item in originalObject)
-                    {
-                        foreach (var item1 in newObject)
-                        {
-                            if (item.Key == item1.Key)
-                            {
-                                if (item.Value != item1.Value)
-                                {
-                                    var auditTrailDetail = new T_AuditTrailDetails
-                                    {
-                                        Id = IdGeneratorHelper.GenerateId(),
-                                        Field = item.Key,
-                                        Original_Data = item.Value,
-                                        New_Data = item1.Value
-                                    };
-                                    auditTrail.AuditTrailDetails.Add(auditTrailDetail);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Save the audit trail
-                await _auditTrailRepository.CreateAsync(auditTrail);
-            }
-            catch (Exception ex)
-            {
-                // Log
-            }
         }
     }
 }

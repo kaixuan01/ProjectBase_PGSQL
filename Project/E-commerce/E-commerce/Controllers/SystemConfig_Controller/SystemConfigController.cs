@@ -1,7 +1,7 @@
 ﻿using DAL.Entity;
-using DAL.Tools.ListingHelper;
 using DBL.SystemConfig_Service;
 using E_commerce.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Utils;
@@ -12,6 +12,7 @@ namespace E_commerce.Controllers.SystemConfig_Controller
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = nameof(Enum_UserRole.Admin))]
     public class SystemConfigController : BaseAPIController
     {
         private readonly ISystemConfigService _systemConfigService;
@@ -78,9 +79,9 @@ namespace E_commerce.Controllers.SystemConfig_Controller
             }
             catch (Exception ex)
             {
-                apiResponse = ApiResponse<String>.CreateErrorResponse($"Create User Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<String>.CreateErrorResponse($"Update System Config Failed. Exception: {ex.Message}");
 
-                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when create user, Message: {ex.Message}", ex);
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when update system config, Message: {ex.Message}", ex);
             }
 
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBL.User_Service.UserService.UserActionClass
+namespace DBL.Shared.Class
 {
-    public class DeleteUser_RESP
+    public class ShareResp
     {
         public string Code { get; set; }
         public string Message { get; set; }
