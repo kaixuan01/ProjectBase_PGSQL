@@ -28,7 +28,7 @@ export default function Login({onLogin}) {
                     <HTTPReq
                         method="POST"
                         url={`/OAuth`}
-                        credentials='omit'
+                        credentials='include'
                         onSuccess={(result) => successLogin(result)}
                         data={{username, password}}
                     >

@@ -5,7 +5,7 @@ const HTTPReq = ({
     url,
     baseUrl = 'https://localhost:7032',
     data = null,
-    credentials = 'omit',
+    credentials = 'include',
     headers = {},
     responseType = 'json',
     onSuccess,

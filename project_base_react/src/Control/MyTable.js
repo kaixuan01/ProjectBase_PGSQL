@@ -26,7 +26,7 @@ const MyTable = ({ fetchData,url, pageCount: controlledPageCount }) => {
         {
             columns,
             data,
-            initialState: { pageIndex: 0, pageSize: 10 },
+            initialState: { pageIndex: 1, pageSize: 10 },
             manualPagination: true,
             manualSortBy: true,
             manualFilters: true,

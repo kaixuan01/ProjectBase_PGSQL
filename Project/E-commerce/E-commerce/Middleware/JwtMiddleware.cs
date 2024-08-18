@@ -39,10 +39,12 @@ namespace E_commerce.Middleware
 
                 try
                 {
+                    context.Request.Headers.Add("Authorization", $"Bearer {token}");
+
                     var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out _);
                     context.User = principal;
 
-                    // Use this method to get username
+                    // ## Noted Use this method to get username
                     // var userName = User.FindFirstValue(ClaimTypes.Name);
 
                 }
@@ -51,7 +53,6 @@ namespace E_commerce.Middleware
                     // Token validation failed
                 }
             }
-
             await _next(context);
         }
     }

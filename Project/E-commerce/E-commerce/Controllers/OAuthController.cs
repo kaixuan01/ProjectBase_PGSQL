@@ -67,8 +67,20 @@ namespace E_commerce.Controllers
         [HttpPost("Logout")]
         public IActionResult Logout()
         {
-            ClearCookies();
-            return Ok(new { Message = "Logout successful" });
+            try
+            {
+                ClearCookies();
+
+                var response = ApiResponse<string>.CreateSuccessResponse(null, "Logout successful");
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var response = ApiResponse<string>.CreateErrorResponse($"Logout failed, Exception: {ex.Message}");
+
+                return Ok(response);
+            }
         }
 
         [HttpPost("RefreshToken")]
@@ -140,25 +152,42 @@ namespace E_commerce.Controllers
 
         private void ClearCookies()
         {
-            Response.Cookies.Delete("authToken");
-            Response.Cookies.Delete("refreshToken");
+            // Clear cookies by setting an expiration date in the past
+            Response.Cookies.Append("authToken", "", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None, // Specify SameSite for cross-site context
+                Expires = DateTime.UtcNow.AddDays(-1) // Set expiry date to past to delete the cookie
+            });
+
+            Response.Cookies.Append("refreshToken", "", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None, // Specify SameSite for cross-site context
+                Expires = DateTime.UtcNow.AddDays(-1) // Set expiry date to past to delete the cookie
+            });
         }
 
         private void SetCookies(string authToken, string refreshToken)
         {
+            // var isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
             Response.Cookies.Append("authToken", authToken, new CookieOptions
             {
                 HttpOnly = true, // Prevent access via JavaScript
                 Secure = true,   // Ensure the cookie is sent only over HTTPS
+                SameSite = SameSiteMode.None, // Set none
                 Expires = DateTime.UtcNow.AddMinutes(_expireMins),
-                SameSite = SameSiteMode.Strict // Prevent CSRF attacks
             });
 
             Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Strict
+                SameSite = SameSiteMode.None,
+                Expires = DateTime.UtcNow.AddMinutes(_expireMins),
             });
         }
 

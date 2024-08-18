@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Navbar, NavbarBrand, Button, Badge } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import HTTPReq from '../Control/HTTPReq';
+import { showSuccessAlert } from '../Common/common';
 
 export default function MyTopBar({ onLogout }) {
+
+  const successLogout = useCallback((result) => {
+    showSuccessAlert(result.message);
+    onLogout();
+  }, []);
+
   return (
     <Navbar color="dark" dark expand="md" className="px-3">
     <NavbarBrand href="/">
@@ -21,9 +27,18 @@ export default function MyTopBar({ onLogout }) {
             objectFit: 'cover' 
           }} 
         />
-        <Button color="secondary" onClick={onLogout}>
-          Logout
-        </Button>
+        <HTTPReq
+            method="POST"
+            url={`/OAuth/Logout`}
+            credentials='include'
+            onSuccess={(result) => successLogout(result)} >
+            {({ sendRequest }) => (
+                <Button color="secondary" onClick={sendRequest}>
+                  Logout
+                </Button>
+            )}
+        </HTTPReq>
+            
       </div>
     </Navbar>
   );

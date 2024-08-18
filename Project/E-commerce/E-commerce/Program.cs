@@ -2,7 +2,6 @@ using DAL;
 using E_commerce.Extension;
 using E_commerce.Middleware;
 using E_commerce.Tools;
-using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -96,14 +95,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Apply CORS policy before authentication
 app.UseCors("AllowLocalhost");
+
+
+// Register custom JWT middleware before authentication and authorization
+app.UseMiddleware<JwtMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// Register custom JWT middleware
-app.UseMiddleware<JwtMiddleware>();
 
 // Auto Create Database or Update Database table
 // Not sure can use in production or not
