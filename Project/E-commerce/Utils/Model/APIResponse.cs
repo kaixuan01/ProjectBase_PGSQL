@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using Utils.Enums;
-using YourProject.Utilities;
 namespace Utils.Model
 {
     public class ApiResponse<T>
