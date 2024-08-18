@@ -7,44 +7,35 @@ import { buildQueryString } from '../Common/common';
 const MyTable = ({ url, columns }) => {
     const [data, setData] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
-    
+    const [pageIndex, setPageIndex] = useState(1);
+    const [itemQty, setItemQty] = useState(0);
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
         rows,
         prepareRow,
-        state: { pageIndex, pageSize, sortBy, filters }, 
+        state: { pageSize, sortBy, filters },
         setPageSize,
-        // gotoPage,
-        canPreviousPage,
-        canNextPage,
-        previousPage,
-        nextPage,
     } = useTable(
         {
             columns,
             data,
-            initialState: { pageIndex: 0, pageSize: 1 },
+            initialState: { pageSize: 1 },
             manualPagination: true,
             manualSortBy: true,
             manualFilters: true,
+            rowCount: totalItems,
         },
         useFilters,
         useSortBy,
         usePagination
     );
-    console.log(pageIndex);
-    console.log(sortBy);
-    console.log(filters);
-    console.log(url);
-    console.log(pageSize);
-
     useEffect(() => {
         async function fetchData() {
             try {
                 const queryParams = {
-                    PageNumber: pageIndex + 1,
+                    PageNumber: pageIndex,
                     PageSize: pageSize,
                     SortBy: sortBy,
                     ...filters,
@@ -61,7 +52,8 @@ const MyTable = ({ url, columns }) => {
                     method: 'GET',
                     onSuccess: (data) => {
                         setData(data.items);
-                        setTotalItems(data.totalCount); // Update total items count
+                        setTotalItems(data.totalCount);
+                        setItemQty(data.items.length);
                     },
                     onError: (error) => {
                         console.error('Request failed with error:', error);
@@ -71,23 +63,34 @@ const MyTable = ({ url, columns }) => {
                 console.error('Error in fetchData:', error);
             }
         }
-
         fetchData();
     }, [pageIndex, pageSize, sortBy, filters, url]);
 
-    const firstItemIndex = pageIndex * pageSize + 1;
-    const lastItemIndex = Math.min((pageIndex + 1) * pageSize, totalItems);
+    const handlePageChange = (newPageIndex) => {
+        if (newPageIndex >= 1 && newPageIndex <= Math.ceil(totalItems / pageSize)) {
+            setPageIndex(newPageIndex);
+        }
+    }
+    
+    const totalPages = Math.ceil(totalItems / pageSize);
+    const firstItemIndex = (pageIndex - 1) * pageSize + 1;
+    const lastItemIndex = Math.min(pageIndex * pageSize, totalItems);
 
+
+    const handlePageSizeChange = (newPageSize) => {
+        setPageSize(newPageSize);
+        setPageIndex(1)
+    };
     return (
         <div className="table-container">
             <table {...getTableProps()} className="my-table">
                 <thead>
                     {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()} key={`row_${headerGroup.id}`}>
+                        <tr {...headerGroup.getHeaderGroupProps()} key={`header-${headerGroup.id}`}>
                             {headerGroup.headers.map((column) => (
                                 <th
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                                    key={`col_${column.id}`}
+                                    key={`column-${column.id}`}
                                 >
                                     {column.render('Header')}
                                     <span>
@@ -106,9 +109,9 @@ const MyTable = ({ url, columns }) => {
                     {rows.map((row) => {
                         prepareRow(row);
                         return (
-                            <tr {...row.getRowProps()} key={`row_${row.id}`}>
+                            <tr {...row.getRowProps()} key={`row-${row.id}`}>
                                 {row.cells.map((cell) => (
-                                    <td {...cell.getCellProps()} key={`cell_${cell.column.id}`}>
+                                    <td {...cell.getCellProps()} key={`cell-${cell.column.id}`}>
                                         {cell.render('Cell')}
                                     </td>
                                 ))}
@@ -121,7 +124,7 @@ const MyTable = ({ url, columns }) => {
                 <span>Show Rows per page</span>
                 <select
                     value={pageSize}
-                    onChange={(e) => setPageSize(Number(e.target.value))}
+                    onChange={(e) => handlePageSizeChange(Number(e.target.value))}
                     className="page-size-selector"
                 >
                     {[1, 2, 3, 4, 5].map((size) => (
@@ -130,15 +133,22 @@ const MyTable = ({ url, columns }) => {
                         </option>
                     ))}
                 </select>
-
                 <div className="pagination-buttons">
                     <div className="rows-info">
-                        {`${firstItemIndex}-${lastItemIndex} of ${totalItems}`}
+                        {firstItemIndex}-{lastItemIndex} of {totalItems}
                     </div>
-                    <button onClick={() => previousPage()} disabled={!canPreviousPage} className="pagination-button">
+                    <button 
+                        onClick={() => handlePageChange(pageIndex - 1)} 
+                        disabled={pageIndex === 1} 
+                        className="pagination-button"
+                    >
                         {'<'}
                     </button>
-                    <button onClick={() => nextPage()} disabled={!canNextPage} className="pagination-button">
+                    <button 
+                        onClick={() => handlePageChange(pageIndex + 1)} 
+                        disabled={(pageIndex) * pageSize >= totalItems} 
+                        className="pagination-button"
+                    >
                         {'>'}
                     </button>
                 </div>

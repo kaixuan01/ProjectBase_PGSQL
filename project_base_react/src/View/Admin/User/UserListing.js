@@ -26,10 +26,9 @@ export default function UserListing() {
         {
             Header: 'User Role',
             accessor: 'userRole',
-            Cell: ({ value }) => { return 1 }
+            Cell: ({ value }) => { return value.description }
         }
     ], []);
-
     return <>
         <h1>User Listing</h1>
         <hr />
