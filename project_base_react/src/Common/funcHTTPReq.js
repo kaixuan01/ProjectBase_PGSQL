@@ -1,3 +1,6 @@
+import { showErrorAlert } from "../Common/common";
+import Cookies from 'js-cookie';
+
 const FuncHTTPReq = async ({
     method = 'GET',
     url,
@@ -24,8 +27,28 @@ const FuncHTTPReq = async ({
         }
         const response = await fetch(baseUrl + url, options);
 
+        console.log(response);
+        const isBlocked = Cookies.get('isBlocked');
+
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            console.log(response.status);
+            if (response.status === 401) {
+                console.log("test");
+                // Check if the 'IsBlock' cookie exists and its value is 'true'
+                console.log(isBlocked);
+                if (isBlocked && isBlocked.split('=')[1] === 'true') {
+                    showErrorAlert("Your account has been blocked, please contact admin to proceed.");
+                }else{
+                    showErrorAlert("Your session is expired. Please login again.");
+                }
+                
+                // Set isLogin = false
+                
+            }else if(response.status === 403){
+                showErrorAlert("You have no permission on this function!");
+            }else {
+                showErrorAlert("Service temporary not available. Please try again later.");
+            }
         }
 
         let result;
