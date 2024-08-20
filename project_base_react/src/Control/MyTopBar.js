@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { Navbar, NavbarBrand, Button, Badge } from 'reactstrap';
 import HTTPReq from '../Control/HTTPReq';
-import { showSuccessAlert } from '../Common/common';
-
-export default function MyTopBar({ onLogout }) {
+import { useAuthHandlers } from '../Hook/AuthHandlers';
+export default function MyTopBar() {
+  const { handleLogout } = useAuthHandlers();
 
   const successLogout = useCallback((result) => {
     // showSuccessAlert(result.message);
-    onLogout();
+    handleLogout();
   }, []);
 
   return (

@@ -1,14 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import '../CSS/MyTable.css'; // Import the CSS file
-import FuncHTTPReq from '../Common/funcHTTPReq';
 import { buildQueryString } from '../Common/common';
+import { Input } from 'reactstrap';
+import { useFuncHTTPReq } from '../Hook/FuncHttpReq';
+// Default filter UI for text columns
+export const DefaultColumnFilter = ({
+    column: { filterValue, setFilter, Header },
+}) => (
+    <Input
+        value={filterValue || ''}
+        onChange={e => {
+            setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
+        }}
+        placeholder={`Search ${Header}`}
+        style={{
+            width: '100%',
+        }}
+    />
+);
 
-const MyTable = ({ url, columns }) => {
+const MyTable = ({ url, columns, supportFliter }) => {
     const [data, setData] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [pageIndex, setPageIndex] = useState(1);
     const [itemQty, setItemQty] = useState(0);
+    const {FuncHTTPReq} = useFuncHTTPReq();
+    const defaultColumn = React.useMemo(
+        () => ({
+            Filter: DefaultColumnFilter,
+        }),
+        []
+    );
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -21,6 +45,7 @@ const MyTable = ({ url, columns }) => {
         {
             columns,
             data,
+            defaultColumn,
             initialState: { pageSize: 1 },
             manualPagination: true,
             manualSortBy: true,
@@ -31,6 +56,7 @@ const MyTable = ({ url, columns }) => {
         useSortBy,
         usePagination
     );
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -38,13 +64,10 @@ const MyTable = ({ url, columns }) => {
                     PageNumber: pageIndex,
                     PageSize: pageSize,
                     SortBy: sortBy,
-                    ...filters,
+                    ...filters.reduce((acc, { id, value }) => ({ ...acc, [id]: value }), {}),
                 };
 
-                // Build the query string
                 const queryString = buildQueryString(queryParams);
-
-                // Construct the full URL with query parameters
                 const fullUrl = `${url}?${queryString}`;
 
                 await FuncHTTPReq({
@@ -70,41 +93,54 @@ const MyTable = ({ url, columns }) => {
         if (newPageIndex >= 1 && newPageIndex <= Math.ceil(totalItems / pageSize)) {
             setPageIndex(newPageIndex);
         }
-    }
-    
+    };
+
     const totalPages = Math.ceil(totalItems / pageSize);
     const firstItemIndex = (pageIndex - 1) * pageSize + 1;
     const lastItemIndex = Math.min(pageIndex * pageSize, totalItems);
 
-
     const handlePageSizeChange = (newPageSize) => {
         setPageSize(newPageSize);
-        setPageIndex(1)
+        setPageIndex(1);
     };
+
     return (
         <div className="table-container">
             <table {...getTableProps()} className="my-table">
                 <thead>
-                    {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()} key={`header-${headerGroup.id}`}>
-                            {headerGroup.headers.map((column) => (
-                                <th
-                                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                                    key={`column-${column.id}`}
-                                >
-                                    {column.render('Header')}
-                                    <span>
-                                        {column.isSorted
-                                            ? column.isSortedDesc
-                                                ? ' 🔽'
-                                                : ' 🔼'
-                                            : ''}
-                                    </span>
-                                </th>
-                            ))}
-                        </tr>
+                    {headerGroups.map(headerGroup => (
+                        <React.Fragment key={`header-group-${headerGroup.id}`}>
+                            <tr {...headerGroup.getHeaderGroupProps()} key={`tile-group-${headerGroup.id}`}>
+                                {headerGroup.headers.map(column => (
+                                    <th
+                                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                                        key={`header-${column.id}`}
+                                    >
+                                        {column.render('Header')}
+                                        <span>
+                                            {column.isSorted
+                                                ? column.isSortedDesc
+                                                    ? ' 🔽'
+                                                    : ' 🔼'
+                                                : ''}
+                                        </span>
+                                    </th>
+                                ))}
+                            </tr>
+                            <tr {...headerGroup.getHeaderGroupProps()} key={`filter-group-${headerGroup.id}`}>
+                                {headerGroup.headers.map(column => {
+                                    return column.canFilter ? (
+                                        <th key={`filter-${column.id}`}>
+                                            {column.render('Filter')}
+                                        </th>
+                                    ) : <th key={`filter-${column.id}`}></th>;
+                                })}
+                            </tr>
+
+                        </React.Fragment>
                     ))}
                 </thead>
+
                 <tbody {...getTableBodyProps()}>
                     {rows.map((row) => {
                         prepareRow(row);
@@ -137,16 +173,16 @@ const MyTable = ({ url, columns }) => {
                     <div className="rows-info">
                         {firstItemIndex}-{lastItemIndex} of {totalItems}
                     </div>
-                    <button 
-                        onClick={() => handlePageChange(pageIndex - 1)} 
-                        disabled={pageIndex === 1} 
+                    <button
+                        onClick={() => handlePageChange(pageIndex - 1)}
+                        disabled={pageIndex === 1}
                         className="pagination-button"
                     >
                         {'<'}
                     </button>
-                    <button 
-                        onClick={() => handlePageChange(pageIndex + 1)} 
-                        disabled={(pageIndex) * pageSize >= totalItems} 
+                    <button
+                        onClick={() => handlePageChange(pageIndex + 1)}
+                        disabled={(pageIndex) * pageSize >= totalItems}
                         className="pagination-button"
                     >
                         {'>'}

@@ -1,9 +1,10 @@
-import { combineReducers } from 'redux';
 import genericReducer from './genericReducer';
 
-const rootReducer = combineReducers({
-  entities: genericReducer, 
-
-});
+const rootReducer = (state = {}, action) => {
+  return {
+    ...state,
+    ...genericReducer(state, action),
+  };
+};
 
 export default rootReducer;

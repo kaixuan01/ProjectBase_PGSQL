@@ -6,42 +6,36 @@ import { MyPageContainer } from './Control/MyPageContainer';
 import Login from './View/login';
 import MyTopBar from './Control/MyTopBar';
 import { useEffect, useState, useCallback } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { initData, updateData, deleteData } from './Redux/actions';
 function App() {
-  const [isLogin, setIsLogin] = useState(() => {
-    return localStorage.getItem('isLogin') === 'true';
-  });
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    localStorage.setItem('isLogin', isLogin);
-  }, [isLogin]);
-
-  const handleLogin = useCallback(() => {
-    setIsLogin(true);
+    // localStorage.setItem('isLogin', isLogin);
+    dispatch(initData('isLogin', 'NotLogin'));
   }, []);
-
-  const handleLogout = useCallback(() => {
-    setIsLogin(false);
-  }, []);
-
+  var isLogin = useSelector((state) => state.isLogin);
+  console.log(isLogin);
   return (
     <div className='app-container'>
-      {isLogin ? (
+      {isLogin === 'Login' ? (
         <Router>
           <div className="app-container">
-            <MyTopBar onLogout={handleLogout} />
+            <MyTopBar/>
             <div className="d-flex">
               <div className="my-sidebar">
-                <MySidebar setIsLogin={setIsLogin} />
+                <MySidebar/>
               </div>
               <div className="my-page-container">
-                <MyPageContainer />
+                <MyPageContainer/>
               </div>
             </div>
           </div>
         </Router>
       ) : (
-        <Login onLogin={handleLogin} />
+        <Login />
       )}
     </div>
   );

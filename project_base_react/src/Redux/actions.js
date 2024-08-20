@@ -5,9 +5,9 @@ export const initData = (entity, data) => ({
   payload: { entity, data },
 });
 
-export const updateData = (entity, id, updates) => ({
+export const updateData = (entity, data) => ({
   type: UPDATE_DATA,
-  payload: { entity, id, updates },
+  payload: { entity, data },
 });
 
 export const deleteData = (entity, id) => ({

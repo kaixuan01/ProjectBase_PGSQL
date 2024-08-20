@@ -2,38 +2,37 @@ import { INIT_DATA, UPDATE_DATA, DELETE_DATA, SET_ERROR } from './actionsTypes';
 
 const genericReducer = (state = {}, action) => {
   const { entity, data, id, updates, error } = action.payload || {};
-
+console.log(data)
   switch (action.type) {
     case INIT_DATA:
       return {
         ...state,
-        [entity]: { data: data || [], error: null },
+        [entity]: data,
       };
-    case UPDATE_DATA:
-      if (!state[entity]) return state;
-      return {
-        ...state,
-        [entity]: {
-          ...state[entity],
-          data: state[entity].data.map((item) =>
-            item.id === id ? { ...item, ...updates } : item
-          ),
-        },
-      };
+
+      case UPDATE_DATA:
+        return {
+          ...state,
+          [entity]: 
+            data
+          ,
+        };
+
     case DELETE_DATA:
-      if (!state[entity]) return state;
       return {
         ...state,
-        [entity]: {
-          ...state[entity],
-          data: state[entity].data.filter((item) => item.id !== id),
-        },
+        [entity]: (state[entity] || []).filter(item => item.id !== id),
       };
+
     case SET_ERROR:
       return {
         ...state,
-        [entity]: { ...(state[entity] || {}), error },
+        errors: {
+          ...state.errors,
+          [entity]: error,
+        },
       };
+
     default:
       return state;
   }

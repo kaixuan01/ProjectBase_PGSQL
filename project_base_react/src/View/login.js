@@ -3,16 +3,16 @@ import { Card, CardBody, CardFooter, CardHeader, Container, Button } from 'react
 import '../CSS/base.css'
 import HTTPReq from '../Control/HTTPReq';
 import MyInputField from '../Control/MyInputField';
-import { showSuccessAlert } from '../Common/common';
+import { useAuthHandlers } from '../Hook/AuthHandlers';
 
-export default function Login({onLogin}) {
+export default function Login() {
     const [username, SetUsername] = useState('');
     const [password, SetPassword] = useState('');
 
+    const { handleLogin } = useAuthHandlers();
     const successLogin = useCallback((result) => {
-        showSuccessAlert(result.message);
-        onLogin();
-    }, []);
+        handleLogin()
+    }, [handleLogin]);
 
     return (
         <Container className="d-flex justify-content-center align-items-center min-vh-100">

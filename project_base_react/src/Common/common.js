@@ -1,5 +1,8 @@
 import Swal from 'sweetalert2';
-
+import { useDispatch } from 'react-redux';
+import { updateData } from '../Redux/actions';
+import { useAuthHandlers } from '../Hook/AuthHandlers';
+import Cookies from 'js-cookie';
 // Basic alert
 export const showBasicAlert = (title, text, icon = 'info') => {
   Swal.fire({
@@ -63,3 +66,4 @@ export const showConfirmAlert = ({
 export const buildQueryString = (params) => {
   return new URLSearchParams(params).toString();
 };
+
