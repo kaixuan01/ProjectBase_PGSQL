@@ -87,7 +87,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 var reactSettings = builder.Configuration.GetSection("ReactSettings");
-var reactBaseUrl = jwtSettings["BaseUrl"];
+var reactBaseUrl = reactSettings["BaseUrl"];
 
 
 builder.Services.AddCors(options =>
