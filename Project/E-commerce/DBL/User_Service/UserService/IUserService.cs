@@ -1,6 +1,6 @@
 ﻿using DAL.Entity;
-using DAL.Tools.ListingHelper;
-using DBL.Shared.Class;
+using DAL.Repository.UserRP.UserRepository.Class;
+using DAL.Shared.Class;
 using DBL.User_Service.UserService.UserActionClass;
 
 namespace DBL.User_Service.UserService
@@ -8,7 +8,7 @@ namespace DBL.User_Service.UserService
     public interface IUserService
     {
         // ## Get User
-        Task<PagedResult<dynamic>> GetPagedListAsync(FilterParameters filterParameters);
+        Task<UserListing_RESP> GetUserListingAsync(UserListing_REQ oReq);
         Task<T_User> GetByIdAsync(string id);
 
         // ## Get User Role
@@ -21,6 +21,9 @@ namespace DBL.User_Service.UserService
 
         // ## Login Verify
         Task<VerifyUser_RESP> VerifyUserAsync(VerifyUser_REQ user);
+        // ## Update Logout
+        Task UpdateUserLogoutAsync(string username);
+
 
         // ## Block / Unblock user
         Task<ShareResp> SetUserStatusAsync(string id);

@@ -1,5 +1,5 @@
 ﻿using DAL.Entity;
-using DBL.Shared.Class;
+using DAL.Shared.Class;
 
 namespace DBL.SystemConfig_Service
 {

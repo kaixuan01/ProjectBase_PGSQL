@@ -1,3 +1,4 @@
+using DAL.Repository.UserRP.UserRepository.Class;
 using DBL.User_Service.UserService;
 using DBL.User_Service.UserService.UserActionClass;
 using E_commerce.Tools;
@@ -65,11 +66,23 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("Logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             try
             {
                 ClearCookies();
+
+                // Retrieve the username from HttpContext.Items
+                if (HttpContext.Items.TryGetValue("Username", out var username))
+                {
+                    // Use the username
+                    string usernameStr = username as string;
+
+                    LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Update User Login History, Username: {username}");
+
+                    // Update user logout
+                    await _userService.UpdateUserLogoutAsync(usernameStr);
+                }
 
                 var response = ApiResponse<string>.CreateSuccessResponse(null, "Logout successful");
 
@@ -78,6 +91,7 @@ namespace E_commerce.Controllers
             catch (Exception ex)
             {
                 var response = ApiResponse<string>.CreateErrorResponse($"Logout failed, Exception: {ex.Message}");
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when logout, Exception: {ex.Message}");
 
                 return Ok(response);
             }

@@ -1,12 +1,14 @@
 ﻿using DAL.Entity;
 using DAL.Repository.UserRP.UserRepository;
+using DAL.Repository.UserRP.UserRepository.Class;
+using DAL.Shared.Class;
 using DAL.Tools.ListingHelper;
 using DBL.AuditTrail_Service;
-using DBL.Shared.Class;
 using DBL.SystemConfig_Service;
 using DBL.Tools;
 using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.UserActionClass;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Utils;
 using Utils.Enums;
@@ -31,13 +33,48 @@ namespace DBL.User_Service.UserService
 
         #region [ Get User ]
 
-        public async Task<PagedResult<dynamic>> GetPagedListAsync(FilterParameters filterParameters)
+        public async Task<UserListing_RESP> GetUserListingAsync(UserListing_REQ oReq)
         {
-            var oUserList = await _userRepository.GetPagedListDynamicAsync(filterParameters, true, "Password");
+            var rtnValue = new UserListing_RESP();
 
-            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Response User List: {JsonConvert.SerializeObject(oUserList)}");
+            try
+            {
+                var userQuery = await _userRepository.GetUserListing(oReq);
 
-            return oUserList;
+                // Apply sorting
+                if (!string.IsNullOrEmpty(oReq.SortBy))
+                {
+                    userQuery = oReq.SortDescending == true
+                        ? userQuery.OrderByDescending(e => EF.Property<object>(e, oReq.SortBy))
+                        : userQuery.OrderBy(e => EF.Property<object>(e, oReq.SortBy));
+                }
+                else
+                {
+                    userQuery = userQuery.OrderBy(u => u.Username); // Default sorting
+                }
+
+                rtnValue.UserList.TotalCount = userQuery.Count();
+
+                // Apply pagination
+                var pagedUsers = await userQuery
+                    .Skip((oReq.PageNumber - 1) * oReq.PageSize)
+                    .Take(oReq.PageSize)
+                    .ToListAsync();
+
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Response User List: {JsonConvert.SerializeObject(pagedUsers)}");
+
+                rtnValue.UserList.Items = pagedUsers;
+                rtnValue.Code = RespCode.RespCode_Success;
+                rtnValue.Message = "Get User List succesful";
+            }
+            catch (Exception ex)
+            {
+                rtnValue.Code = RespCode.RespCode_Exception;
+                rtnValue.Message = ex.Message;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
+            }
+
+            return rtnValue;
         }
 
         public async Task<T_User> GetByIdAsync(string id)
@@ -87,12 +124,11 @@ namespace DBL.User_Service.UserService
                 var createUser = new T_User
                 {
                     Id = IdGeneratorHelper.GenerateId(),
-                    UserName = oUser.username,
+                    Username = oUser.username,
                     Password = oUser.password,
                     Name = oUser.name,
                     Email = oUser.email,
                     Phone = oUser.phone,
-                    Address = oUser.address,
                     UserRoleId = oUser.userRoleId
                 };
 
@@ -160,7 +196,6 @@ namespace DBL.User_Service.UserService
 
                 oUser.Name = oReq.name;
                 oUser.Email = oReq.email;
-                oUser.Address = oReq.address;
                 oUser.Phone = oReq.phone;
                 oUser.UserRoleId = oReq.userRoleId;
 
@@ -182,6 +217,30 @@ namespace DBL.User_Service.UserService
             return rtnValue;
         }
 
+        public async Task UpdateUserLogoutAsync(string username)
+        {
+            try
+            {
+
+                var oUser = await _userRepository.GetByUsernameAsync(username);
+
+                if (oUser == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. Username: {username}");
+
+                    return ;
+                }
+                // Used to create audit trail record
+
+                await _userLoginHistoryService.UpdateUserLogoutByUserIdAsync(oUser.Id);
+
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Name: {username}");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
+            }
+        }
 
         #endregion
 

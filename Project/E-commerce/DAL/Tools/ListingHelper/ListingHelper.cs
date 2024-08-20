@@ -35,20 +35,6 @@ namespace DAL.Tools.ListingHelper
             {
                 query = query.SearchByFields(parameters.SearchTerm);
             }
-            else
-            {
-                if (parameters.ColumnSearchTerms != null && parameters.ColumnSearchTerms.Any())
-                {
-                    foreach (var columnSearchTerm in parameters.ColumnSearchTerms)
-                    {
-                        if (!string.IsNullOrEmpty(columnSearchTerm.Value))
-                        {
-                            // Apply search to specific columns
-                            query = query.Where($"{columnSearchTerm.Key}.Contains(@0)", columnSearchTerm.Value);
-                        }
-                    }
-                }
-            }
 
             if (!string.IsNullOrEmpty(parameters.SortBy) && parameters.SortDescending.HasValue)
             {
@@ -83,20 +69,6 @@ namespace DAL.Tools.ListingHelper
             if (!string.IsNullOrEmpty(parameters.SearchTerm))
             {
                 query = query.SearchByFields(parameters.SearchTerm);
-            }
-            else
-            {
-                if (parameters.ColumnSearchTerms != null && parameters.ColumnSearchTerms.Any())
-                {
-                    foreach (var columnSearchTerm in parameters.ColumnSearchTerms)
-                    {
-                        if (!string.IsNullOrEmpty(columnSearchTerm.Value))
-                        {
-                            // Apply search to specific columns
-                            query = query.Where($"{columnSearchTerm.Key}.Contains(@0)", columnSearchTerm.Value);
-                        }
-                    }
-                }
             }
 
             if (!string.IsNullOrEmpty(parameters.SortBy) && parameters.SortDescending.HasValue)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Security.Claims;
 using System.Text;
 using Utils.Enums;
 using Utils.Tools;
@@ -71,15 +72,29 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole(Enum_UserRole.Admin.ToString()));
-    options.AddPolicy("UserOnly", policy => policy.RequireRole(Enum_UserRole.NormalUser.ToString()));
+    options.AddPolicy("CustomMerchantAccess", policy =>
+        policy.RequireAssertion(context =>
+        {
+            var userRole = context.User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (userRole == Enum_UserRole.Admin.ToString() || userRole == Enum_UserRole.Merchant.ToString())
+            {
+                return true; // Admins & Merchant have access
+            }
+
+            return false;
+        }));
 });
+
+var reactSettings = builder.Configuration.GetSection("ReactSettings");
+var reactBaseUrl = jwtSettings["BaseUrl"];
+
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost",
         builder => builder
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins(reactBaseUrl)
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()); // Allow credentials like cookies

@@ -8,12 +8,11 @@ namespace DAL.Entity
     {
         [MaxLength(20)]
         public string Id { get; set; }
-        public string? UserName { get; set; }
+        public string? Username { get; set; }
         public string? Password { get; set; }
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
-        public string? Address { get; set; }
         public int UserRoleId { get; set; }  // Foreign Key for UserRole
 
         // Non-nullable with default value of 0

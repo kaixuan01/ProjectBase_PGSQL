@@ -1,16 +1,85 @@
 ﻿using DAL.Entity;
-using DAL.Tools.ListingHelper;
+using DAL.Repository.UserRP.UserRepository.Class;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+using Utils;
 
 namespace DAL.Repository.UserRP.UserRepository
 {
-    public class UserRepository : ListingHelper<T_User>, IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly MyDbContext _myDbContext;
 
-        public UserRepository(MyDbContext context) : base(context)
+        public UserRepository(MyDbContext context)
         {
             _myDbContext = context;
+        }
+
+        public async Task<IQueryable<UserL>> GetUserListing(UserListing_REQ oReq)
+        {
+            var query = _myDbContext.T_User
+                .Include(u => u.UserRole) // Include UserRole for role name mapping
+                .AsQueryable();
+
+            // Apply filters
+            if (!string.IsNullOrEmpty(oReq.SearchTerm))
+            {
+                query = query.Where(u =>
+                    u.Username.Contains(oReq.SearchTerm) ||
+                    u.Name.Contains(oReq.SearchTerm) ||
+                    u.Email.Contains(oReq.SearchTerm) ||
+                    u.Phone.Contains(oReq.SearchTerm) ||
+                    u.UserRole.Name.Contains(oReq.SearchTerm)
+                );
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(oReq.Username))
+                {
+                    query = query.Where(u => u.Username.Contains(oReq.Username));
+                }
+
+                if (!string.IsNullOrEmpty(oReq.Name))
+                {
+                    query = query.Where(u => u.Name.Contains(oReq.Name));
+                }
+
+                if (!string.IsNullOrEmpty(oReq.Email))
+                {
+                    query = query.Where(u => u.Email.Contains(oReq.Email));
+                }
+
+                if (!string.IsNullOrEmpty(oReq.Phone))
+                {
+                    query = query.Where(u => u.Phone.Contains(oReq.Phone));
+                }
+
+                if (!string.IsNullOrEmpty(oReq.Role))
+                {
+                    var roleIds = oReq.Role.Split(',').Select(int.Parse).ToList();
+                    query = query.Where(u => roleIds.Contains(u.UserRoleId));
+                }
+
+                if (oReq.Status.HasValue)
+                {
+                    // Apply status filter
+                    query = query.Where(u => u.IsBlocked == oReq.Status.Value);
+                }
+            }
+
+            var result = query
+                .Select(u => new UserL
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    Name = u.Name,
+                    Email = u.Email,
+                    Phone = u.Phone,
+                    Role = u.UserRole.Name, // Map UserRole.Name to role
+                    Status = u.IsBlocked ? "Blocked" : "Active" // Map status
+                });
+
+            return result;
         }
 
         #region [ Get T_User ]
@@ -22,7 +91,7 @@ namespace DAL.Repository.UserRP.UserRepository
 
         public async Task<T_User> GetByUsernameAsync(string username)
         {
-            return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.UserName == username);
+            return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.Username == username);
         }
 
         #endregion
@@ -62,9 +131,10 @@ namespace DAL.Repository.UserRP.UserRepository
         public async Task<int> GetUserRoleByUsernameAsync(string username)
         {
             return await _myDbContext.T_User
-                .Where(x => x.UserName == username)
+                .Where(x => x.Username == username)
                 .Select(x => x.UserRoleId)
                 .FirstOrDefaultAsync();
         }
+
     }
 }

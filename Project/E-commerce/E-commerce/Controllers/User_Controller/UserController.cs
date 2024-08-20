@@ -1,4 +1,5 @@
 ﻿using DAL.Entity;
+using DAL.Repository.UserRP.UserRepository.Class;
 using DAL.Tools.ListingHelper;
 using DBL.User_Service.UserService;
 using DBL.User_Service.UserService.UserActionClass;
@@ -27,23 +28,40 @@ namespace E_commerce.Controllers.User_Controller
 
         [HttpGet]
         [Route("GetUserList")]
-        public async Task<IActionResult> GetUserList([FromQuery] FilterParameters filterParameters)
+        public async Task<IActionResult> GetUserList([FromQuery] UserListing_REQ oReq)
         {
-            ApiResponse<PagedResult<dynamic>>? apiResponse = null;
-            LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request Get User List, FilterParameters: {JsonConvert.SerializeObject(filterParameters)}");
+            ApiResponse<PagedResult<UserL>>? apiResponse = null;
+            LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request Get User List, User Listing Request: {JsonConvert.SerializeObject(oReq)}");
 
             try
             {
-                var result = await _userService.GetPagedListAsync(filterParameters);
+                var oResp = await _userService.GetUserListingAsync(oReq);
 
-                // Create a success response using ApiResponse<T>
-                apiResponse = ApiResponse<PagedResult<dynamic>>.CreateSuccessResponse(result, "Get User List Successful");
+                switch (oResp.Code)
+                {
+                    case RespCode.RespCode_Success:
+                        // Create a success response using ApiResponse<T>
+                        apiResponse = ApiResponse<PagedResult<UserL>>.CreateSuccessResponse(oResp.UserList, "Get User List Successful");
+                        break;
+
+                    case RespCode.RespCode_Failed:
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<PagedResult<UserL>>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                    default: // Default is throw exception message
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<PagedResult<UserL>>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                        // return Unauthorized();
+                }
             }
             catch (Exception ex)
             {
                 LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when Get User List, Message: {ex.Message}", ex);
 
-                apiResponse = ApiResponse<PagedResult<dynamic>>.CreateErrorResponse($"Get User List Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<PagedResult<UserL>>.CreateErrorResponse($"Get User List Failed. Exception: {ex.Message}");
             }
 
             return Ok(apiResponse);
@@ -77,7 +95,7 @@ namespace E_commerce.Controllers.User_Controller
 
         [HttpPost]
         [Route("AddUser")]
-        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
+        [Authorize(Policy = "CustomMerchantAccess")]
         public async Task<IActionResult> AddUser([FromBody] CreateUser_REQ oUser)
         {
             ApiResponse<string>? apiResponse = null;
@@ -126,7 +144,7 @@ namespace E_commerce.Controllers.User_Controller
 
         [HttpPost]
         [Route("EditUser")]
-        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
+        [Authorize(Policy = "CustomMerchantAccess")]
         public async Task<IActionResult> EditUser([FromBody] EditUser_REQ oUser)
         {
             ApiResponse<string>? apiResponse = null;
@@ -175,7 +193,7 @@ namespace E_commerce.Controllers.User_Controller
 
         [HttpPost]
         [Route("DeleteUser")]
-        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
+        [Authorize(Policy = "CustomMerchantAccess")]
         public async Task<IActionResult> DeleteUser([FromBody] string userId)
         {
             ApiResponse<string>? apiResponse = null;
@@ -222,7 +240,7 @@ namespace E_commerce.Controllers.User_Controller
 
         [HttpPost]
         [Route("SetUserStatus")]
-        [Authorize(Roles = nameof(Enum_UserRole.Admin))]
+        [Authorize(Policy = "CustomMerchantAccess")]
         public async Task<IActionResult> SetUserStatus([FromBody] string userId)
         {
             ApiResponse<string>? apiResponse = null;

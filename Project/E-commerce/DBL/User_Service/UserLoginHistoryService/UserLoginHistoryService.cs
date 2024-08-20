@@ -1,8 +1,10 @@
 ﻿using DAL.Entity;
 using DAL.Repository.UserRP.UserLoginHistoryRepository;
+using DAL.Shared.Class;
 using DAL.Tools.ListingHelper;
-using DBL.Shared.Class;
+using DBL.Tools;
 using Utils;
+using Utils.Enums;
 
 namespace DBL.User_Service.UserLoginHistoryService
 {
@@ -13,14 +15,6 @@ namespace DBL.User_Service.UserLoginHistoryService
         public UserLoginHistoryService(IUserLoginHistoryRepository userLoginHistoryRepository)
         {
             _userLoginHistoryRepository = userLoginHistoryRepository;
-        }
-
-        public async Task<List<T_UserLoginHistory>> GetAllUserLoginHistoryAsync()
-        {
-            var oUserLoginHistoryList = await _userLoginHistoryRepository.GetAllAsync();
-
-
-            return oUserLoginHistoryList;
         }
 
         public async Task<ShareResp> CreateAsync(T_UserLoginHistory oUserLoginHistory)
@@ -49,6 +43,20 @@ namespace DBL.User_Service.UserLoginHistoryService
             var oUserLoginHistoryList = await _userLoginHistoryRepository.GetPagedListAsync(filterParameters, includeForeignRelationship);
 
             return oUserLoginHistoryList;
+        }
+
+        public async Task UpdateUserLogoutByUserIdAsync(string UserId)
+        {
+            var record = await _userLoginHistoryRepository.GetUserLoginHistoryByUserIdAsync(UserId);
+
+            if (record == null)
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Login History not found. User Id: {UserId}");
+            }
+
+            record.LogoutDateTime = DateTime.Now;
+
+            await _userLoginHistoryRepository.UpdateAsync(record);
         }
     }
 }

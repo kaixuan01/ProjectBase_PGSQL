@@ -7,9 +7,6 @@
         public int PageSize { get; set; } = 10;
         public string? SortBy { get; set; }
         public bool? SortDescending { get; set; } = false;
-
-        // For column-specific searches
-        public Dictionary<string, string>? ColumnSearchTerms { get; set; }
     }
 
     public class PagedResult<T>

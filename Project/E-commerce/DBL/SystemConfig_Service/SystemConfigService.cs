@@ -1,7 +1,7 @@
 ﻿using DAL.Entity;
 using DAL.Repository.SystemConfigRP;
+using DAL.Shared.Class;
 using DBL.AuditTrail_Service;
-using DBL.Shared.Class;
 using DBL.Tools;
 using Utils;
 using Utils.Enums;
