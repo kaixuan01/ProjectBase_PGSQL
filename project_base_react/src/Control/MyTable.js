@@ -20,7 +20,7 @@ export const DefaultColumnFilter = ({
     />
 );
 
-const MyTable = ({ url, columns, supportFliter }) => {
+const MyTable = ({ url, columns }) => {
     const [data, setData] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [pageIndex, setPageIndex] = useState(1);
@@ -63,7 +63,8 @@ const MyTable = ({ url, columns, supportFliter }) => {
                 const queryParams = {
                     PageNumber: pageIndex,
                     PageSize: pageSize,
-                    SortBy: sortBy,
+                    SortBy: sortBy[0] ? sortBy[0].id : '',
+                    SortDescending: sortBy[0] ? sortBy[0].desc : false,
                     ...filters.reduce((acc, { id, value }) => ({ ...acc, [id]: value }), {}),
                 };
 

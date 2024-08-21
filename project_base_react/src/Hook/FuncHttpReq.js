@@ -57,11 +57,11 @@ export const useFuncHTTPReq = () => {
 
       if (responseType === 'json' && result.success) {
         if (onSuccess) {
-          const data = {
-            ...result.data,
-            message: result.message
-          };
-          onSuccess(data);
+          // const data = {
+          //   ...result.data,
+          //   message: result.message
+          // };
+          onSuccess(result.data, result.message);
         }
       } else {
         showErrorAlert(result.message);
@@ -69,6 +69,7 @@ export const useFuncHTTPReq = () => {
       }
     } catch (error) {
       if (onError) {
+        showErrorAlert(error);
         onError(error);
       } else {
         console.error('HTTP Request Failed:', error);

@@ -2,7 +2,6 @@ import { INIT_DATA, UPDATE_DATA, DELETE_DATA, SET_ERROR } from './actionsTypes';
 
 const genericReducer = (state = {}, action) => {
   const { entity, data, id, updates, error } = action.payload || {};
-console.log(data)
   switch (action.type) {
     case INIT_DATA:
       return {

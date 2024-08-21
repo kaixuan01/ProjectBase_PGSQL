@@ -10,7 +10,7 @@ export default function Login() {
     const [password, SetPassword] = useState('');
 
     const { handleLogin } = useAuthHandlers();
-    const successLogin = useCallback((result) => {
+    const successLogin = useCallback(() => {
         handleLogin()
     }, [handleLogin]);
 

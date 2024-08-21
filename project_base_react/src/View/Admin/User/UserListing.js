@@ -1,33 +1,46 @@
 import MyTable from "../../../Control/MyTable"
-import React from "react";
-import { DefaultColumnFilter } from "../../../Control/MyTable";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { InputFilter, MultiSelectFilter } from "../../../Control/TableControl";
+import { useFuncHTTPReq } from "../../../Hook/FuncHttpReq";
 export default function UserListing() {
-    var isLogin = useSelector((state) => state.user);
-    console.log(isLogin);
+    const [userRole, setUserRole] = useState([]);
+
+    console.log(userRole)
+    const { FuncHTTPReq } = useFuncHTTPReq();
+
+
+    useEffect(() => {
+    async function fetchData() {
+            await FuncHTTPReq({
+                url: '/UserRole/GetRoleList',
+                method: 'GET',
+                onSuccess: (data) => {
+                    setUserRole(data)
+                }
+            });
+    }
+    fetchData();
+    }, []);
+
+
     const columns = React.useMemo(() => [
-        {
-            Header: 'ID',
-            accessor: 'id',
-            disableFilters: true,
-            allowSort: true,
-        },
         {
             Header: 'Name',
             accessor: 'name',
-            disableFilters: true,
-            allowSort: true
+            Filter: InputFilter,
         },
         {
             Header: 'Username',
-            accessor: 'userName',
-            disableFilters: true,
-            allowSort: true
+            accessor: 'username',
+            allowSort: true,
+            Cell: ({ value }) => { return value }
         },
         {
             Header: 'Email',
             accessor: 'email',
-            allowSort: true
+            allowSort: true,
+            Filter: InputFilter,
+            disableFilters: true
         },
         {
             Header: 'Phone',
@@ -36,12 +49,12 @@ export default function UserListing() {
         },
         {
             Header: 'User Role',
-            accessor: 'userRole',
-            allowFliter: true,
+            accessor: 'role',
             allowSort: true,
-            Cell: ({ value }) => { return value.description }
+            Filter: (props) => <MultiSelectFilter {...props} options={userRole} />,
+            Cell: ({ value }) => { return value }
         }
-    ], []);
+    ], [userRole]);
 
 
     return <>

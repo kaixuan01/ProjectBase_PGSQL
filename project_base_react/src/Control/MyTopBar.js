@@ -6,7 +6,6 @@ export default function MyTopBar() {
   const { handleLogout } = useAuthHandlers();
 
   const successLogout = useCallback((result) => {
-    // showSuccessAlert(result.message);
     handleLogout();
   }, []);
 
