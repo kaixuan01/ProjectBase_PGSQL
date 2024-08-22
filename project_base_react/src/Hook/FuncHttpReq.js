@@ -1,6 +1,6 @@
 import { useAuthHandlers } from "./AuthHandlers";
 import Cookies from "js-cookie";
-import { showErrorAlert } from "../Common/common";
+import { showErrorAlert } from "../Common/Common";
 export const useFuncHTTPReq = () => {
   const { handleLogout } = useAuthHandlers();
 

@@ -15,7 +15,6 @@ export const MultiSelectFilter = ({ column: { filterValue, setFilter, Header }, 
         label: option.name,
     }));
 
-    // Find the names of the selected options based on the filterValue
     const selectedNames = filterValue
         ? filterValue.map(selected => {
             const matchedOption = options.find(option => option.id === selected);

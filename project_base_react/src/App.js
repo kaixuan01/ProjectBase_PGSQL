@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MySidebar from './Control/MySidebar';
 import { MyPageContainer } from './Control/MyPageContainer';
-import Login from './View/login';
+import Login from './View/Login';
 import MyTopBar from './Control/MyTopBar';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

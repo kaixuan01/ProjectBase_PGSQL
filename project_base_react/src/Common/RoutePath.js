@@ -1,6 +1,6 @@
 // routes.js
 import { faDashboard, faGear, faList, faShield, faUser } from "@fortawesome/free-solid-svg-icons";
-import Dashboard from "../View/dashboard";
+import Dashboard from "../View/Dashboard.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserListing from "../View/Admin/User/UserListing";
 const myURLRoutes = [

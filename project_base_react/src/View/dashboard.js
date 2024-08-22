@@ -1,7 +1,7 @@
 import React, { useEffect }  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { initData, updateData, deleteData } from '../Redux/actions';
-import { Row, Col, Container } from 'reactstrap';
+import { initData } from '../Redux/actions';
+import { Row, Col } from 'reactstrap';
 const Dashboard = () => {
   const dispatch = useDispatch();
   useSelector((state) => {console.log(state)});
@@ -28,6 +28,49 @@ const Dashboard = () => {
     <Row><Col>123</Col></Row>
     <Row><Col>123</Col></Row>
     <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+
+
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+    <Row><Col>123</Col></Row>
+
     </>
   );
 };

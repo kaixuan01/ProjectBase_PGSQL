@@ -9,7 +9,6 @@ export const useAuthHandlers = () => {
   };
 
   const handleLogout = () => {
-    console.log(123)
     dispatch(updateData('isLogin', 'NotLogin'));
   };
 

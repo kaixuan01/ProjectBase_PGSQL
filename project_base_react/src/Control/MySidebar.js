@@ -10,7 +10,7 @@ export default function MySidebar() {
     const location = useLocation();
 
     const SidebarHeader = () => (
-        <div style={{ display: 'flex', alignItems: 'center', padding: '15px', backgroundColor: '#2E3B4E',whiteSpace: 'nowrap' }} className='ms-1'>
+        <div style={{ display: 'flex', alignItems: 'center', padding: '15px', backgroundColor: '#2E3B4E',whiteSpace: 'nowrap', width: 'auto' }}>
             <div
                 style={{
                     width: '40px',
@@ -48,7 +48,7 @@ export default function MySidebar() {
 
     return (
         <Sidebar
-            style={{ height: "94vh", display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+            style={{ height: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
             collapsed={collapse}
             backgroundColor='#2E3B4E'
         >

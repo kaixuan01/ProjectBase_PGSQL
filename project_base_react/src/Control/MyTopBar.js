@@ -1,43 +1,40 @@
 import React, { useCallback } from 'react';
-import { Navbar, NavbarBrand, Button, Badge } from 'reactstrap';
+import { Navbar, NavbarBrand, Button } from 'reactstrap';
 import HTTPReq from '../Control/HTTPReq';
 import { useAuthHandlers } from '../Hook/AuthHandlers';
-export default function MyTopBar() {
-  const { handleLogout } = useAuthHandlers();
+import styles from '../CSS/TopBar.module.css'; // Import CSS module
 
-  const successLogout = useCallback((result) => {
+export default function MyTopBar() {
+  const { handleLogout, userName } = useAuthHandlers(); // Assuming useAuthHandlers provides userName
+
+  const successLogout = useCallback(() => {
     handleLogout();
-  }, []);
+  }, [handleLogout]);
 
   return (
-    <Navbar color="dark" dark expand="md" className="px-3">
-    <NavbarBrand href="/">
-        Project <span style={{ backgroundColor: '#f7ab1e', color: 'black', padding: '2px 6px', borderRadius: '4px' }}>Base</span>
-    </NavbarBrand>
+    <Navbar className={styles.navbar} dark expand="md" fixed="top">
+      <NavbarBrand href="/" className={styles.brand}>
+        Project <span className={styles.brandSpan}>Base</span>
+      </NavbarBrand>
       <div className="ml-auto d-flex align-items-center">
-      <img 
+        <span className={styles.welcomeMessage}>Welcome, {userName}!</span>
+        <img 
           src="/images/Winnie.png" 
           alt="User Icon" 
-          style={{ 
-            width: '45px', 
-            height: '45px', 
-            marginRight: '12px', 
-            borderRadius: '50%', 
-            objectFit: 'cover' 
-          }} 
+          className={styles.userIcon} 
         />
         <HTTPReq
-            method="POST"
-            url={`/OAuth/Logout`}
-            credentials='include'
-            onSuccess={(result) => successLogout(result)} >
-            {({ sendRequest }) => (
-                <Button color="secondary" onClick={sendRequest}>
-                  Logout
-                </Button>
-            )}
+          method="POST"
+          url={`/OAuth/Logout`}
+          credentials="include"
+          onSuccess={(result) => successLogout(result)}
+        >
+          {({ sendRequest }) => (
+            <Button color='danger' className={styles.logoutButton} onClick={sendRequest}>
+              Logout
+            </Button>
+          )}
         </HTTPReq>
-            
       </div>
     </Navbar>
   );

@@ -20,7 +20,7 @@ export default function UserListing() {
             });
     }
     fetchData();
-    }, []);
+    }, [FuncHTTPReq]);
 
 
     const columns = React.useMemo(() => [

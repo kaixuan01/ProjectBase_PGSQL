@@ -1,0 +1,32 @@
+.navbar {
+    background-color: #343a40; /* Dark background color */
+  }
+  
+  .brand {
+    color: #ffffff; /* White text color */
+  }
+  
+  .brandSpan {
+    background-color: #f7ab1e; /* Highlight color */
+    color: black;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .userIcon {
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .logoutButton {
+    color: #ffffff; /* White text color */
+  }
+  
+  .welcomeMessage {
+    color: #ffffff; /* White text color */
+    margin-right: 15px;
+  }
+  

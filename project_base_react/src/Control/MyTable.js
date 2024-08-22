@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import '../CSS/MyTable.css'; // Import the CSS file
-import { buildQueryString } from '../Common/common';
+import { buildQueryString } from '../Common/Common';
 import { Input } from 'reactstrap';
 import { useFuncHTTPReq } from '../Hook/FuncHttpReq';
 // Default filter UI for text columns
