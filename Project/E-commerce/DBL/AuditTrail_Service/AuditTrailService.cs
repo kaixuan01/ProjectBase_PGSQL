@@ -22,8 +22,11 @@ namespace DBL.AuditTrail_Service
             _auditTrailRepository = auditTrailRepository;
             _myDbContext = myDbContext;
             _httpContextAccessor = httpContextAccessor;
+            if (_httpContextAccessor.HttpContext != null)
+            {
+                username = _httpContextAccessor.HttpContext.Items["Username"] as string;
 
-            username = _httpContextAccessor.HttpContext.Items["Username"] as string;
+            }
         }
 
         public async Task CreateAuditTrailAsync<T>(string module, string action, T originalObject, T newObject)

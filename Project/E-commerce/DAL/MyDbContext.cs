@@ -18,6 +18,7 @@ namespace DAL
         public DbSet<T_AuditTrail> T_AuditTrail { get; set; }
         public DbSet<T_AuditTrailDetails> T_AuditTrailDetails { get; set; }
         public DbSet<T_SystemConfig> T_SystemConfig { get; set; }
+        public DbSet<T_Email> T_Email { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

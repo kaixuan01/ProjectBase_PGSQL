@@ -16,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
     .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
@@ -25,6 +24,7 @@ DBL.Tools.LogHelper.OnLogEvent += LogHelper.LogMessage;
 
 // Register AuthToken as a singleton
 builder.Services.AddSingleton<AuthToken>();
+builder.Services.AddSingleton<EncryptionHelper>();
 
 // Add services to the container.
 builder.Services.AddControllers(options =>

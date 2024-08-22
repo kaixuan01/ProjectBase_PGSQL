@@ -4,6 +4,7 @@ using DAL.Repository.UserRP.UserRepository.Class;
 using DAL.Shared.Class;
 using DAL.Tools.ListingHelper;
 using DBL.AuditTrail_Service;
+using DBL.Email_Service;
 using DBL.SystemConfig_Service;
 using DBL.Tools;
 using DBL.User_Service.UserLoginHistoryService;
@@ -22,13 +23,15 @@ namespace DBL.User_Service.UserService
         private readonly IUserRepository _userRepository;
         private readonly IUserLoginHistoryService _userLoginHistoryService;
         private readonly ISystemConfigService _systemConfigService;
+        private readonly IEmailService _emailService;
 
-        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService)
+        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService, IEmailService emailService)
         {
             _auditTrailService = auditTrailService;
             _userRepository = userRepository;
             _userLoginHistoryService = userLoginHistoryService;
             _systemConfigService = systemConfigService;
+            _emailService = emailService;
         }
 
         #region [ Get User ]
@@ -132,9 +135,14 @@ namespace DBL.User_Service.UserService
                     UserRoleId = oUser.userRoleId
                 };
 
+                // ## Create User Record
                 await _userRepository.CreateAsync(createUser);
 
+                // Insert Audit Trail Record
                 await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Create, null, createUser);
+
+                // ## Send Email
+                await _emailService.SendConfirmEmailAsync(createUser.Id, createUser.Name, createUser.Email);
 
                 rtnValue.UserId = createUser.Id;
                 rtnValue.Code = RespCode.RespCode_Success;

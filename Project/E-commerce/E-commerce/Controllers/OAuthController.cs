@@ -3,6 +3,7 @@ using DBL.User_Service.UserService;
 using DBL.User_Service.UserService.UserActionClass;
 using E_commerce.Tools;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Security.Claims;
 using Utils;
 using Utils.Enums;
@@ -26,6 +27,60 @@ namespace E_commerce.Controllers
             var jwtSettings = configuration.GetSection("JwtSettings");
             _expireMins = int.Parse(jwtSettings["ExpireMins"]);
         }
+
+        #region [ Register ]
+
+        [HttpPost]
+        [Route("RegisterAcc")]
+        public async Task<IActionResult> RegisterAcc([FromBody] CreateUser_REQ oUser)
+        {
+            ApiResponse<string>? apiResponse = null;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(oUser.password))
+                {
+                    oUser.password = PasswordHelper.HashPassword(oUser.password);
+                }
+
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to register account, Request: {JsonConvert.SerializeObject(oUser)}");
+
+                // User role as normal user when register account
+                oUser.userRoleId = (int)Enum_UserRole.NormalUser;
+                var oResp = await _userService.CreateAsync(oUser);
+
+                switch (oResp.Code)
+                {
+                    case RespCode.RespCode_Success:
+                        // Create a success response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateSuccessResponse(null, "Register account succesful. Please check your email to verify your account.");
+                        break;
+
+                    case RespCode.RespCode_Failed:
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                    default: // Default is throw exception message
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                        // return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                apiResponse = ApiResponse<String>.CreateErrorResponse($"Register Acc Failed. Exception: {ex.Message}");
+
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when register account, Message: {ex.Message}", ex);
+            }
+
+
+            return Ok(apiResponse);
+        }
+
+        #endregion
 
         [HttpPost(Name = "OAuth")]
         public async Task<IActionResult> OAuth([FromBody] VerifyUser_REQ user)
