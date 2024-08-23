@@ -22,8 +22,6 @@ namespace DBL.SystemConfig_Service
         public async Task<List<T_SystemConfig>> GetSystemConfigList()
         {
             var result = await _systemConfigRepository.GetAllAsync();
-            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Response System Config List: {JsonConvert.SerializeObject(result)}");
-
             return result;
          }
 
