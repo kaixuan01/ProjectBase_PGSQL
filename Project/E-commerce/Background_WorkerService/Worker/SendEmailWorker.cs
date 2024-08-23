@@ -85,7 +85,7 @@ namespace Background_WorkerService.Worker
                             sendEmailInterval = TimeSpan.FromSeconds(10); // Default to 10 seconds
                         }
 
-                        _logHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Send Email Function: {(enableSendEmail.Key.Contains("0") ? "Disabled" : "Enabled" )}, Interval Every {sendEmailInterval.TotalSeconds} Secs");
+                        _logHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Send Email Function: {(enableSendEmail.Value.Contains("0") ? "Disabled" : "Enabled" )}, Interval Every {sendEmailInterval.TotalSeconds} Secs");
 
                         // Check if sending emails is enabled
                         if (enableSendEmail?.Value != "1")
