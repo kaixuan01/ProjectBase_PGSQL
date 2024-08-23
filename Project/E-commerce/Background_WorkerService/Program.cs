@@ -21,9 +21,4 @@ builder.Services.AddHttpContextAccessor();
 
 var host = builder.Build();
 
-
-// Auto Create Database or Update Database table
-// Not sure can use in production or not
-host.CreatOrUpdateDatabase();
-
 host.Run();

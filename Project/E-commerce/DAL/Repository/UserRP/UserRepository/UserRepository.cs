@@ -96,14 +96,13 @@ namespace DAL.Repository.UserRP.UserRepository
 
         #endregion
 
-        public async Task<T_User> CreateAsync(T_User user)
+        public async Task CreateAsync(T_User user)
         {
             await _myDbContext.T_User.AddAsync(user);
             await _myDbContext.SaveChangesAsync();
-            return user;
         }
 
-        public async Task<string> UpdateAsync(T_User oUser)
+        public async Task UpdateAsync(T_User oUser)
         {
             // Attach the user entity to the context
             _myDbContext.Attach(oUser);
@@ -113,19 +112,12 @@ namespace DAL.Repository.UserRP.UserRepository
 
             // Save changes to the database
             await _myDbContext.SaveChangesAsync();
-
-            return oUser.Id;
         }
 
-        public async Task<string> DeleteAsync(T_User user)
+        public async Task DeleteAsync(T_User user)
         {
-            if (user != null)
-            {
-                _myDbContext.T_User.Remove(user);
-                await _myDbContext.SaveChangesAsync();
-            }
-
-            return user.Id;
+            _myDbContext.T_User.Remove(user);
+            await _myDbContext.SaveChangesAsync();
         }
 
         public async Task<int> GetUserRoleByUsernameAsync(string username)

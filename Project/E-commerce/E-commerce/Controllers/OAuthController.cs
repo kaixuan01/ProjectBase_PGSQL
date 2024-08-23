@@ -102,7 +102,7 @@ namespace E_commerce.Controllers
                             // Set the tokens in cookies
                             SetCookies(token, refreshToken);
 
-                            var response = ApiResponse<string>.CreateSuccessResponse(null, "Login successful");
+                            var response = ApiResponse<string>.CreateSuccessResponse(user.username, "Login successful");
                             return Ok(response);
 
                         case RespCode.RespCode_Failed:

@@ -6,7 +6,7 @@ namespace Utils.Tools
 {
     public static class GenerateUrlHelper
     {
-        public static string GenerateUrl(string baseUrl, string urlPath, string id = null, Dictionary<string, string>? queryParams = null)
+        public static string GenerateUrl(string baseUrl, string urlPath, string? id = null, Dictionary<string, string>? queryParams = null)
         {
             if (!string.IsNullOrEmpty(id))
             {

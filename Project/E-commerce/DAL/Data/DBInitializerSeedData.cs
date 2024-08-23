@@ -21,10 +21,10 @@ namespace DAL.Data
 
             var systemConfig = new List<T_SystemConfig>
             {
-                CreateSystemConfig(ConstantCode.SystemConfig_Key.MaxLoginFailedAttempt, "3", "Maximum number of login attempts before lockout, set value to 0 to disable this function"),
-                CreateSystemConfig(ConstantCode.SystemConfig_Key.EnableSendEmail_Background, "1", "To enable background send email function, set 0 to disable, set 1 to enable"),
-                CreateSystemConfig(ConstantCode.SystemConfig_Key.SendEmailIntervalSec_Background, "5", "Interval sending email by secs, Eg. Set to 5, Send email function will run every 5 secs")
-
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.MaxLoginFailedAttempt, "3", "The maximum number of failed login attempts allowed before a user account is locked. Set this value to 0 to disable the lockout feature."),
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.EnableSendEmail_Background, "1", "Enables or disables the background email sending function. Set this value to 0 to disable or 1 to enable the function."),
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.SendEmailIntervalSec_Background, "10", "The interval, in seconds, at which emails are sent in the background. For example, setting this value to 5 will cause the email sending function to execute every 5 seconds."),
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.SendEmailTotalRetry_Background, "3", "Specifies the maximum number of retry attempts for sending an email. If the number of failed attempts reaches this limit, further attempts to send emails to this address will be halted.")
             };
 
             var users = new List<T_User>
@@ -87,7 +87,8 @@ namespace DAL.Data
                 Name = name,
                 Email = email,
                 Phone = phone,
-                UserRoleId = (int)role
+                UserRoleId = (int)role,
+                IsEmailVerified = true
             };
         }
 

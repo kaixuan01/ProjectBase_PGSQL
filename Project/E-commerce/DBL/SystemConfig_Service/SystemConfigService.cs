@@ -3,6 +3,7 @@ using DAL.Repository.SystemConfigRP;
 using DAL.Shared.Class;
 using DBL.AuditTrail_Service;
 using DBL.Tools;
+using Newtonsoft.Json;
 using Utils;
 using Utils.Enums;
 
@@ -21,6 +22,7 @@ namespace DBL.SystemConfig_Service
         public async Task<List<T_SystemConfig>> GetSystemConfigList()
         {
             var result = await _systemConfigRepository.GetAllAsync();
+            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Response System Config List: {JsonConvert.SerializeObject(result)}");
 
             return result;
          }

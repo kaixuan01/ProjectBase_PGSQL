@@ -1,4 +1,5 @@
-﻿using Utils.Enums;
+﻿using System.Runtime.CompilerServices;
+using Utils.Enums;
 
 namespace Background_WorkerService.Tools
 {
@@ -9,6 +10,14 @@ namespace Background_WorkerService.Tools
         public LogHelper(Serilog.ILogger logger)
         {
             _logger = logger;
+        }
+
+        public void FormatMainLogMessage(Enum_LogLevel level, string message, Exception? ex = null, [CallerMemberName] string methodName = "")
+        {
+            // Format the log message
+            var formattedMessage = $"Main ({methodName}) | {message}";
+
+            LogMessage(level, formattedMessage, ex);
         }
 
         public void LogMessage(Enum_LogLevel level, string message, Exception? ex = null)

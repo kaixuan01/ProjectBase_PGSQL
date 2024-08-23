@@ -27,7 +27,8 @@
             public const string MaxLoginFailedAttempt = "MaxLoginFailedAttempt";
             public const string EnableSendEmail_Background = "EnableSendEmail_Background";
             public const string SendEmailIntervalSec_Background = "SendEmailIntervalSec_Background";
-
+            public const string SendEmailTotalRetry_Background = "SendEmailTotalRetry_Background";
+            
         }
 
         public class TableName
@@ -58,6 +59,25 @@
         public class UrlPath
         {
             public const string ConfirmEmail = "/ConfirmEmail/{id}";
+        }
+
+        public class Status
+        {
+            public static readonly Dictionary<string, string> StatusDictionary = new Dictionary<string, string>
+            {
+                { Code_Pending, Pending },
+                { Code_Completed, Completed },
+                { Code_Failed, Failed }
+            };
+
+            public const string Code_Pending = "P";
+            public const string Pending = "Pending";
+
+            public const string Code_Completed = "C";
+            public const string Completed = "Completed";
+
+            public const string Code_Failed = "F";
+            public const string Failed = "Failed";
         }
     }
 }
