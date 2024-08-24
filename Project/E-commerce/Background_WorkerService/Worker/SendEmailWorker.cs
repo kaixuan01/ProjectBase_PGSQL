@@ -1,5 +1,4 @@
-﻿using DAL;
-using DAL.Entity;
+﻿using DAL.Entity;
 using DBL.Email_Service;
 using DBL.SystemConfig_Service;
 using Serilog;

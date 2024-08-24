@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using Microsoft.Extensions.Configuration;
+﻿using System.Security.Cryptography;
 
 namespace Utils.Tools
 {
@@ -44,18 +40,19 @@ namespace Utils.Tools
         public string Decrypt(string cipherText)
         {
             byte[] fullCipher = Convert.FromBase64String(cipherText);
-            byte[] iv = new byte[16];
-            byte[] cipher = new byte[16];
-
-            Array.Copy(fullCipher, iv, iv.Length);
-            Array.Copy(fullCipher, iv.Length, cipher, 0, cipher.Length);
-
             byte[] key = Convert.FromBase64String(_key);
 
             using (Aes aes = Aes.Create())
             {
+                byte[] iv = new byte[aes.BlockSize / 8];
+                byte[] cipher = new byte[fullCipher.Length - iv.Length];
+
+                Array.Copy(fullCipher, iv, iv.Length);
+                Array.Copy(fullCipher, iv.Length, cipher, 0, cipher.Length);
+
                 aes.Key = key;
                 aes.IV = iv;
+
                 using (var decryptor = aes.CreateDecryptor(aes.Key, aes.IV))
                 {
                     using (var ms = new MemoryStream(cipher))
@@ -72,5 +69,4 @@ namespace Utils.Tools
             }
         }
     }
-
 }

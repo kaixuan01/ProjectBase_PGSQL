@@ -3,7 +3,6 @@ using DAL.Repository.EmailRP;
 using DBL.SystemConfig_Service;
 using DBL.Tools;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using Utils;
 using Utils.Enums;
 using Utils.Tools;

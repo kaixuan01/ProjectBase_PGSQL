@@ -1,4 +1,3 @@
-using DAL.Repository.UserRP.UserRepository.Class;
 using DBL.User_Service.UserService;
 using DBL.User_Service.UserService.UserActionClass;
 using E_commerce.Tools;
@@ -82,6 +81,8 @@ namespace E_commerce.Controllers
 
         #endregion
 
+        #region [ Login / Logout ]
+
         [HttpPost(Name = "OAuth")]
         public async Task<IActionResult> OAuth([FromBody] VerifyUser_REQ user)
         {
@@ -152,6 +153,10 @@ namespace E_commerce.Controllers
             }
         }
 
+        #endregion
+
+        #region [ Refresh Token ]
+
         [HttpPost("RefreshToken")]
         public async Task<IActionResult> RefreshTokenAsync()
         {
@@ -216,6 +221,45 @@ namespace E_commerce.Controllers
 
             return Ok(apiResponse);
         }
+
+        #endregion
+
+        #region [ Confirm Email ]
+
+        [HttpPost("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string encId)
+        {
+            ApiResponse<string> response = null;
+            try
+            {
+                // Update user logout
+                var oResp = await _userService.UpdateUserVerifyEmailAsync(encId);
+
+                if (oResp != null)
+                {
+                    switch (oResp.Code)
+                    {
+                        case RespCode.RespCode_Success:
+                            response = ApiResponse<string>.CreateSuccessResponse(null, oResp.Message);
+                            break;
+
+                        default:
+                            response = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+                            break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response = ApiResponse<string>.CreateErrorResponse($"Verify Email Failed, Exception: {ex.Message}");
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when verify user's email, Exception: {ex.Message}");
+            }
+
+            return Ok(response);
+        }
+
+        #endregion
 
         #region [ Function ]
 

@@ -1,7 +1,5 @@
 ﻿using DAL;
-using DAL.Data;
 using DBL.User_Service.UserService;
-using Serilog;
 using System.Reflection;
 
 namespace Background_WorkerService.Extension
@@ -14,15 +12,9 @@ namespace Background_WorkerService.Extension
             var services = scope.ServiceProvider;
 
             var myContext = services.GetRequiredService<MyDbContext>();
-            // Create database if there is no exist
-            //myContext.Database.EnsureCreated();
-
-            // Upgrate database to latest version
-            //myContext.MigrateToLatestVersion(new DbMigrationsOptions { ResetDatabaseSchema = true });
-            //myContext.MigrateToLatestVersion();
 
             // Auto insert default data
-            DBInitializerSeedData.InitializeDatabase(myContext);
+            // DBInitializerSeedData.InitializeDatabase(myContext);
         }
 
         public static void AddAllService(this IServiceCollection services)

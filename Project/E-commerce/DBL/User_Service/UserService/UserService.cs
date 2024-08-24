@@ -2,7 +2,6 @@
 using DAL.Repository.UserRP.UserRepository;
 using DAL.Repository.UserRP.UserRepository.Class;
 using DAL.Shared.Class;
-using DAL.Tools.ListingHelper;
 using DBL.AuditTrail_Service;
 using DBL.Email_Service;
 using DBL.SystemConfig_Service;
@@ -24,14 +23,16 @@ namespace DBL.User_Service.UserService
         private readonly IUserLoginHistoryService _userLoginHistoryService;
         private readonly ISystemConfigService _systemConfigService;
         private readonly IEmailService _emailService;
+        private readonly EncryptionHelper _encryptionHelper;
 
-        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService, IEmailService emailService)
+        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService, IEmailService emailService, EncryptionHelper encryptionHelper)
         {
             _auditTrailService = auditTrailService;
             _userRepository = userRepository;
             _userLoginHistoryService = userLoginHistoryService;
             _systemConfigService = systemConfigService;
             _emailService = emailService;
+            _encryptionHelper = encryptionHelper;
         }
 
         #region [ Get User ]
@@ -73,7 +74,7 @@ namespace DBL.User_Service.UserService
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
-                rtnValue.Message = ex.Message;
+                rtnValue.Message = ErrorMessage.GeneralError;
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
 
@@ -109,7 +110,7 @@ namespace DBL.User_Service.UserService
             if (oUser == null)
             {
                 rtnValue.Code = RespCode.RespCode_Failed;
-                rtnValue.Message = "Please enter user's details";
+                rtnValue.Message = ErrorMessage.MissingRequiredField;
 
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"oUser is null");
                 return rtnValue;
@@ -120,7 +121,7 @@ namespace DBL.User_Service.UserService
                 if (string.IsNullOrEmpty(oUser.name) || string.IsNullOrEmpty(oUser.username) || string.IsNullOrEmpty(oUser.email) || string.IsNullOrEmpty(oUser.password) || oUser.userRoleId == null)
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "Please complete the user's details";
+                    rtnValue.Message = ErrorMessage.MissingRequiredField;
                     return rtnValue;
                 }
 
@@ -153,7 +154,7 @@ namespace DBL.User_Service.UserService
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
-                rtnValue.Message = ex.Message;
+                rtnValue.Message = ErrorMessage.GeneralError;
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
 
@@ -171,7 +172,7 @@ namespace DBL.User_Service.UserService
             if (oReq == null)
             {
                 rtnValue.Code = RespCode.RespCode_Failed;
-                rtnValue.Message = "Please enter user's details";
+                rtnValue.Message = ErrorMessage.MissingRequiredField;
                 return rtnValue;
             }
 
@@ -180,7 +181,7 @@ namespace DBL.User_Service.UserService
                 if (string.IsNullOrEmpty(oReq.id) || string.IsNullOrEmpty(oReq.name) || string.IsNullOrEmpty(oReq.email) || oReq.userRoleId == null)
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "Please complete the user's details";
+                    rtnValue.Message = ErrorMessage.MissingRequiredField;
                     return rtnValue;
                 }
 
@@ -218,7 +219,7 @@ namespace DBL.User_Service.UserService
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
-                rtnValue.Message = ex.Message;
+                rtnValue.Message = ErrorMessage.GeneralError;
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
 
@@ -252,11 +253,71 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
+        #region [ Update Verify Email ]
+
+        public async Task<ShareResp> UpdateUserVerifyEmailAsync(string encId)
+        {
+            var rtnValue = new ShareResp();
+
+            if (string.IsNullOrEmpty(encId))
+            {
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = ErrorMessage.ProcessingError;
+                return rtnValue;
+            }
+
+            try
+            {
+                string decId = _encryptionHelper.Decrypt(encId);
+
+                var oUser = await _userRepository.GetByIdAsync(decId);
+
+                if (oUser == null)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "User not found.";
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. User Id: {decId}");
+                    return rtnValue;
+                }
+
+                // Used to create audit trail record
+                var copyUser = oUser.Clone();
+
+                oUser.IsEmailVerified = true;
+
+                await _userRepository.UpdateAsync(oUser);
+
+                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Edit, copyUser, oUser);
+
+                rtnValue.Code = RespCode.RespCode_Success;
+                rtnValue.Message = "Your email address has been successfully verified. You can now log in to your account.";
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Id: {decId}");
+            }
+            catch (Exception ex)
+            {
+                rtnValue.Code = RespCode.RespCode_Exception;
+                rtnValue.Message = ErrorMessage.GeneralError;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
+            }
+
+            return rtnValue;
+
+        }
+
+        #endregion
+
         #region [ Delete User ]
 
         public async Task<ShareResp> DeleteAsync(string id)
         {
             var rtnValue = new ShareResp();
+
+            if (string.IsNullOrEmpty(id))
+            {
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = ErrorMessage.GeneralError;
+                return rtnValue;
+            }
 
             try
             {
@@ -282,7 +343,7 @@ namespace DBL.User_Service.UserService
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
-                rtnValue.Message = ex.Message;
+                rtnValue.Message = ErrorMessage.GeneralError;
 
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
@@ -302,9 +363,16 @@ namespace DBL.User_Service.UserService
             {
                 var oUser = new T_User();
 
-                if (!string.IsNullOrEmpty(user.username))
+                if (!string.IsNullOrEmpty(user.username) && !string.IsNullOrEmpty(user.password))
                 {
                     oUser = await _userRepository.GetByUsernameAsync(user.username);
+                }
+                else
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = ErrorMessage.MissingRequiredField;
+
+                    return rtnValue;
                 }
 
                 if (oUser != null)
@@ -347,7 +415,7 @@ namespace DBL.User_Service.UserService
                     if (string.IsNullOrEmpty(oUser.Password))
                     {
                         rtnValue.Code = RespCode.RespCode_Exception;
-                        rtnValue.Message = "Something error, Please contact admin.";
+                        rtnValue.Message = ErrorMessage.ProcessingError;
                         LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User Password not found. User Id: {oUser.Id}, User Name: {oUser.Name}");
                         return rtnValue;
                     }
@@ -384,7 +452,7 @@ namespace DBL.User_Service.UserService
                         }
 
                         rtnValue.Code = RespCode.RespCode_Failed;
-                        rtnValue.Message = $"Username / Password incorrect. Please try again.";
+                        rtnValue.Message = ErrorMessage.AuthenticationFailed;
                     }
 
                     // Insert Login History
@@ -398,7 +466,7 @@ namespace DBL.User_Service.UserService
                 else
                 {
                     rtnValue.Code = RespCode.RespCode_Exception;
-                    rtnValue.Message = $"Username / Password incorrect. Please try again.";
+                    rtnValue.Message = ErrorMessage.AuthenticationFailed;
 
                     LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User not found. User Name: {user.username}");
                 }
@@ -408,7 +476,7 @@ namespace DBL.User_Service.UserService
             {
                 // TODO: Add Log
                 rtnValue.Code = RespCode.RespCode_Exception;
-                rtnValue.Message = $"Throw Exception when verify user. Exception: {ex}";
+                rtnValue.Message = ErrorMessage.GeneralError;
 
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
 
@@ -420,6 +488,8 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
+        #region [ Block / Unblock User ]
+
         /// <summary>
         /// Block or Unblock user
         /// If user status is block, will unblock it
@@ -430,6 +500,13 @@ namespace DBL.User_Service.UserService
         public async Task<ShareResp> SetUserStatusAsync(string id)
         {
             var rtnValue = new ShareResp();
+
+            if (string.IsNullOrEmpty(id))
+            {
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = ErrorMessage.GeneralError;
+                return rtnValue;
+            }
 
             try
             {
@@ -464,13 +541,15 @@ namespace DBL.User_Service.UserService
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
-                rtnValue.Message = ex.Message;
+                rtnValue.Message = ErrorMessage.GeneralError;
 
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
-            
+
 
             return rtnValue;
         }
+
+        #endregion
     }
 }
