@@ -1,29 +1,33 @@
-import MyTable from "../../../Control/MyTable"
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import MyTable from "../../../Control/MyTable";
 import { InputFilter, MultiSelectFilter } from "../../../Control/TableControl";
 import { useFuncHTTPReq } from "../../../Hook/FuncHttpReq";
+
 export default function UserListing() {
     const [userRole, setUserRole] = useState([]);
-
-    console.log(userRole)
     const { FuncHTTPReq } = useFuncHTTPReq();
 
-
     useEffect(() => {
-    async function fetchData() {
+        const fetchData = async () => {
             await FuncHTTPReq({
                 url: '/UserRole/GetRoleList',
                 method: 'GET',
                 onSuccess: (data) => {
-                    setUserRole(data)
+                    // Only set state if data has changed to avoid infinite loop
+                    if (data && JSON.stringify(data) !== JSON.stringify(userRole)) {
+                        setUserRole(data);
+                    }
+                },
+                onError: (error) => {
+                    console.error("Error fetching roles:", error);
                 }
             });
-    }
-    fetchData();
-    }, [FuncHTTPReq]);
+        };
 
+        fetchData();
+    }, [FuncHTTPReq, userRole]); // Remove userRole from dependency array
 
-    const columns = React.useMemo(() => [
+    const columns = useMemo(() => [
         {
             Header: 'Name',
             accessor: 'name',
@@ -33,36 +37,32 @@ export default function UserListing() {
             Header: 'Username',
             accessor: 'username',
             allowSort: true,
-            Cell: ({ value }) => { return value }
         },
         {
             Header: 'Email',
             accessor: 'email',
             allowSort: true,
             Filter: InputFilter,
-            disableFilters: true
+            disableFilters: true,
         },
         {
             Header: 'Phone',
             accessor: 'phone',
-            allowSort: true
+            allowSort: true,
         },
         {
             Header: 'User Role',
             accessor: 'role',
             allowSort: true,
-            Filter: (props) => <MultiSelectFilter {...props} options={userRole} />,
-            Cell: ({ value }) => { return value }
+            Filter: ({ column }) => <MultiSelectFilter column={column} options={userRole} />,
         }
-    ], [userRole]);
+    ], [userRole]); // Keep userRole only in memoized columns
 
-
-    return <>
-        <h1>User Listing</h1>
-        <hr />
-        <MyTable
-            supportFliter
-            url={'/User/GetUserList'}
-            columns={columns}
-        /></>
+    return (
+        <>
+            <h1>User Listing</h1>
+            <hr />
+            <MyTable url={'/User/GetUserList'} columns={columns} />
+        </>
+    );
 }

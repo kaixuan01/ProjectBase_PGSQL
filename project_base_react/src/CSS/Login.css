@@ -7,11 +7,7 @@
     width: 100%;
   }
 
-.mb-3 {
-    margin-bottom: 1rem;
-}
-
-input {
+.login-input {
     border: 1px solid #ced4da;
     border-radius: 5px;
     padding: 0.5rem;
@@ -19,34 +15,10 @@ input {
     font-size: 1rem;
 }
 
-input:focus {
+.login-input:focus {
     border-color: #80bdff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-button {
-    font-size: 1rem;
-    padding: 0.75rem;
-}
-
-button:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
-}
-
-.rounded-button {
-    border-radius: 25px;
-    transition: all 0.3s ease-in-out;
-}
-
-.rounded-button:hover {
-    transform: translateY(-2px);
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
 }
 
 .login-container {

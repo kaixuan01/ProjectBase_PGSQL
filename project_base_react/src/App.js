@@ -1,51 +1,108 @@
 import './CSS/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MySidebar from './Control/MySidebar';
-import { MyPageContainer } from './Control/MyPageContainer';
-import Login from './View/Login';
 import MyTopBar from './Control/MyTopBar';
-import { useEffect } from 'react';
+import Login from './View/Login';
+import EmailConfirmation from './View/EmailConfirmation';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { initData } from './Redux/actions';
+import myURLRoutes from './Common/RoutePath';
+import AnonymousRoutePath from './Common/AnonymousRoutePath'; // Import Anonymous Routes
+
+function AuthenticatedLayout({ children }) {
+  return (
+    <>
+      <MyTopBar />
+      <div className="d-flex">
+        <div className="my-sidebar">
+          <MySidebar />
+        </div>
+        <div className="my-page-container">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
 
 function App() {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load 'isLogin' from localStorage if it exists
     const storedLoginStatus = localStorage.getItem('isLogin');
     dispatch(initData('isLogin', storedLoginStatus || 'NotLogin'));
+    setLoading(false);
   }, [dispatch]);
 
   const isLogin = useSelector((state) => state.isLogin);
 
   useEffect(() => {
-    // Persist 'isLogin' to localStorage whenever it changes
     if (isLogin) {
       localStorage.setItem('isLogin', isLogin);
     }
   }, [isLogin]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  console.log(1);
   return (
     <div className='app-container'>
-      {isLogin === 'Login' ? (
-        <Router>
-          <div className="app-container">
-            <MyTopBar />
-            <div className="d-flex">
-              <div className="my-sidebar">
-                <MySidebar />
-              </div>
-              <div className="my-page-container">
-                <MyPageContainer />
-              </div>
-            </div>
-          </div>
-        </Router>
-      ) : (
-        <Login />
-      )}
+      <Router>
+        <Routes>
+          {isLogin === 'Login' ? (
+            <>
+              {/* Authenticated Routes with Sidebar and TopBar */}
+              <Route path="/*" element={
+                <AuthenticatedLayout>
+                  <Routes>
+                    {myURLRoutes.map((route, index) => (
+                      route.subRoutes && route.subRoutes.length > 0 ? (
+                        route.subRoutes.map((subRoute, subIndex) => (
+                          <Route
+                            key={`${index}-${subIndex}`}
+                            path={`${route.path}${subRoute.path}`}
+                            element={subRoute.component}
+                          />
+                        ))
+                      ) : (
+                        <Route
+                          key={index}
+                          path={route.path}
+                          element={route.component}
+                        />
+                      )
+                    ))}
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </AuthenticatedLayout>
+              } />
+               {AnonymousRoutePath.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={route.component}
+                />
+              ))}
+            </>
+          ) : (
+            <>
+              {AnonymousRoutePath.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={route.component}
+                />
+              ))}
+              {/* Default to Login */}
+              <Route path="*" element={<Login/>} />
+            </>
+          )}
+        </Routes>
+      </Router>
     </div>
   );
 }

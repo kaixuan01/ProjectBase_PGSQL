@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import '../CSS/MyTable.css'; // Import the CSS file
 import { buildQueryString } from '../Common/Common';
@@ -57,38 +57,42 @@ const MyTable = ({ url, columns }) => {
         usePagination
     );
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const queryParams = {
-                    PageNumber: pageIndex,
-                    PageSize: pageSize,
-                    SortBy: sortBy[0] ? sortBy[0].id : '',
-                    SortDescending: sortBy[0] ? sortBy[0].desc : false,
-                    ...filters.reduce((acc, { id, value }) => ({ ...acc, [id]: value }), {}),
-                };
-
-                const queryString = buildQueryString(queryParams);
-                const fullUrl = `${url}?${queryString}`;
-
-                await FuncHTTPReq({
-                    url: fullUrl,
-                    method: 'GET',
-                    onSuccess: (data) => {
-                        setData(data.items);
-                        setTotalItems(data.totalCount);
-                        setItemQty(data.items.length);
-                    },
-                    onError: (error) => {
-                        console.error('Request failed with error:', error);
-                    },
-                });
-            } catch (error) {
-                console.error('Error in fetchData:', error);
-            }
+    const fetchData = useCallback(async () => {
+        try {
+          const queryParams = {
+            PageNumber: pageIndex,
+            PageSize: pageSize,
+            SortBy: sortBy[0] ? sortBy[0].id : '',
+            SortDescending: sortBy[0] ? sortBy[0].desc : false,
+            ...filters.reduce((acc, { id, value }) => ({ ...acc, [id]: value }), {}),
+          };
+      
+          const queryString = buildQueryString(queryParams);
+          const fullUrl = `${url}?${queryString}`;
+      
+          await FuncHTTPReq({
+            url: fullUrl,
+            method: 'GET',
+            onSuccess: (data) => {
+              if (JSON.stringify(data.items) !== JSON.stringify(data)) {
+                setData(data.items);
+              }
+              setTotalItems(data.totalCount);
+              setItemQty(data.items.length);
+            },
+            onError: (error) => {
+              console.error('Request failed with error:', error);
+            },
+          });
+        } catch (error) {
+          console.error('Error in fetchData:', error);
         }
+      }, [pageIndex, pageSize, sortBy, filters, url, FuncHTTPReq]);
+      
+      useEffect(() => {
         fetchData();
-    }, [pageIndex, pageSize, sortBy, filters, url]);
+      }, [fetchData]);
+      
 
     const handlePageChange = (newPageIndex) => {
         if (newPageIndex >= 1 && newPageIndex <= Math.ceil(totalItems / pageSize)) {

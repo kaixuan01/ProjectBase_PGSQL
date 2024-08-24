@@ -23,12 +23,14 @@ export default function Login() {
                 <CardBody>
                     <div className="mb-3">
                         <MyInputField 
+                            className="login-input"
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder='Username'
                         />
                     </div>
                     <div className="mb-3">
-                        <MyInputField 
+                        <MyInputField
+                        className="login-input" 
                             placeholder='Password'
                             type="password" 
                             onChange={(e) => setPassword(e.target.value)} 
