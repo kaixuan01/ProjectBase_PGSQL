@@ -1,10 +1,5 @@
 ﻿using DAL.Entity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -13,6 +8,7 @@ namespace DAL
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
         public DbSet<T_User> T_User { get; set; }
+        public DbSet<T_UserTokens> T_UserTokens { get; set; }
         public DbSet<T_UserLoginHistory> T_UserLoginHistory { get; set; }
         public DbSet<E_UserRole> E_UserRole { get; set; }
         public DbSet<T_AuditTrail> T_AuditTrail { get; set; }

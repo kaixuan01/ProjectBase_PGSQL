@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Web;
 
 namespace Utils.Tools
 {
     public static class GenerateUrlHelper
     {
-        public static string GenerateUrl(string baseUrl, string urlPath, string? id = null, Dictionary<string, string>? queryParams = null)
+        public static string GenerateUrl(string baseUrl, string urlPath, string? token = null, Dictionary<string, string>? queryParams = null)
         {
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(token))
             {
-                // Replace the {id} placeholder in the path with the actual id
-                urlPath = urlPath.Replace("{id}", id);
+                // URL-encode the token to make it safe for use in URLs
+                var encodedToken = WebUtility.UrlEncode(token);
+
+                // Replace the {token} placeholder in the path with the encoded token
+                urlPath = urlPath.Replace("{token}", encodedToken);
             }
 
             // Combine the base URL and the path
@@ -27,7 +31,8 @@ namespace Utils.Tools
 
                 foreach (var param in queryParams)
                 {
-                    query[param.Key] = param.Value;
+                    // URL-encode the key and value to make them safe for use in URLs
+                    query[WebUtility.UrlEncode(param.Key)] = WebUtility.UrlEncode(param.Value);
                 }
 
                 uriBuilder.Query = query.ToString();

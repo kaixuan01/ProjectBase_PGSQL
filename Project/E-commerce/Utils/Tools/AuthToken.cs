@@ -52,11 +52,7 @@ namespace Utils.Tools
             return tokenHandler.WriteToken(token);
         }
 
-        #region [ Refresh Token ] 
-
-        private static readonly ConcurrentDictionary<string, string> Tokens = new ConcurrentDictionary<string, string>();
-
-        public static string GenerateRefreshToken()
+        public static string GenerateToken()
         {
             using (var rng = new RNGCryptoServiceProvider())
             {
@@ -65,6 +61,10 @@ namespace Utils.Tools
                 return Convert.ToBase64String(tokenBytes);
             }
         }
+
+        #region [ Refresh Token ] 
+
+        private static readonly ConcurrentDictionary<string, string> Tokens = new ConcurrentDictionary<string, string>();
 
         public static void StoreRefreshToken(string username, string refreshToken)
         {

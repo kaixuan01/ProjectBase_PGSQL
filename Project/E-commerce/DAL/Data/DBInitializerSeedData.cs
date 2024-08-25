@@ -23,8 +23,9 @@ namespace DAL.Data
             {
                 CreateSystemConfig(ConstantCode.SystemConfig_Key.MaxLoginFailedAttempt, "3", "The maximum number of failed login attempts allowed before a user account is locked. Set this value to 0 to disable the lockout feature."),
                 CreateSystemConfig(ConstantCode.SystemConfig_Key.EnableSendEmail_Background, "1", "Enables or disables the background email sending function. Set this value to 0 to disable or 1 to enable the function."),
-                CreateSystemConfig(ConstantCode.SystemConfig_Key.SendEmailIntervalSec_Background, "10", "The interval, in seconds, at which emails are sent in the background. For example, setting this value to 5 will cause the email sending function to execute every 5 seconds."),
-                CreateSystemConfig(ConstantCode.SystemConfig_Key.SendEmailTotalRetry_Background, "3", "Specifies the maximum number of retry attempts for sending an email. If the number of failed attempts reaches this limit, further attempts to send emails to this address will be halted.")
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.SendEmailIntervalSec_Background, "10", "The interval, in seconds, at which emails are sent in the background. Eg. setting this value to 5 will cause the email sending function to execute every 5 seconds."),
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.SendEmailTotalRetry_Background, "3", "Specifies the maximum number of retry attempts for sending an email. If the number of failed attempts reaches this limit, further attempts to send emails to this address will be halted."),
+                CreateSystemConfig(ConstantCode.SystemConfig_Key.UserTokenExpiration, "1", "Specifies the expiration time for user tokens in hours. Eg. Set value to 1 to let this token expire after 1 hour.")
             };
 
             var users = new List<T_User>

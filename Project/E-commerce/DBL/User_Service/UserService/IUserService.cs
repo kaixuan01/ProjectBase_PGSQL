@@ -26,7 +26,7 @@ namespace DBL.User_Service.UserService
         Task UpdateUserLogoutAsync(string username);
 
         // ## Verify Email
-        Task<ShareResp> UpdateUserVerifyEmailAsync(string encId);
+        Task<ShareResp> UpdateUserVerifyEmailAsync(string token);
 
         // ## Block / Unblock user
         Task<ShareResp> SetUserStatusAsync(string id);

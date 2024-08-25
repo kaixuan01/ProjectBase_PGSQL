@@ -149,14 +149,14 @@ namespace E_commerce.Controllers.User_Controller
         {
             ApiResponse<string>? apiResponse = null;
 
+            LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to edit user, Request: {JsonConvert.SerializeObject(oUser)}");
+
             try
             {
                 if (!string.IsNullOrEmpty(oUser.password))
                 {
                     oUser.password = PasswordHelper.HashPassword(oUser.password);
                 }
-
-                LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request to edit user, Request: {JsonConvert.SerializeObject(oUser)}");
 
                 var oResp = await _userService.UpdateAsync(oUser);
 

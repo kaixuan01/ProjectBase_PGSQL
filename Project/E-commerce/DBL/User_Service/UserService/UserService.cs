@@ -8,6 +8,7 @@ using DBL.SystemConfig_Service;
 using DBL.Tools;
 using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.UserActionClass;
+using DBL.User_Service.UserTokensService;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Utils;
@@ -20,12 +21,14 @@ namespace DBL.User_Service.UserService
     {
         private readonly IAuditTrailService _auditTrailService;
         private readonly IUserRepository _userRepository;
+        private readonly IUserTokensService _userTokenService;
         private readonly IUserLoginHistoryService _userLoginHistoryService;
         private readonly ISystemConfigService _systemConfigService;
         private readonly IEmailService _emailService;
         private readonly EncryptionHelper _encryptionHelper;
 
-        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService, IEmailService emailService, EncryptionHelper encryptionHelper)
+        public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService,
+            ISystemConfigService systemConfigService, IEmailService emailService, IUserTokensService userTokensService, EncryptionHelper encryptionHelper)
         {
             _auditTrailService = auditTrailService;
             _userRepository = userRepository;
@@ -33,6 +36,7 @@ namespace DBL.User_Service.UserService
             _systemConfigService = systemConfigService;
             _emailService = emailService;
             _encryptionHelper = encryptionHelper;
+            _userTokenService = userTokensService;
         }
 
         #region [ Get User ]
@@ -143,7 +147,7 @@ namespace DBL.User_Service.UserService
                 await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Create, null, createUser);
 
                 // ## Send Email
-                await _emailService.SendConfirmEmailAsync(createUser.Id, createUser.Name, createUser.Email);
+                await _emailService.SendConfirmEmailAsync(createUser);
 
                 rtnValue.UserId = createUser.Id;
                 rtnValue.Code = RespCode.RespCode_Success;
@@ -253,13 +257,13 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Update Verify Email ]
+        #region [ Confirm Email ]
 
-        public async Task<ShareResp> UpdateUserVerifyEmailAsync(string encId)
+        public async Task<ShareResp> UpdateUserVerifyEmailAsync(string token)
         {
             var rtnValue = new ShareResp();
 
-            if (string.IsNullOrEmpty(encId))
+            if (string.IsNullOrEmpty(token))
             {
                 rtnValue.Code = RespCode.RespCode_Failed;
                 rtnValue.Message = ErrorMessage.ProcessingError;
@@ -268,30 +272,60 @@ namespace DBL.User_Service.UserService
 
             try
             {
-                string decId = _encryptionHelper.Decrypt(encId);
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Receive Request to Verify Email. Token: {token}");
+                var oUserToken = await _userTokenService.GetByTokenAsync(token);
 
-                var oUser = await _userRepository.GetByIdAsync(decId);
+                if (oUserToken == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User Token not found. Token: {token}");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid or expired confirm email link. Please request a new confirmation email.";
+                    return rtnValue;
+                }
+
+                var oUser = await _userRepository.GetByIdAsync(oUserToken.UserId);
 
                 if (oUser == null)
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
                     rtnValue.Message = "User not found.";
-                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. User Id: {decId}");
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. User Id: {oUserToken.UserId}");
+                    return rtnValue;
+                }
+
+                if (oUser.IsEmailVerified)
+                {
+                    rtnValue.Code = RespCode.RespCode_Success;
+                    rtnValue.Message = "Your email was verified previously. Please proceed to log in.";
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User retry to confirm email. User Id: {oUser.Id}");
+                    return rtnValue;
+                }
+
+                if (oUserToken.IsUsed || oUserToken.ExpiresDateTime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.EmailConfirmation)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid or expired confirm email link. Please request a new confirmation email.";
                     return rtnValue;
                 }
 
                 // Used to create audit trail record
                 var copyUser = oUser.Clone();
 
-                oUser.IsEmailVerified = true;
+                // ## Update User's Token to used
+                oUserToken.IsUsed = true;
+                await _userTokenService.UpdateAsync(oUserToken);
 
+                // ## Update User Email Verified
+                oUser.IsEmailVerified = true;
                 await _userRepository.UpdateAsync(oUser);
 
+                // ## Insert Audit Trail for User changes
                 await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Edit, copyUser, oUser);
 
                 rtnValue.Code = RespCode.RespCode_Success;
                 rtnValue.Message = "Your email address has been successfully verified. You can now log in to your account.";
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Id: {decId}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Id: {oUser.Id}");
             }
             catch (Exception ex)
             {
@@ -301,7 +335,6 @@ namespace DBL.User_Service.UserService
             }
 
             return rtnValue;
-
         }
 
         #endregion
@@ -399,7 +432,7 @@ namespace DBL.User_Service.UserService
                     if (!oUser.IsEmailVerified)
                     {
                         rtnValue.Code = RespCode.RespCode_Failed;
-                        rtnValue.Message = "Your account has not been verified yet. Please check your email to verify your account.";
+                        rtnValue.Message = "Your account has not been verified yet. Please check your email for the verification link. If you did not receive the email, you can request a new verification email.";
 
                         return rtnValue;
                     }

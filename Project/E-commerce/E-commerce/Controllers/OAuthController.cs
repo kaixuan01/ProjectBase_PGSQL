@@ -96,7 +96,7 @@ namespace E_commerce.Controllers
                     {
                         case RespCode.RespCode_Success:
                             var token = _authToken.GenerateJwtToken(user.username, (Enum_UserRole)oVerifyResp.UserRoleId);
-                            var refreshToken = AuthToken.GenerateRefreshToken();
+                            var refreshToken = AuthToken.GenerateToken();
                             // Update the refresh token in your storage
                             AuthToken.StoreRefreshToken(user.username, refreshToken); // Implement StoreRefreshToken
 
@@ -196,7 +196,7 @@ namespace E_commerce.Controllers
                 {
                     var userRole = await _userService.GetUserRoleByUsernameAsync(username);
                     var newToken = _authToken.GenerateJwtToken(username, (Enum_UserRole)userRole);
-                    var newRefreshToken = AuthToken.GenerateRefreshToken();
+                    var newRefreshToken = AuthToken.GenerateToken();
 
                     // Update stored refresh token
                     AuthToken.StoreRefreshToken(username, newRefreshToken);
@@ -227,13 +227,14 @@ namespace E_commerce.Controllers
         #region [ Confirm Email ]
 
         [HttpPost("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string encId)
+        public async Task<IActionResult> ConfirmEmail(string token)
         {
             ApiResponse<string> response = null;
+
             try
             {
                 // Update user logout
-                var oResp = await _userService.UpdateUserVerifyEmailAsync(encId);
+                var oResp = await _userService.UpdateUserVerifyEmailAsync(token);
 
                 if (oResp != null)
                 {
@@ -248,7 +249,6 @@ namespace E_commerce.Controllers
                             break;
                     }
                 }
-
             }
             catch (Exception ex)
             {

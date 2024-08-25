@@ -6,6 +6,8 @@
         {
             public const string User = "User";
             public const string SystemConfig = "System Config";
+            public const string Email = "Email";
+            public const string UserTokens = "User Tokens";
         }
 
         public class Action
@@ -22,19 +24,27 @@
             public const string Blocked = "Blocked";
         }
 
+        public class UserTokenType
+        {
+            public const string EmailConfirmation = "EmailConfirmation";
+            public const string PasswordReset = "PasswordReset";
+        }
+
         public class SystemConfig_Key
         {
             public const string MaxLoginFailedAttempt = "MaxLoginFailedAttempt";
             public const string EnableSendEmail_Background = "EnableSendEmail_Background";
             public const string SendEmailIntervalSec_Background = "SendEmailIntervalSec_Background";
             public const string SendEmailTotalRetry_Background = "SendEmailTotalRetry_Background";
-            
+            public const string UserTokenExpiration = "UserTokenExpiration";
+
         }
 
         public class TableName
         {
             public const string SystemConfig = "T_SystemConfig";
             public const string User = "T_User";
+            public const string UserTokens = "T_UserTokens";
             public const string UserLoginHistory = "T_UserLoginHistory";
             public const string UserRole = "E_UserRole";
             public const string AuditTrail = "T_AuditTrail";
@@ -54,11 +64,12 @@
         {
             public const string RecipientName = "RecipientName";
             public const string ConfirmEmailUrl = "ConfirmEmailUrl";
+            public const string ExpiresDateTime = "ExpiresDateTime";
         }
 
         public class UrlPath
         {
-            public const string ConfirmEmail = "/ConfirmEmail/{id}";
+            public const string ConfirmEmail = "/ConfirmEmail/{token}";
         }
 
         public class Status

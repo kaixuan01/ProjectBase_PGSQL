@@ -3,7 +3,6 @@ using DAL.Repository.SystemConfigRP;
 using DAL.Shared.Class;
 using DBL.AuditTrail_Service;
 using DBL.Tools;
-using Newtonsoft.Json;
 using Utils;
 using Utils.Enums;
 
@@ -17,6 +16,11 @@ namespace DBL.SystemConfig_Service
         public SystemConfigService(ISystemConfigRepository systemConfigRepository, IAuditTrailService auditTrailService) {
             _systemConfigRepository = systemConfigRepository;
             _auditTrailService = auditTrailService;
+        }
+
+        public async Task<T_SystemConfig> GetSystemConfigByKeyAsync(string key)
+        {
+            return await _systemConfigRepository.GetByKeyAsync(key);
         }
 
         public async Task<List<T_SystemConfig>> GetSystemConfigList()
@@ -74,5 +78,6 @@ namespace DBL.SystemConfig_Service
             
             return rtnValue;
         }
+
     }
 }

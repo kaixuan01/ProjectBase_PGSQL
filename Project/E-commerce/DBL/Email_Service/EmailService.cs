@@ -2,6 +2,7 @@
 using DAL.Repository.EmailRP;
 using DBL.SystemConfig_Service;
 using DBL.Tools;
+using DBL.User_Service.UserTokensService;
 using Microsoft.Extensions.Configuration;
 using Utils;
 using Utils.Enums;
@@ -11,20 +12,21 @@ namespace DBL.Email_Service
 {
     public class EmailService : IEmailService
     {
-        IEmailRepository _emailRepository;
-        ISystemConfigService _systemConfigService;
+        private readonly IEmailRepository _emailRepository;
+        private readonly ISystemConfigService _systemConfigService; 
+        private readonly IUserTokensService _userTokenService;
         private readonly string _reactBaseUrl;
         private readonly EncryptionHelper _encryptionHelper;
 
-        public EmailService(IEmailRepository emailRepository, IConfiguration configuration, EncryptionHelper encryptionHelper, ISystemConfigService systemConfigService) {
+        public EmailService(IEmailRepository emailRepository, IConfiguration configuration, EncryptionHelper encryptionHelper, ISystemConfigService systemConfigService, IUserTokensService userTokensService) {
         
             _emailRepository = emailRepository;
             _systemConfigService = systemConfigService;
+            _encryptionHelper = encryptionHelper;
+            _userTokenService = userTokensService;
 
             // Get the secret key from appsettings.json
             _reactBaseUrl = configuration["ReactSettings:BaseUrl"];
-
-            _encryptionHelper = encryptionHelper;
         }
 
         #region [ Get Email List ]
@@ -77,19 +79,27 @@ namespace DBL.Email_Service
 
         #region [ Send Email ]
 
-        public async Task SendConfirmEmailAsync(string userId, string recipientName, string recipientEmail)
+        public async Task SendConfirmEmailAsync(T_User oUser)
         {
-            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Confirm Email request. user id: {userId}, recipient name: {recipientName}, recipient email: {recipientEmail}");
+            if (oUser == null)
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Confirm Email failed. User not found");
+                throw new Exception();
+            }
+
+            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Confirm Email request. User Id: {oUser.Id}, recipient name: {oUser.Name}, recipient email: {oUser.Email}");
+
             try
             {
-                // Encrypt the user id to attach it to confirm email url
-                string encUserId = _encryptionHelper.Encrypt(userId);
-                string confirmEmailUrl = GenerateUrlHelper.GenerateUrl(_reactBaseUrl, ConstantCode.UrlPath.ConfirmEmail, encUserId);
+                var oUserToken = await _userTokenService.CreateAsync(oUser.Id, ConstantCode.UserTokenType.EmailConfirmation);
+
+                string confirmEmailUrl = GenerateUrlHelper.GenerateUrl(_reactBaseUrl, ConstantCode.UrlPath.ConfirmEmail, oUserToken.Token);
 
                 var placeholders = new Dictionary<string, string>
                 {
-                    { ConstantCode.EmailPlaceholder.RecipientName, recipientName },
-                    { ConstantCode.EmailPlaceholder.ConfirmEmailUrl, confirmEmailUrl }
+                    { ConstantCode.EmailPlaceholder.RecipientName, oUser.Name },
+                    { ConstantCode.EmailPlaceholder.ConfirmEmailUrl, confirmEmailUrl },
+                    { ConstantCode.EmailPlaceholder.ExpiresDateTime, oUserToken.ExpiresDateTime.ToString("MMMM dd, yyyy hh:mm tt") },
                 };
 
                 var emailContent = await PrepareEmailContentAsync(ConstantCode.Resource.EmailTemplateDesign.ConfirmEmailTemplate, placeholders);
@@ -99,19 +109,19 @@ namespace DBL.Email_Service
                     Id = IdGeneratorHelper.GenerateId(),
                     EmailSubject = "Email Confirmation",
                     EmailContent = emailContent,
-                    RecipientName = recipientName,
-                    RecipientEmail = recipientEmail,
+                    RecipientName = oUser.Name,
+                    RecipientEmail = oUser.Email,
                     Status = ConstantCode.Status.Code_Pending,
                     CreatedDateTime = DateTime.Now
                 };
 
                 await _emailRepository.CreateAsync(email);
 
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Confirm Email Successful. user id: {userId}, recipient name: {recipientName}, recipient email: {recipientEmail}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Confirm Email Successful. Recipient name: {oUser.Name}, recipient email: {oUser.Email}");
             }
             catch (Exception ex)
             {
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Send Confirm Email Failed. user id: {userId}, recipient name: {recipientName}, recipient email: {recipientEmail}, Exception: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Send Confirm Email Failed. Recipient name: {oUser.Name}, recipient email: {oUser.Email}, Exception: {ex.Message}");
             }
 
         }
