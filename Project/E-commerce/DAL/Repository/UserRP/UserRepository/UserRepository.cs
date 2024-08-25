@@ -82,7 +82,7 @@ namespace DAL.Repository.UserRP.UserRepository
             return result;
         }
 
-        #region [ Get T_User ]
+        #region [ Get User ]
 
         public async Task<T_User> GetByIdAsync(string id)
         {
@@ -92,6 +92,18 @@ namespace DAL.Repository.UserRP.UserRepository
         public async Task<T_User> GetByUsernameAsync(string username)
         {
             return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.Username == username);
+        }
+
+        #endregion
+
+        #region [ Get User's Role ]
+
+        public async Task<int> GetUserRoleByUsernameAsync(string username)
+        {
+            return await _myDbContext.T_User
+                .Where(x => x.Username == username)
+                .Select(x => x.UserRoleId)
+                .FirstOrDefaultAsync();
         }
 
         #endregion
@@ -120,13 +132,15 @@ namespace DAL.Repository.UserRP.UserRepository
             await _myDbContext.SaveChangesAsync();
         }
 
-        public async Task<int> GetUserRoleByUsernameAsync(string username)
+        public async Task<bool> IsUsernameExistAsync(string username)
         {
-            return await _myDbContext.T_User
-                .Where(x => x.Username == username)
-                .Select(x => x.UserRoleId)
-                .FirstOrDefaultAsync();
+            return await _myDbContext.T_User.AnyAsync(user => user.Username == username);
         }
 
+        public async Task<bool> IsEmailExistAsync(string email, string? userId = null)
+        {
+            return await _myDbContext.T_User
+                .AnyAsync(user => user.Email == email && (userId == null ? true : user.Id != userId));
+        }
     }
 }

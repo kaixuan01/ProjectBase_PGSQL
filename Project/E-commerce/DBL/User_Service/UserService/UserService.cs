@@ -10,10 +10,7 @@ using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.UserActionClass;
 using DBL.User_Service.UserTokensService;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Linq.Dynamic.Core.Tokenizer;
 using Utils;
 using Utils.Enums;
 using Utils.Tools;
@@ -97,7 +94,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Get User Role ]
+        #region [ Get User's Role ]
 
         public async Task<int> GetUserRoleByUsernameAsync(string username)
         {
@@ -127,6 +124,30 @@ namespace DBL.User_Service.UserService
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
                     rtnValue.Message = ErrorMessage.MissingRequiredField;
+                    return rtnValue;
+                }
+
+                if (!RegexHelper.IsEmailValid(oUser.email))
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid email format. Please enter a valid email.";
+                    return rtnValue;
+                }
+
+                // Check is username exist
+                bool isUsernameExist = await _userRepository.IsUsernameExistAsync(oUser.username);
+                if (isUsernameExist)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Username already exists. Please try another username.";
+                    return rtnValue;
+                }
+                // Check is email exist
+                bool isEmailExist = await _userRepository.IsEmailExistAsync(oUser.email);
+                if (isEmailExist)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Email already exists. Please try another email.";
                     return rtnValue;
                 }
 
@@ -200,6 +221,16 @@ namespace DBL.User_Service.UserService
                     rtnValue.Message = "User not found.";
                     return rtnValue;
                 }
+
+                // Check is email exist
+                bool isEmailExist = await _userRepository.IsEmailExistAsync(oReq.email, oUser.Id);
+                if (isEmailExist)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Email already exists. Please try another email.";
+                    return rtnValue;
+                }
+
                 // Used to create audit trail record
                 var copyUser = oUser.Clone();
 

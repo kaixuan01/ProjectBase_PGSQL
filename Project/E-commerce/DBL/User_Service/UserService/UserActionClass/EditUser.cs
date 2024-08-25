@@ -9,7 +9,6 @@
         public int userRoleId { get; set; }
         public string? phone { get; set; }
         public string? address { get; set; }
-
     }
 
     public class EditUser_RESP
