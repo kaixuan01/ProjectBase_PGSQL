@@ -17,8 +17,8 @@ export default function EmailConfirmation() {
             url: `/OAuth/ConfirmEmail`,
             data: {token: id},
             method: 'POST',
-            onSuccess: (data) => {
-                setSuccessMessage("Your email has been successfully confirmed.");
+            onSuccess: (data, msg) => {
+                setSuccessMessage(msg);
                 setLoading(false);
             },
             onError: (error) => {
