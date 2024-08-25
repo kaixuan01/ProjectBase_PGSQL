@@ -432,7 +432,7 @@ namespace DBL.User_Service.UserService
                     if (!oUser.IsEmailVerified)
                     {
                         rtnValue.Code = RespCode.RespCode_Failed;
-                        rtnValue.Message = "Your account has not been verified yet. Please check your email for the verification link. If you did not receive the email, you can request a new verification email.";
+                        rtnValue.Message = "Your account has not been verified yet. Please check your email for the confirmation link. If you did not receive the email, you can request a new confirmation email.";
 
                         return rtnValue;
                     }

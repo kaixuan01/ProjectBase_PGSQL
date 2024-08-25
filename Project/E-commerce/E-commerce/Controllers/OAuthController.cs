@@ -227,7 +227,7 @@ namespace E_commerce.Controllers
         #region [ Confirm Email ]
 
         [HttpPost("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string token)
+        public async Task<IActionResult> ConfirmEmail([FromBody] string token)
         {
             ApiResponse<string> response = null;
 
