@@ -1,35 +1,23 @@
 ﻿using DAL.Entity;
-using DAL.Repository.UserRP.UserRepository;
-using DBL.AuditTrail_Service;
-using DBL.Email_Service;
-using DBL.SystemConfig_Service;
-using DBL.User_Service.UserLoginHistoryService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utils.Enums;
-using Utils;
-using Utils.Tools;
-using DBL.Tools;
 using DAL.Repository.UserRP.UserTokens;
-using System.Linq.Dynamic.Core.Tokenizer;
+using DBL.AuditTrail_Service;
+using DBL.SystemConfig_Service;
+using DBL.Tools;
+using Utils;
+using Utils.Enums;
+using Utils.Tools;
 
 namespace DBL.User_Service.UserTokensService
 {
     public class UserTokensService : IUserTokensService
     {
         private readonly IAuditTrailService _auditTrailService;
-        private readonly IUserRepository _userRepository;
         private readonly IUserTokensRepository _userTokensRepository;
-
         private readonly ISystemConfigService _systemConfigService;
 
-        public UserTokensService(IUserRepository userRepository, IUserTokensRepository userTokensRepository, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService)
+        public UserTokensService(IUserTokensRepository userTokensRepository, IAuditTrailService auditTrailService, ISystemConfigService systemConfigService)
         {
             _auditTrailService = auditTrailService;
-            _userRepository = userRepository;
             _userTokensRepository = userTokensRepository;
             _systemConfigService = systemConfigService;
         }
@@ -90,6 +78,11 @@ namespace DBL.User_Service.UserTokensService
         public async Task<T_UserTokens> GetByTokenAsync(string token)
         {
             return await _userTokensRepository.GetByTokenAsync(token);
+        }
+
+        public async Task<T_UserTokens> GetByUserIdAsync(string UserId)
+        {
+            return await _userTokensRepository.GetByUserIdAsync(UserId);
         }
 
         public async Task UpdateAsync(T_UserTokens userTokens)

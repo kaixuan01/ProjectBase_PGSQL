@@ -1,12 +1,5 @@
 ﻿using DAL.Entity;
-using DAL.Repository.UserRP.UserRepository.Class;
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Repository.UserRP.UserTokens
 {
@@ -31,6 +24,16 @@ namespace DAL.Repository.UserRP.UserTokens
                 .Where(x => x.Token == token)
                 .OrderByDescending(x => x.CreatedDateTime)
                 .FirstOrDefaultAsync();
+
+            return oUserToken;
+        }
+
+        public async Task<T_UserTokens> GetByUserIdAsync(string UserId)
+        {
+            var oUserToken = await _myDbContext.T_UserTokens
+                           .Where(x => x.UserId == UserId)
+                           .OrderByDescending(x => x.CreatedDateTime)
+                           .FirstOrDefaultAsync();
 
             return oUserToken;
         }

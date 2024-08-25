@@ -22,13 +22,17 @@ namespace DBL.User_Service.UserService
         // ## Login Verify
         Task<VerifyUser_RESP> VerifyUserAsync(VerifyUser_REQ user);
 
+        // ## Block / Unblock user
+        Task<ShareResp> SetUserStatusAsync(string id);
+
         // ## Update Logout
         Task UpdateUserLogoutAsync(string username);
 
-        // ## Verify Email
-        Task<ShareResp> UpdateUserVerifyEmailAsync(string token);
+        // ## Confirm Email
+        Task<ShareResp> UpdateUserConfirmEmailAsync(string token);
 
-        // ## Block / Unblock user
-        Task<ShareResp> SetUserStatusAsync(string id);
+        // ## Resend Confirm Email
+        Task<ShareResp> ResendConfirmEmailAsync(ResendConfirmEmail_REQ oReq);
+
     }
 }

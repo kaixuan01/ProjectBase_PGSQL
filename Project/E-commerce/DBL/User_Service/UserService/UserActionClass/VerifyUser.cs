@@ -17,4 +17,11 @@
     {
         public string Token { get; set; }
     }
+
+    public class ResendConfirmEmail_REQ
+    {
+        public string? Token { get; set; }
+        public string? Username { get; set; }
+    }
+
 }
