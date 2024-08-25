@@ -14,7 +14,8 @@ export default function EmailConfirmation() {
 
     useEffect(() => {
         FuncHTTPReq({
-            url: `/OAuth/ConfirmEmail?token=${id}`,
+            url: `/OAuth/ConfirmEmail`,
+            data: {token: id},
             method: 'POST',
             onSuccess: (data) => {
                 setSuccessMessage("Your email has been successfully confirmed.");
