@@ -48,7 +48,6 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
-  console.log(1);
   return (
     <div className='app-container'>
       <Router>

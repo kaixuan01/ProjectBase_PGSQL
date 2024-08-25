@@ -29,7 +29,7 @@ export const useFuncHTTPReq = () => {
   const { handleLogout } = useAuthHandlers();
 
   // Memoize FuncHTTPReq to avoid recreation
-  const FuncHTTPReq = useCallback(async ({
+  const FuncHTTPReq = useCallback(({
     method = 'GET',
     url,
     baseUrl = 'https://localhost:7032',
@@ -40,47 +40,51 @@ export const useFuncHTTPReq = () => {
     onSuccess,
     onError
   }) => {
-    try {
-      const options = {
-        method,
-        credentials,
-        headers: {
-          'Content-Type': 'application/json',
-          ...headers,
-        },
-        ...(['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) && data && { body: JSON.stringify(data) }),
-      };
+    // Encapsulate the async logic inside the function
+    (async () => {
+      try {
+        const options = {
+          method,
+          credentials,
+          headers: {
+            'Content-Type': 'application/json',
+            ...headers,
+          },
+          ...(['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) && data && { body: JSON.stringify(data) }),
+        };
 
-      const response = await fetch(`${baseUrl}${url}`, options);
+        const response = await fetch(`${baseUrl}${url}`, options);
 
-      if (!handleResponseErrors(response, handleLogout)) {
-        return;
+        if (!handleResponseErrors(response, handleLogout)) {
+          return;
+        }
+
+        let result;
+        switch (responseType) {
+          case 'json':
+            result = await response.json();
+            break;
+          case 'text':
+            result = await response.text();
+            break;
+          default:
+            result = await response.blob();
+            break;
+        }
+
+        if (responseType === 'json' && result.success) {
+          onSuccess?.(result.data, result.message);
+        } else {
+          showErrorAlert(result.message);
+          console.error(result.message);
+          onError?.(result.message);
+        }
+      } catch (error) {
+        showErrorAlert(error.message || "An error occurred.");
+        console.error('HTTP Request Failed:', error);
+        onError?.(error);
       }
-
-      let result;
-      switch (responseType) {
-        case 'json':
-          result = await response.json();
-          break;
-        case 'text':
-          result = await response.text();
-          break;
-        default:
-          result = await response.blob();
-          break;
-      }
-
-      if (responseType === 'json' && result.success) {
-        onSuccess?.(result.data, result.message);
-      } else {
-        showErrorAlert(result.message);
-        console.error(result.message);
-      }
-    } catch (error) {
-      showErrorAlert(error.message || "An error occurred.");
-      console.error('HTTP Request Failed:', error);
-      onError?.(error);
-    }
+    })();
   }, [handleLogout]);
 
   return { FuncHTTPReq };
