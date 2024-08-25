@@ -12,4 +12,9 @@
         public string Message { get; set; }
         public int? UserRoleId { get; set; }
     }
+
+    public class ConfirmEmail_REQ
+    {
+        public string Token { get; set; }
+    }
 }

@@ -227,14 +227,14 @@ namespace E_commerce.Controllers
         #region [ Confirm Email ]
 
         [HttpPost("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail([FromBody] string token)
+        public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmail_REQ oReq)
         {
             ApiResponse<string> response = null;
 
             try
             {
                 // Update user logout
-                var oResp = await _userService.UpdateUserVerifyEmailAsync(token);
+                var oResp = await _userService.UpdateUserVerifyEmailAsync(oReq.Token);
 
                 if (oResp != null)
                 {
