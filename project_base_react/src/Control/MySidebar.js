@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-export default function MySidebar() {
-    const [collapse, setCollapse] = useState(true);
+export default function MySidebar({toggled}) {
     const location = useLocation();
-
+    const [collapse, setCollapse] = useState(false);
     const SidebarHeader = () => (
         <div style={{ display: 'flex', alignItems: 'center', padding: '15px', backgroundColor: '#2E3B4E',whiteSpace: 'nowrap', width: 'auto' }}>
             <div
@@ -51,6 +50,9 @@ export default function MySidebar() {
             style={{ height: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
             collapsed={collapse}
             backgroundColor='#2E3B4E'
+            className='border-0'
+            breakPoint="md"
+            toggled={toggled}
         >
             <div>
                 <Menu

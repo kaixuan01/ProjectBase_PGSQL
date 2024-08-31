@@ -3,7 +3,7 @@ import { useFuncHTTPReq } from "../Hook/FuncHttpReq";
 const HTTPReq = ({
     method = 'GET',
     url,
-    baseUrl = 'https://localhost:7032',
+    baseUrl = 'http://localhost:2030',
     data = null,
     credentials = 'include',
     headers = {},

@@ -51,31 +51,27 @@
   margin: 0;
 }
 
-.top-bar {
-  width: 100%;
-  background-color: #2E3B4E;
-  color: #FFF;
-  /* Add styling for the top bar if needed */
-}
-
 
 .my-sidebar {
   width: auto; /* Set a fixed width for consistency */
   background-color: #2E3B4E;
   color: #FFF;
-  margin-top: 61px;
-  height: calc(100% - 61px);
+  /* margin-top: 61px; */
+  height: 100vh;
   /* Add other styling for the sidebar */
 }
 
 .my-page-container {
-  flex: 1;
   padding: 20px;
+}
+
+.main-page-container{
+  flex: 1;
   background-color: #f8f9fa; /* Light background color */
   color: #333;
-  overflow-y: auto; /* Add scrolling if the content is long */
-  margin-top: 61px;
-  height: 94vh;
+  overflow-y: auto;
+  /* margin-top: 60px;  */
+  height: 100vh;
 }
 .custom-multiselect .selected-tag {
   display: none; /* Hides the tags */

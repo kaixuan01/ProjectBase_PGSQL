@@ -12,15 +12,18 @@ import myURLRoutes from './Common/RoutePath';
 import AnonymousRoutePath from './Common/AnonymousRoutePath'; // Import Anonymous Routes
 
 function AuthenticatedLayout({ children }) {
+  const [toggled, setToggled] = useState(false);
   return (
     <>
-      <MyTopBar />
       <div className="d-flex">
         <div className="my-sidebar">
-          <MySidebar />
+          <MySidebar toggled={toggled}/>
         </div>
+        <div className='main-page-container'>
+        <MyTopBar toggled={toggled} setToggled={setToggled}/>
         <div className="my-page-container">
           {children}
+        </div>
         </div>
       </div>
     </>
