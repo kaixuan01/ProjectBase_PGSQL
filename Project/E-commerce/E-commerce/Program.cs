@@ -125,6 +125,7 @@ app.UseCors("AllowLocalhost");
 
 // Register custom JWT middleware before authentication and authorization
 app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -133,6 +134,6 @@ app.MapControllers();
 
 // Auto Create Database or Update Database table
 // Not sure can use in production or not
-app.CreatOrUpdateDatabase();
+//app.CreatOrUpdateDatabase();
 
 app.Run();

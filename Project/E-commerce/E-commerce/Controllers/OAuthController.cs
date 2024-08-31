@@ -298,6 +298,95 @@ namespace E_commerce.Controllers
 
         #endregion
 
+        #region [ Reset Password Request ]
+
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPassword_REQ oReq)
+        {
+            ApiResponse<string>? apiResponse = null;
+
+            try
+            {
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Forgot Password Request, Email: {oReq.email}");
+
+                var oResp = await _userService.ForgotPasswordRequestAsync(oReq.email);
+
+                switch (oResp.Code)
+                {
+                    case RespCode.RespCode_Success:
+                        // Create a success response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateSuccessResponse(null, "Forgot password request received. Please check your email for instructions to reset your password.");
+                        break;
+
+                    case RespCode.RespCode_Failed:
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                    default: // Default is throw exception message
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                apiResponse = ApiResponse<String>.CreateErrorResponse($"Forgot Password Request Failed. Exception: {ex.Message}");
+
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when forgot password request, Message: {ex.Message}", ex);
+            }
+
+
+            return Ok(apiResponse);
+        }
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPassword_REQ oReq)
+        {
+            ApiResponse<string>? apiResponse = null;
+
+            try
+            {
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Reset Password Request, Token: {oReq.token}");
+
+                var oResp = await _userService.UpdateResetPasswordAsync(oReq);
+
+                switch (oResp.Code)
+                {
+                    case RespCode.RespCode_Success:
+                        // Create a success response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateSuccessResponse(null, oResp.Message);
+                        break;
+
+                    case RespCode.RespCode_Failed:
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                    default: // Default is throw exception message
+                        // Create a error response using ApiResponse<T>
+                        apiResponse = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+
+                        break;
+                        // return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                apiResponse = ApiResponse<String>.CreateErrorResponse($"Reset Password Request Failed. Exception: {ex.Message}");
+
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when reset password, Message: {ex.Message}", ex);
+            }
+
+
+            return Ok(apiResponse);
+        }
+
+        #endregion
+
         #region [ Function ]
 
         private void ClearCookies()

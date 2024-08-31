@@ -34,5 +34,10 @@ namespace DBL.User_Service.UserService
         // ## Resend Confirm Email
         Task<ShareResp> ResendConfirmEmailAsync(ResendConfirmEmail_REQ oReq);
 
+
+        // ## Forgot Password Request
+        Task<ShareResp> ForgotPasswordRequestAsync(string email);
+        Task<ShareResp> UpdateResetPasswordAsync(ResetPassword_REQ oReq);
+
     }
 }

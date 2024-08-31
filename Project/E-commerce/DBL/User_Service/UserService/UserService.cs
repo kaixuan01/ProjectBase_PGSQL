@@ -10,7 +10,9 @@ using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.UserActionClass;
 using DBL.User_Service.UserTokensService;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.Linq.Dynamic.Core.Tokenizer;
 using Utils;
 using Utils.Enums;
 using Utils.Tools;
@@ -698,6 +700,146 @@ namespace DBL.User_Service.UserService
                 rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = ErrorMessage.GeneralError;
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the email confirmation process.", ex);
+            }
+
+            return rtnValue;
+        }
+
+        #endregion
+
+        #region [ Forgot Password ]
+
+        public async Task<ShareResp> ForgotPasswordRequestAsync(string email)
+        {
+
+            var rtnValue = new ShareResp();
+
+            if (string.IsNullOrEmpty(email))
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Forgot Password request failed: Email are missing.");
+
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = ErrorMessage.ProcessingError;
+                return rtnValue;
+            }
+
+            try
+            {
+                var oUser = await _userRepository.GetByEmailAsync(email);
+
+                if (oUser == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Forgot Password request failed: User not found.");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = ErrorMessage.ProcessingError;
+                    return rtnValue;
+                }
+
+                if (!oUser.IsEmailVerified)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Forgot Password request failed: User haven't confirm email.");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Your account has not been verified yet. Please check your email for the confirmation link. If you did not receive the email, you can request a new confirmation email.";
+                    return rtnValue;
+                }
+
+                // ## Send Email
+                await _emailService.SendResetPasswordEmailAsync(oUser);
+
+                rtnValue.Code = RespCode.RespCode_Success;
+                rtnValue.Message = "Reset password email sent successfully. Please check your email.";
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Reset Password Email resent successfully. User Id: {oUser.Id}");
+            }
+            catch (Exception ex)
+            {
+                rtnValue.Code = RespCode.RespCode_Exception;
+                rtnValue.Message = ErrorMessage.GeneralError;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the email confirmation process.", ex);
+            }
+
+            return rtnValue;
+        }
+
+        public async Task<ShareResp> UpdateResetPasswordAsync(ResetPassword_REQ oReq)
+        {
+            var rtnValue = new ShareResp();
+
+            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Receive Request to Reset Password. Token: {oReq.token}");
+
+            if (string.IsNullOrEmpty(oReq.token) || string.IsNullOrEmpty(oReq.newPassword) || string.IsNullOrEmpty(oReq.confirmPassword))
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the reset password process: Required Value is missing.");
+
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = ErrorMessage.ProcessingError;
+                return rtnValue;
+            }
+
+            if (!oReq.newPassword.Equals(oReq.confirmPassword))
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the reset password process: New Password not equal with confirm password.");
+
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = "The confirmation password must match the new password.";
+                return rtnValue;
+            }
+
+            try
+            {
+
+                var oUserToken = await _userTokenService.GetByTokenAsync(oReq.token);
+
+                if (oUserToken == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User Token not found. Token: {oReq.token}");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid or expired confirm email link.";
+                    return rtnValue;
+                }
+
+                var oUser = await _userRepository.GetByIdAsync(oUserToken.UserId);
+
+                if (oUser == null)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = ErrorMessage.ProcessingError;
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. User Id: {oUserToken.UserId}");
+                    return rtnValue;
+                }
+
+                if (oUserToken.IsUsed || oUserToken.ExpiresDateTime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.ResetPassword)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid or expired confirm email link.";
+                    return rtnValue;
+                }
+
+                // Used to create audit trail record
+                var copyUser = oUser.Clone();
+
+                // ## Update User's Token to used
+                oUserToken.IsUsed = true;
+                await _userTokenService.UpdateAsync(oUserToken);
+
+                // ## Update User Email Verified
+                oUser.Password = PasswordHelper.HashPassword(oReq.newPassword);
+                await _userRepository.UpdateAsync(oUser);
+
+                // ## Insert Audit Trail for User changes
+                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Edit, copyUser, oUser);
+
+                rtnValue.Code = RespCode.RespCode_Success;
+                rtnValue.Message = "Your password has been reset successfully. You can now log in to your account.";
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Id: {oUser.Id}");
+            }
+            catch (Exception ex)
+            {
+                rtnValue.Code = RespCode.RespCode_Exception;
+                rtnValue.Message = ErrorMessage.GeneralError;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the reset password process.", ex);
             }
 
             return rtnValue;

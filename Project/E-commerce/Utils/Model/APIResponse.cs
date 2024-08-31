@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using Utils.Enums;
-namespace Utils.Model
+﻿namespace Utils.Model
 {
     public class ApiResponse<T>
     {

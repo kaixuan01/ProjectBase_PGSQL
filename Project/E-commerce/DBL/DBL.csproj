@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <None Remove="Resource\EmailTemplateDesign\ConfirmEmailTemplate.html" />
+    <None Remove="Resource\EmailTemplateDesign\ResetPasswordEmailTemplate.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -21,6 +23,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resource\EmailTemplateDesign\ConfirmEmailTemplate.html" />
+    <EmbeddedResource Include="Resource\EmailTemplateDesign\ResetPasswordEmailTemplate.html" />
   </ItemGroup>
 
 </Project>

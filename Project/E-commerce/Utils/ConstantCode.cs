@@ -27,7 +27,7 @@
         public class UserTokenType
         {
             public const string EmailConfirmation = "EmailConfirmation";
-            public const string PasswordReset = "PasswordReset";
+            public const string ResetPassword = "ResetPassword";
         }
 
         public class SystemConfig_Key
@@ -57,6 +57,7 @@
             public class EmailTemplateDesign
             {
                 public const string ConfirmEmailTemplate = "DBL.Resource.EmailTemplateDesign.ConfirmEmailTemplate.html";
+                public const string ResetPasswordEmailTemplate = "DBL.Resource.EmailTemplateDesign.ResetPasswordEmailTemplate.html";
             }
         }
 
@@ -65,11 +66,15 @@
             public const string RecipientName = "RecipientName";
             public const string ConfirmEmailUrl = "ConfirmEmailUrl";
             public const string ExpiresDateTime = "ExpiresDateTime";
+            public const string ResetPasswordUrl = "ResetPasswordUrl";
+
+            
         }
 
         public class UrlPath
         {
             public const string ConfirmEmail = "/ConfirmEmail/{token}";
+            public const string ResetPassword = "/ResetPassword/{token}";
         }
 
         public class Status

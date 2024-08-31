@@ -16,13 +16,11 @@ namespace DBL.Email_Service
         private readonly ISystemConfigService _systemConfigService; 
         private readonly IUserTokensService _userTokenService;
         private readonly string _reactBaseUrl;
-        private readonly EncryptionHelper _encryptionHelper;
 
-        public EmailService(IEmailRepository emailRepository, IConfiguration configuration, EncryptionHelper encryptionHelper, ISystemConfigService systemConfigService, IUserTokensService userTokensService) {
+        public EmailService(IEmailRepository emailRepository, IConfiguration configuration, ISystemConfigService systemConfigService, IUserTokensService userTokensService) {
         
             _emailRepository = emailRepository;
             _systemConfigService = systemConfigService;
-            _encryptionHelper = encryptionHelper;
             _userTokenService = userTokensService;
 
             // Get the secret key from appsettings.json
@@ -77,14 +75,14 @@ namespace DBL.Email_Service
 
         #endregion
 
-        #region [ Send Email ]
+        #region [ Send Email Function ]
 
         public async Task SendConfirmEmailAsync(T_User oUser)
         {
             if (oUser == null)
             {
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Confirm Email failed. User not found");
-                throw new Exception();
+                throw new Exception("Failed to send confirm email. User not found");
             }
 
             LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Confirm Email request. User Id: {oUser.Id}, recipient name: {oUser.Name}, recipient email: {oUser.Email}");
@@ -121,9 +119,57 @@ namespace DBL.Email_Service
             }
             catch (Exception ex)
             {
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Send Confirm Email Failed. Recipient name: {oUser.Name}, recipient email: {oUser.Email}, Exception: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Send Confirm Email Failed. Recipient name: {oUser.Name}, recipient email: {oUser.Email}", ex);
+                throw;
             }
 
+        }
+
+        public async Task SendResetPasswordEmailAsync(T_User oUser)
+        {
+            if (oUser == null)
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Reset Password Email failed. User not found");
+                throw new Exception("Failed to send reset password email. User not found");
+            }
+
+            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send reset password email request. User Id: {oUser.Id}, recipient name: {oUser.Name}, recipient email: {oUser.Email}");
+
+            try
+            {
+                var oUserToken = await _userTokenService.CreateAsync(oUser.Id, ConstantCode.UserTokenType.ResetPassword);
+
+                string resetPasswordEmailUrl = GenerateUrlHelper.GenerateUrl(_reactBaseUrl, ConstantCode.UrlPath.ResetPassword, oUserToken.Token);
+
+                var placeholders = new Dictionary<string, string>
+                {
+                    { ConstantCode.EmailPlaceholder.RecipientName, oUser.Name },
+                    { ConstantCode.EmailPlaceholder.ResetPasswordUrl, resetPasswordEmailUrl },
+                    { ConstantCode.EmailPlaceholder.ExpiresDateTime, oUserToken.ExpiresDateTime.ToString("MMMM dd, yyyy hh:mm tt") },
+                };
+
+                var emailContent = await PrepareEmailContentAsync(ConstantCode.Resource.EmailTemplateDesign.ResetPasswordEmailTemplate, placeholders);
+
+                var email = new T_Email
+                {
+                    Id = IdGeneratorHelper.GenerateId(),
+                    EmailSubject = "Reset Password",
+                    EmailContent = emailContent,
+                    RecipientName = oUser.Name,
+                    RecipientEmail = oUser.Email,
+                    Status = ConstantCode.Status.Code_Pending,
+                    CreatedDateTime = DateTime.Now
+                };
+
+                await _emailRepository.CreateAsync(email);
+
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Send Reset Password Email Successful. Recipient name: {oUser.Name}, recipient email: {oUser.Email}");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Send Reset Password Email Failed. Recipient name: {oUser.Name}, recipient email: {oUser.Email}", ex);
+                throw;
+            }
         }
 
         #endregion

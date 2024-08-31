@@ -94,6 +94,11 @@ namespace DAL.Repository.UserRP.UserRepository
             return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.Username == username);
         }
 
+        public async Task<T_User> GetByEmailAsync(string email)
+        {
+            return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
         #endregion
 
         #region [ Get User's Role ]
