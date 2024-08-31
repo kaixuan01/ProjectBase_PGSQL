@@ -224,7 +224,7 @@ namespace E_commerce.Controllers
 
         #endregion
 
-        #region [ Confirm Email ]
+        #region [ Confirm Email Process ]
 
         [HttpPost("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmail_REQ oReq)
@@ -234,7 +234,44 @@ namespace E_commerce.Controllers
             try
             {
                 // Update user logout
-                var oResp = await _userService.UpdateUserVerifyEmailAsync(oReq.Token);
+                var oResp = await _userService.UpdateUserConfirmEmailAsync(oReq.Token);
+
+                if (oResp != null)
+                {
+                    switch (oResp.Code)
+                    {
+                        case RespCode.RespCode_Success:
+                            response = ApiResponse<string>.CreateSuccessResponse(null, oResp.Message);
+                            break;
+
+                        default:
+                            response = ApiResponse<string>.CreateErrorResponse(oResp.Message);
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response = ApiResponse<string>.CreateErrorResponse($"Verify Email Failed, Exception: {ex.Message}");
+                LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when verify user's email, Exception: {ex.Message}");
+            }
+
+            return Ok(response);
+        }
+
+        #endregion
+
+        #region [ Resend Confirm Email ]
+
+        [HttpPost("ResendConfirmEmail")]
+        public async Task<IActionResult> ResendConfirmEmail([FromBody] ResendConfirmEmail_REQ oReq)
+        {
+            ApiResponse<string> response = null;
+
+            try
+            {
+                // Update user logout
+                var oResp = await _userService.ResendConfirmEmailAsync(oReq);
 
                 if (oResp != null)
                 {

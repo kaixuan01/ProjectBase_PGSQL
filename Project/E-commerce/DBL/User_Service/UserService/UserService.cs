@@ -25,17 +25,15 @@ namespace DBL.User_Service.UserService
         private readonly IUserLoginHistoryService _userLoginHistoryService;
         private readonly ISystemConfigService _systemConfigService;
         private readonly IEmailService _emailService;
-        private readonly EncryptionHelper _encryptionHelper;
 
         public UserService(IUserRepository userRepository, IUserLoginHistoryService userLoginHistoryService, IAuditTrailService auditTrailService,
-            ISystemConfigService systemConfigService, IEmailService emailService, IUserTokensService userTokensService, EncryptionHelper encryptionHelper)
+            ISystemConfigService systemConfigService, IEmailService emailService, IUserTokensService userTokensService)
         {
             _auditTrailService = auditTrailService;
             _userRepository = userRepository;
             _userLoginHistoryService = userLoginHistoryService;
             _systemConfigService = systemConfigService;
             _emailService = emailService;
-            _encryptionHelper = encryptionHelper;
             _userTokenService = userTokensService;
         }
 
@@ -96,7 +94,7 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Get User Role ]
+        #region [ Get User's Role ]
 
         public async Task<int> GetUserRoleByUsernameAsync(string username)
         {
@@ -126,6 +124,30 @@ namespace DBL.User_Service.UserService
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
                     rtnValue.Message = ErrorMessage.MissingRequiredField;
+                    return rtnValue;
+                }
+
+                if (!RegexHelper.IsEmailValid(oUser.email))
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid email format. Please enter a valid email.";
+                    return rtnValue;
+                }
+
+                // Check is username exist
+                bool isUsernameExist = await _userRepository.IsUsernameExistAsync(oUser.username);
+                if (isUsernameExist)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Username already exists. Please try another username.";
+                    return rtnValue;
+                }
+                // Check is email exist
+                bool isEmailExist = await _userRepository.IsEmailExistAsync(oUser.email);
+                if (isEmailExist)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Email already exists. Please try another email.";
                     return rtnValue;
                 }
 
@@ -199,6 +221,16 @@ namespace DBL.User_Service.UserService
                     rtnValue.Message = "User not found.";
                     return rtnValue;
                 }
+
+                // Check is email exist
+                bool isEmailExist = await _userRepository.IsEmailExistAsync(oReq.email, oUser.Id);
+                if (isEmailExist)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Email already exists. Please try another email.";
+                    return rtnValue;
+                }
+
                 // Used to create audit trail record
                 var copyUser = oUser.Clone();
 
@@ -230,6 +262,10 @@ namespace DBL.User_Service.UserService
             return rtnValue;
         }
 
+        #endregion
+
+        #region [ Update User Logout ]
+
         public async Task UpdateUserLogoutAsync(string username)
         {
             try
@@ -241,7 +277,7 @@ namespace DBL.User_Service.UserService
                 {
                     LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. Username: {username}");
 
-                    return ;
+                    return;
                 }
                 // Used to create audit trail record
 
@@ -253,88 +289,6 @@ namespace DBL.User_Service.UserService
             {
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
-        }
-
-        #endregion
-
-        #region [ Confirm Email ]
-
-        public async Task<ShareResp> UpdateUserVerifyEmailAsync(string token)
-        {
-            var rtnValue = new ShareResp();
-
-            if (string.IsNullOrEmpty(token))
-            {
-                rtnValue.Code = RespCode.RespCode_Failed;
-                rtnValue.Message = ErrorMessage.ProcessingError;
-                return rtnValue;
-            }
-
-            try
-            {
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Receive Request to Verify Email. Token: {token}");
-                var oUserToken = await _userTokenService.GetByTokenAsync(token);
-
-                if (oUserToken == null)
-                {
-                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User Token not found. Token: {token}");
-
-                    rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "Invalid or expired confirm email link. Please request a new confirmation email.";
-                    return rtnValue;
-                }
-
-                var oUser = await _userRepository.GetByIdAsync(oUserToken.UserId);
-
-                if (oUser == null)
-                {
-                    rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "User not found.";
-                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. User Id: {oUserToken.UserId}");
-                    return rtnValue;
-                }
-
-                if (oUser.IsEmailVerified)
-                {
-                    rtnValue.Code = RespCode.RespCode_Success;
-                    rtnValue.Message = "Your email was verified previously. Please proceed to log in.";
-                    LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User retry to confirm email. User Id: {oUser.Id}");
-                    return rtnValue;
-                }
-
-                if (oUserToken.IsUsed || oUserToken.ExpiresDateTime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.EmailConfirmation)
-                {
-                    rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "Invalid or expired confirm email link. Please request a new confirmation email.";
-                    return rtnValue;
-                }
-
-                // Used to create audit trail record
-                var copyUser = oUser.Clone();
-
-                // ## Update User's Token to used
-                oUserToken.IsUsed = true;
-                await _userTokenService.UpdateAsync(oUserToken);
-
-                // ## Update User Email Verified
-                oUser.IsEmailVerified = true;
-                await _userRepository.UpdateAsync(oUser);
-
-                // ## Insert Audit Trail for User changes
-                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Edit, copyUser, oUser);
-
-                rtnValue.Code = RespCode.RespCode_Success;
-                rtnValue.Message = "Your email address has been successfully verified. You can now log in to your account.";
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Id: {oUser.Id}");
-            }
-            catch (Exception ex)
-            {
-                rtnValue.Code = RespCode.RespCode_Exception;
-                rtnValue.Message = ErrorMessage.GeneralError;
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
-            }
-
-            return rtnValue;
         }
 
         #endregion
@@ -380,6 +334,70 @@ namespace DBL.User_Service.UserService
 
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
             }
+
+            return rtnValue;
+        }
+
+        #endregion
+
+        #region [ Block / Unblock User ]
+
+        /// <summary>
+        /// Block or Unblock user
+        /// If user status is block, will unblock it
+        /// if user status is active, will block it
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ShareResp> SetUserStatusAsync(string id)
+        {
+            var rtnValue = new ShareResp();
+
+            if (string.IsNullOrEmpty(id))
+            {
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = ErrorMessage.GeneralError;
+                return rtnValue;
+            }
+
+            try
+            {
+                var oUser = await _userRepository.GetByIdAsync(id);
+
+                if (oUser == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. user id: {id}");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "User not found.";
+                    return rtnValue;
+                }
+                // Used to create audit trail record
+                var copyUser = oUser.Clone();
+
+                // Reverse the user status
+                // If the user is currently blocked, set them to active
+                // If the user is currently active, set them to blocked
+                oUser.IsBlocked = !oUser.IsBlocked;
+
+                await _userRepository.UpdateAsync(oUser);
+
+                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Edit, copyUser, oUser);
+
+                var userStatus = (oUser.IsBlocked ? ConstantCode.UserStatus.Blocked : ConstantCode.UserStatus.Active);
+
+                rtnValue.Code = RespCode.RespCode_Success;
+                rtnValue.Message = $"User's status updated to {userStatus}.";
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User's status updated to {userStatus}. User Id: {id}, User Name: {oUser.Name}");
+            }
+            catch (Exception ex)
+            {
+                rtnValue.Code = RespCode.RespCode_Exception;
+                rtnValue.Message = ErrorMessage.GeneralError;
+
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
+            }
+
 
             return rtnValue;
         }
@@ -521,64 +539,166 @@ namespace DBL.User_Service.UserService
 
         #endregion
 
-        #region [ Block / Unblock User ]
+        #region [ User Confirm Email Process ]
 
-        /// <summary>
-        /// Block or Unblock user
-        /// If user status is block, will unblock it
-        /// if user status is active, will block it
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<ShareResp> SetUserStatusAsync(string id)
+        public async Task<ShareResp> UpdateUserConfirmEmailAsync(string token)
         {
             var rtnValue = new ShareResp();
 
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(token))
             {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the email confirmation process: No token found in the request.");
+
                 rtnValue.Code = RespCode.RespCode_Failed;
-                rtnValue.Message = ErrorMessage.GeneralError;
+                rtnValue.Message = ErrorMessage.ProcessingError;
                 return rtnValue;
             }
 
             try
             {
-                var oUser = await _userRepository.GetByIdAsync(id);
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Receive Request to Confirm Email. Token: {token}");
+                var oUserToken = await _userTokenService.GetByTokenAsync(token);
+
+                if (oUserToken == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User Token not found. Token: {token}");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid or expired confirm email link.";
+                    return rtnValue;
+                }
+
+                var oUser = await _userRepository.GetByIdAsync(oUserToken.UserId);
 
                 if (oUser == null)
                 {
-                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. user id: {id}");
-
                     rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "User not found.";
+                    rtnValue.Message = ErrorMessage.ProcessingError;
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User not found. User Id: {oUserToken.UserId}");
                     return rtnValue;
                 }
+
+                if (oUser.IsEmailVerified)
+                {
+                    rtnValue.Code = RespCode.RespCode_Success;
+                    rtnValue.Message = "Your email was confirmed previously. Please proceed to log in.";
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User retry to confirm email. User Id: {oUser.Id}");
+                    return rtnValue;
+                }
+
+                if (oUserToken.IsUsed || oUserToken.ExpiresDateTime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.EmailConfirmation)
+                {
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = "Invalid or expired confirm email link.";
+                    return rtnValue;
+                }
+
                 // Used to create audit trail record
                 var copyUser = oUser.Clone();
 
-                // Reverse the user status
-                // If the user is currently blocked, set them to active
-                // If the user is currently active, set them to blocked
-                oUser.IsBlocked = !oUser.IsBlocked;
+                // ## Update User's Token to used
+                oUserToken.IsUsed = true;
+                await _userTokenService.UpdateAsync(oUserToken);
 
+                // ## Update User Email Verified
+                oUser.IsEmailVerified = true;
                 await _userRepository.UpdateAsync(oUser);
 
+                // ## Insert Audit Trail for User changes
                 await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.User, ConstantCode.Action.Edit, copyUser, oUser);
 
-                var userStatus = (oUser.IsBlocked ? ConstantCode.UserStatus.Blocked : ConstantCode.UserStatus.Active);
-
                 rtnValue.Code = RespCode.RespCode_Success;
-                rtnValue.Message = $"User's status updated to {userStatus}.";
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User's status updated to {userStatus}. User Id: {id}, User Name: {oUser.Name}");
+                rtnValue.Message = "Your email address has been successfully confirmed. You can now log in to your account.";
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Update_Successful}. User Id: {oUser.Id}");
             }
             catch (Exception ex)
             {
                 rtnValue.Code = RespCode.RespCode_Exception;
                 rtnValue.Message = ErrorMessage.GeneralError;
-
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception Message: {ex.Message}");
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the email confirmation process.", ex);
             }
 
+            return rtnValue;
+        }
+
+        #endregion
+
+        #region [ Resend Confirm Email ]
+
+        public async Task<ShareResp> ResendConfirmEmailAsync(ResendConfirmEmail_REQ oReq)
+        {
+            var rtnValue = new ShareResp();
+
+            if (string.IsNullOrEmpty(oReq.Token) && string.IsNullOrEmpty(oReq.Username))
+            {
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Resend email request failed: Both token and username are missing.");
+
+                rtnValue.Code = RespCode.RespCode_Failed;
+                rtnValue.Message = ErrorMessage.ProcessingError;
+                return rtnValue;
+            }
+
+            try
+            {
+                T_User oUser = null;
+                T_UserTokens oUserTokens = null;
+
+                if (!string.IsNullOrEmpty(oReq.Username))
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Received request to resend confirmation email. Username: {oReq.Username}");
+                    oUser = await _userRepository.GetByUsernameAsync(oReq.Username);
+                    oUserTokens = await _userTokenService.GetByUserIdAsync(oUser.Id);
+                }
+                else if (!string.IsNullOrEmpty(oReq.Token))
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Received request to resend confirmation email. Token: {oReq.Token}");
+                    oUserTokens = await _userTokenService.GetByTokenAsync(oReq.Token);
+                    oUser = await _userRepository.GetByIdAsync(oUserTokens.UserId);
+                }
+
+                if (oUserTokens == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Resend email request failed: Token not found.");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = ErrorMessage.ProcessingError;
+                    return rtnValue;
+                }
+
+                if (oUser == null)
+                {
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Resend email request failed: User not found.");
+
+                    rtnValue.Code = RespCode.RespCode_Failed;
+                    rtnValue.Message = ErrorMessage.ProcessingError;
+                    return rtnValue;
+                }
+
+                if (oUser.IsEmailVerified)
+                {
+                    rtnValue.Code = RespCode.RespCode_Success;
+                    rtnValue.Message = "Your email has already been confirmed. Please proceed to log in.";
+                    LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"User attempted to resend confirmation email. User Id: {oUser.Id}");
+                    return rtnValue;
+                }
+
+                // Update previous token to IsUsed.
+                oUserTokens.IsUsed = true;
+                await _userTokenService.UpdateAsync(oUserTokens);
+
+                // ## Send Email
+                await _emailService.SendConfirmEmailAsync(oUser);
+
+                rtnValue.Code = RespCode.RespCode_Success;
+                rtnValue.Message = "Email sent successfully. Please check your email.";
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Confirmation email resent successfully. User Id: {oUser.Id}");
+            }
+            catch (Exception ex)
+            {
+                rtnValue.Code = RespCode.RespCode_Exception;
+                rtnValue.Message = ErrorMessage.GeneralError;
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Error occurred during the email confirmation process.", ex);
+            }
 
             return rtnValue;
         }
