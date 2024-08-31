@@ -9,11 +9,10 @@ export default function UserListing() {
 
     useEffect(() => {
         const fetchData = async () => {
-            await FuncHTTPReq({
+            FuncHTTPReq({
                 url: '/UserRole/GetRoleList',
                 method: 'GET',
                 onSuccess: (data) => {
-                    // Only set state if data has changed to avoid infinite loop
                     if (data && JSON.stringify(data) !== JSON.stringify(userRole)) {
                         setUserRole(data);
                     }
@@ -25,44 +24,73 @@ export default function UserListing() {
         };
 
         fetchData();
-    }, [FuncHTTPReq, userRole]); // Remove userRole from dependency array
+    }, [FuncHTTPReq, userRole]);
 
     const columns = useMemo(() => [
         {
-            Header: 'Name',
+            Header: 'Info',
             accessor: 'name',
-            Filter: InputFilter,
+            Cell: ({ row }) => (
+                <div>
+                    {Object.entries(row.original).map(([key, value]) => (
+                        <div key={key}>
+                            <strong>{key}:</strong> {value}
+                        </div>
+                    ))}
+                </div>
+            ),
+            disableSortBy: true,
+        },
+        {
+            Header: 'Name - ID',
+            accessor: '',
+            Cell: ({ value, row }) => (
+                <a href="/UserEdit">
+                    {row.original.username} - {row.original.id}
+                </a>
+            ),
+            disableSortBy: true,
         },
         {
             Header: 'Username',
-            accessor: 'username',
-            allowSort: true,
+            accessor: 'username'
         },
         {
             Header: 'Email',
             accessor: 'email',
-            allowSort: true,
             Filter: InputFilter,
             disableFilters: true,
         },
         {
             Header: 'Phone',
             accessor: 'phone',
-            allowSort: true,
         },
         {
             Header: 'User Role',
             accessor: 'role',
-            allowSort: true,
-            Filter: ({ column }) => <MultiSelectFilter column={column} options={userRole} />,
+            Filter: ({ column }) => {console.log(1); return <MultiSelectFilter column={column} options={userRole} />},
         }
-    ], [userRole]); // Keep userRole only in memoized columns
+    ], [userRole]);
+
+    const rowStyle = (row) => {
+        return row.original.name && row.original.name.includes('1')
+            ? { backgroundColor: 'LightYellow' }
+            : {};
+    };
 
     return (
         <>
             <h1>User Listing</h1>
             <hr />
-            <MyTable url={'/User/GetUserList'} columns={columns} />
+            <MyTable 
+                url={'/User/GetUserList'} 
+                columns={columns}
+                defaultSortBy={{
+                    id: 'username',
+                    desc: false,
+                }}
+                rowStyle={rowStyle}
+             />
         </>
     );
 }

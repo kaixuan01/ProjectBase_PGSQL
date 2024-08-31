@@ -20,12 +20,12 @@ export const DefaultColumnFilter = ({
     />
 );
 
-const MyTable = ({ url, columns }) => {
+const MyTable = ({ url, columns, defaultSortBy, rowStyle }) => {
     const [data, setData] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [pageIndex, setPageIndex] = useState(1);
     const [itemQty, setItemQty] = useState(0);
-    const {FuncHTTPReq} = useFuncHTTPReq();
+    const { FuncHTTPReq } = useFuncHTTPReq();
     const defaultColumn = React.useMemo(
         () => ({
             Filter: DefaultColumnFilter,
@@ -43,10 +43,14 @@ const MyTable = ({ url, columns }) => {
         setPageSize,
     } = useTable(
         {
+
             columns,
             data,
             defaultColumn,
-            initialState: { pageSize: 1 },
+            initialState: {
+                pageSize: 10,
+                sortBy: [defaultSortBy]
+            },
             manualPagination: true,
             manualSortBy: true,
             manualFilters: true,
@@ -59,40 +63,40 @@ const MyTable = ({ url, columns }) => {
 
     const fetchData = useCallback(async () => {
         try {
-          const queryParams = {
-            PageNumber: pageIndex,
-            PageSize: pageSize,
-            SortBy: sortBy[0] ? sortBy[0].id : '',
-            SortDescending: sortBy[0] ? sortBy[0].desc : false,
-            ...filters.reduce((acc, { id, value }) => ({ ...acc, [id]: value }), {}),
-          };
-      
-          const queryString = buildQueryString(queryParams);
-          const fullUrl = `${url}?${queryString}`;
-      
-          await FuncHTTPReq({
-            url: fullUrl,
-            method: 'GET',
-            onSuccess: (data) => {
-              if (JSON.stringify(data.items) !== JSON.stringify(data)) {
-                setData(data.items);
-              }
-              setTotalItems(data.totalCount);
-              setItemQty(data.items.length);
-            },
-            onError: (error) => {
-              console.error('Request failed with error:', error);
-            },
-          });
+            const queryParams = {
+                PageNumber: pageIndex,
+                PageSize: pageSize,
+                SortBy: sortBy[0] ? sortBy[0].id : '',
+                SortDescending: sortBy[0] ? sortBy[0].desc : false,
+                ...filters.reduce((acc, { id, value }) => ({ ...acc, [id]: value }), {}),
+            };
+
+            const queryString = buildQueryString(queryParams);
+            const fullUrl = `${url}?${queryString}`;
+
+            await FuncHTTPReq({
+                url: fullUrl,
+                method: 'GET',
+                onSuccess: (data) => {
+                    if (JSON.stringify(data.items) !== JSON.stringify(data)) {
+                        setData(data.items);
+                    }
+                    setTotalItems(data.totalCount);
+                    setItemQty(data.items.length);
+                },
+                onError: (error) => {
+                    console.error('Request failed with error:', error);
+                },
+            });
         } catch (error) {
-          console.error('Error in fetchData:', error);
+            console.error('Error in fetchData:', error);
         }
-      }, [pageIndex, pageSize, sortBy, filters, url, FuncHTTPReq]);
-      
-      useEffect(() => {
+    }, [pageIndex, pageSize, sortBy, filters, url, FuncHTTPReq]);
+
+    useEffect(() => {
         fetchData();
-      }, [fetchData]);
-      
+    }, [fetchData]);
+
 
     const handlePageChange = (newPageIndex) => {
         if (newPageIndex >= 1 && newPageIndex <= Math.ceil(totalItems / pageSize)) {
@@ -111,56 +115,63 @@ const MyTable = ({ url, columns }) => {
 
     return (
         <div className="table-container">
-            <table {...getTableProps()} className="my-table">
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <React.Fragment key={`header-group-${headerGroup.id}`}>
-                            <tr {...headerGroup.getHeaderGroupProps()} key={`tile-group-${headerGroup.id}`}>
-                                {headerGroup.headers.map(column => (
-                                    <th
-                                        {...column.getHeaderProps(column.getSortByToggleProps())}
-                                        key={`header-${column.id}`}
-                                    >
-                                        {column.render('Header')}
-                                        <span>
-                                            {column.isSorted
-                                                ? column.isSortedDesc
-                                                    ? ' 🔽'
-                                                    : ' 🔼'
-                                                : ''}
-                                        </span>
-                                    </th>
-                                ))}
-                            </tr>
-                            <tr {...headerGroup.getHeaderGroupProps()} key={`filter-group-${headerGroup.id}`}>
-                                {headerGroup.headers.map(column => {
-                                    return column.canFilter ? (
-                                        <th key={`filter-${column.id}`}>
-                                            {column.render('Filter')}
+            <div className="scrollable-table-wrapper">
+                <table {...getTableProps()} className="my-table">
+                    <thead>
+                        {headerGroups.map(headerGroup => (
+                            <React.Fragment key={`header-group-${headerGroup.id}`}>
+                                <tr {...headerGroup.getHeaderGroupProps()} key={`tile-group-${headerGroup.id}`}>
+                                    {headerGroup.headers.map(column => (
+                                        <th
+                                            {...column.getHeaderProps(column.getSortByToggleProps())}
+                                            key={`header-${column.id}`}
+                                        >
+                                            {column.render('Header')}
+                                            <span>
+                                                {column.isSorted
+                                                    ? column.isSortedDesc
+                                                        ? ' 🔽'
+                                                        : ' 🔼'
+                                                    : ''}
+                                            </span>
                                         </th>
-                                    ) : <th key={`filter-${column.id}`}></th>;
-                                })}
-                            </tr>
+                                    ))}
+                                </tr>
+                                <tr {...headerGroup.getHeaderGroupProps()} key={`filter-group-${headerGroup.id}`}>
+                                    {headerGroup.headers.map(column => {
+                                        return column.canFilter ? (
+                                            <th key={`filter-${column.id}`}>
+                                                {column.render('Filter')}
+                                            </th>
+                                        ) : <th key={`filter-${column.id}`}></th>;
+                                    })}
+                                </tr>
 
-                        </React.Fragment>
-                    ))}
-                </thead>
+                            </React.Fragment>
+                        ))}
+                    </thead>
 
-                <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
-                        prepareRow(row);
-                        return (
-                            <tr {...row.getRowProps()} key={`row-${row.id}`}>
-                                {row.cells.map((cell) => (
-                                    <td {...cell.getCellProps()} key={`cell-${cell.column.id}`}>
-                                        {cell.render('Cell')}
-                                    </td>
-                                ))}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                    <tbody {...getTableBodyProps()}>
+                        {rows.map((row) => {
+                            prepareRow(row);
+                            const customStyle = rowStyle ? rowStyle(row) : {};
+                            return (
+                                <tr
+                                    {...row.getRowProps()}
+                                    key={`row-${row.id}`}
+                                    style={customStyle}
+                                >
+                                    {row.cells.map((cell) => (
+                                        <td {...cell.getCellProps()} key={`cell-${cell.column.id}`}>
+                                            {cell.render('Cell')}
+                                        </td>
+                                    ))}
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
             <div className="pagination-controls">
                 <span>Show Rows per page</span>
                 <select
@@ -168,7 +179,7 @@ const MyTable = ({ url, columns }) => {
                     onChange={(e) => handlePageSizeChange(Number(e.target.value))}
                     className="page-size-selector"
                 >
-                    {[1, 2, 3, 4, 5].map((size) => (
+                    {[1, 10, 20, 50].map((size) => (
                         <option key={size} value={size}>
                             {size}
                         </option>
