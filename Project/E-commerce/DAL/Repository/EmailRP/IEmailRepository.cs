@@ -8,5 +8,6 @@ namespace DAL.Repository.EmailRP
         Task CreateAsync(T_Email email);
         Task UpdateAsync(T_Email oEmail);
         Task<List<T_Email>> GetSendEmailListAsync(int oRetryAttempt);
+        Task<T_Email> GetSendEmailAsync(string oId);
     }
 }

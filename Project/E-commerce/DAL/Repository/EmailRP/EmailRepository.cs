@@ -44,5 +44,10 @@ namespace DAL.Repository.EmailRP
                         .OrderBy(e => e.CreatedDateTime)  // Order by creation date to process oldest emails first
                         .ToListAsync();  // Execute the query and return the results as a list
         }
+
+        public async Task<T_Email> GetSendEmailAsync(string oId)
+        {
+            return await _myDbContext.T_Email.FirstOrDefaultAsync(x => x.Id == oId);
+        }
     }
 }

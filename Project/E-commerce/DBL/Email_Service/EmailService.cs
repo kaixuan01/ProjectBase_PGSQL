@@ -50,25 +50,35 @@ namespace DBL.Email_Service
 
         #region [ Update Email ]
 
-        public async Task UpdateEmailAsync(T_Email email)
+        public async Task UpdateEmailAsync(string oId, string oStatus, string oRemark)
         {
             try
             {
-                if (email == null || string.IsNullOrEmpty(email.Id))
+                var email = await _emailRepository.GetSendEmailAsync(oId);
+
+                if (email == null || string.IsNullOrEmpty(oId))
                 {
                     LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Email not found");
 
                     return;
                 }
 
+                email.Status = oStatus;
+                email.Remark = string.IsNullOrEmpty(email.Remark) ? oRemark : email.Remark + "\n" + oRemark;
+
+                // Add Failed Count for Send Email Failed
+                if (email.Status.Contains(ConstantCode.Status.Code_Failed))
+                {
+                    email.ICntFailedSend++;
+                }
+
                 await _emailRepository.UpdateAsync(email);
 
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Update Email Successful. Email Id: {email.Id}, Status: {ConstantCode.Status.StatusDictionary[email.Status]}");
-
             }
             catch (Exception ex)
             {
-                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Update Email Failed. Email Id: {email.Id}, Exception: {ex.Message}", ex);
+                LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Update Email Failed. Email Id: {oId}, Exception: {ex.Message}", ex);
             }
 
         }

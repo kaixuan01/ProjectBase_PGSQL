@@ -76,12 +76,10 @@ export const useFuncHTTPReq = () => {
           onSuccess?.(result.data, result.message);
         } else {
           showErrorAlert(result.message);
-          console.error(result.message);
           onError?.(result.message);
         }
       } catch (error) {
         showErrorAlert(error.message || "An error occurred.");
-        console.error('HTTP Request Failed:', error);
         onError?.(error);
       }
     })();

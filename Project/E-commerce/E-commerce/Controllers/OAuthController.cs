@@ -27,7 +27,7 @@ namespace E_commerce.Controllers
             _expireMins = int.Parse(jwtSettings["ExpireMins"]);
         }
 
-        #region [ Register ]
+        #region [ Register Account ]
 
         [HttpPost]
         [Route("RegisterAcc")]
@@ -224,7 +224,9 @@ namespace E_commerce.Controllers
 
         #endregion
 
-        #region [ Confirm Email Process ]
+        #region [ Confirm Email ]
+
+            #region [ Confirm Email Process ]
 
         [HttpPost("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmail_REQ oReq)
@@ -259,9 +261,9 @@ namespace E_commerce.Controllers
             return Ok(response);
         }
 
-        #endregion
+            #endregion
 
-        #region [ Resend Confirm Email ]
+            #region [ Resend Confirm Email ]
 
         [HttpPost("ResendConfirmEmail")]
         public async Task<IActionResult> ResendConfirmEmail([FromBody] ResendConfirmEmail_REQ oReq)
@@ -296,9 +298,11 @@ namespace E_commerce.Controllers
             return Ok(response);
         }
 
+            #endregion
+
         #endregion
 
-        #region [ Reset Password Request ]
+        #region [ Forgot / Reset Password Request ]
 
         [HttpPost]
         [Route("ForgotPassword")]

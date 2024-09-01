@@ -10,9 +10,7 @@ using DBL.User_Service.UserLoginHistoryService;
 using DBL.User_Service.UserService.UserActionClass;
 using DBL.User_Service.UserTokensService;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using System.Linq.Dynamic.Core.Tokenizer;
 using Utils;
 using Utils.Enums;
 using Utils.Tools;
@@ -623,9 +621,7 @@ namespace DBL.User_Service.UserService
             return rtnValue;
         }
 
-        #endregion
-
-        #region [ Resend Confirm Email ]
+            #region [ Resend Confirm Email ]
 
         public async Task<ShareResp> ResendConfirmEmailAsync(ResendConfirmEmail_REQ oReq)
         {
@@ -705,9 +701,11 @@ namespace DBL.User_Service.UserService
             return rtnValue;
         }
 
+            #endregion
+
         #endregion
 
-        #region [ Forgot Password ]
+        #region [ Forgot / Reset Password ]
 
         public async Task<ShareResp> ForgotPasswordRequestAsync(string email)
         {
@@ -732,7 +730,7 @@ namespace DBL.User_Service.UserService
                     LogHelper.RaiseLogEvent(Enum_LogLevel.Error, "Forgot Password request failed: User not found.");
 
                     rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = ErrorMessage.ProcessingError;
+                    rtnValue.Message = "Email not found. Please try again.";
                     return rtnValue;
                 }
 
@@ -796,7 +794,7 @@ namespace DBL.User_Service.UserService
                     LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"User Token not found. Token: {oReq.token}");
 
                     rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "Invalid or expired confirm email link.";
+                    rtnValue.Message = "Invalid or expired reset password email link.";
                     return rtnValue;
                 }
 
@@ -813,7 +811,7 @@ namespace DBL.User_Service.UserService
                 if (oUserToken.IsUsed || oUserToken.ExpiresDateTime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.ResetPassword)
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
-                    rtnValue.Message = "Invalid or expired confirm email link.";
+                    rtnValue.Message = "Invalid or expired reset password email link.";
                     return rtnValue;
                 }
 

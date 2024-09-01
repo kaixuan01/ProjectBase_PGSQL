@@ -7,7 +7,7 @@ namespace DBL.Email_Service
         Task SendConfirmEmailAsync(T_User oUser);
         Task SendResetPasswordEmailAsync(T_User oUser);
 
-        Task UpdateEmailAsync(T_Email email);
+        Task UpdateEmailAsync(string oId, string oStatus, string oRemark);
         Task<List<T_Email>> GetSendEmailListAsync();
 
     }

@@ -168,6 +168,8 @@ namespace Background_WorkerService.Worker
         {
             int successCount = 0;
             int failureCount = 0;
+            string Status = string.Empty;
+            string Remark = string.Empty;
 
             try
             {
@@ -187,12 +189,10 @@ namespace Background_WorkerService.Worker
                     mailMessage.To.Add(new MailAddress(oEmail.RecipientEmail, oEmail.RecipientName));
                     await smtpClient.SendMailAsync(mailMessage);
 
-                    _logHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Email Sent Succesful.");
+                    _logHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Email Sent Successful.");
 
                     // Update email status to Completed;
-                    oEmail.Status = ConstantCode.Status.Code_Completed;
-                    oEmail.Remark = "";
-                    oEmail.SentDateTime = DateTime.Now;
+                    Status = ConstantCode.Status.Code_Completed;
 
                     // Increment success count
                     successCount++;
@@ -202,16 +202,15 @@ namespace Background_WorkerService.Worker
             {
                 _logHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"An error occurred in send email.", ex);
 
-                oEmail.Status = ConstantCode.Status.Code_Failed;
-                oEmail.Remark = $"Failed to send email, Exception: {ex.Message}";
-                oEmail.ICntFailedSend++;
+                Status = ConstantCode.Status.Code_Failed;
+                Remark = $"Failed to send email, Exception: {ex.Message}";
                 failureCount++;
 
             }
             finally
             {
                 // Update the email record in the database
-                await _emailService.UpdateEmailAsync(oEmail);
+                await _emailService.UpdateEmailAsync(oEmail.Id ,Status, Remark);
             }
 
             return (successCount, failureCount);
