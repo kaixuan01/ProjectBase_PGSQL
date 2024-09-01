@@ -4,7 +4,7 @@ import { initData } from '../Redux/actions';
 import { Row, Col } from 'reactstrap';
 const Dashboard = () => {
   const dispatch = useDispatch();
-  useSelector((state) => {console.log(state)});
+  // useSelector((state) => {console.log(state)});
 
   
   useEffect(() => {

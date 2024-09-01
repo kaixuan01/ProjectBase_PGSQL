@@ -116,7 +116,7 @@ export default function MySidebar({toggled}) {
                             route.subRoutes && route.subRoutes.length > 0 ? (
                                 <SubMenu icon={route.icon} key={index} label={route.name} disabled={route.excludedMenu}>
                                     {route.subRoutes.map((subRoute, subIndex) => (
-                                        route.excludedMenu ? null :
+                                        subRoute.excludedMenu ? null :
                                             <MenuItem
                                                 icon={subRoute.icon}
                                                 key={subIndex}

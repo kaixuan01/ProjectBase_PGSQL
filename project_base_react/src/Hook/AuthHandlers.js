@@ -11,7 +11,7 @@ export const useAuthHandlers = () => {
 
   const handleLogout = useCallback(() => {
     dispatch(updateData('isLogin', 'NotLogin'));
-    localStorage.removeItem('isLogin'); // Clear localStorage
+    localStorage.removeItem('isLogin');
     window.location.href = "/"; 
   }, [dispatch]);
 

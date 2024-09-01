@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import MyTable from "../../../Control/MyTable";
 import { InputFilter, MultiSelectFilter } from "../../../Control/TableControl";
 import { useFuncHTTPReq } from "../../../Hook/FuncHttpReq";
-
+import { Link } from "react-router-dom";
 export default function UserListing() {
-    const [userRole, setUserRole] = useState([]);
+    const userRoleRef = useRef([]);
     const { FuncHTTPReq } = useFuncHTTPReq();
 
     useEffect(() => {
@@ -13,18 +13,15 @@ export default function UserListing() {
                 url: '/UserRole/GetRoleList',
                 method: 'GET',
                 onSuccess: (data) => {
-                    if (data && JSON.stringify(data) !== JSON.stringify(userRole)) {
-                        setUserRole(data);
-                    }
+                    userRoleRef.current = data;
                 },
                 onError: (error) => {
                     console.error("Error fetching roles:", error);
                 }
             });
         };
-
         fetchData();
-    }, [FuncHTTPReq, userRole]);
+    }, [FuncHTTPReq]);
 
     const columns = useMemo(() => [
         {
@@ -45,9 +42,9 @@ export default function UserListing() {
             Header: 'Name - ID',
             accessor: '',
             Cell: ({ value, row }) => (
-                <a href="/UserEdit">
+                <Link to={`/Admin/userEdit/${row.original.id}`}>
                     {row.original.username} - {row.original.id}
-                </a>
+                </Link>
             ),
             disableSortBy: true,
         },
@@ -68,9 +65,9 @@ export default function UserListing() {
         {
             Header: 'User Role',
             accessor: 'role',
-            Filter: ({ column }) => {console.log(1); return <MultiSelectFilter column={column} options={userRole} />},
+            Filter: ({ column }) => { return <MultiSelectFilter column={column} options={userRoleRef.current} />},
         }
-    ], [userRole]);
+    ], [userRoleRef]);
 
     const rowStyle = (row) => {
         return row.original.name && row.original.name.includes('1')

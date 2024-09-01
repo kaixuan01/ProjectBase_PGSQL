@@ -15,6 +15,11 @@ export default function Login() {
         handleLogin();
     }, [handleLogin]);
 
+    const handleSubmit = (sendRequest) => (e) => {
+        e.preventDefault();
+        sendRequest(); // Directly call sendRequest here
+    };
+
     return (
         <div className="d-flex justify-content-center align-items-center min-vh-100 login-container">
             <Card className="centered-card p-4 shadow-lg">

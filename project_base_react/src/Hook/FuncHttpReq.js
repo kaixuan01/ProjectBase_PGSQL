@@ -27,8 +27,6 @@ const handleResponseErrors = (response, handleLogout) => {
 
 export const useFuncHTTPReq = () => {
   const { handleLogout } = useAuthHandlers();
-
-  // Memoize FuncHTTPReq to avoid recreation
   const FuncHTTPReq = useCallback(({
     method = 'GET',
     url,

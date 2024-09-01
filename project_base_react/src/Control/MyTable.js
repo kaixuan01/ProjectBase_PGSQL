@@ -78,9 +78,7 @@ const MyTable = ({ url, columns, defaultSortBy, rowStyle }) => {
                 url: fullUrl,
                 method: 'GET',
                 onSuccess: (data) => {
-                    if (JSON.stringify(data.items) !== JSON.stringify(data)) {
-                        setData(data.items);
-                    }
+                    setData(data.items);
                     setTotalItems(data.totalCount);
                     setItemQty(data.items.length);
                 },

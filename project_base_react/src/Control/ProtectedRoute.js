@@ -4,7 +4,6 @@ import { Navigate } from 'react-router-dom';
 
 export default function ProtectedRoute({ children }) {
   const isLogin = useSelector((state) => state.isLogin);
-    console.log(isLogin)
   if (isLogin !== 'Login') {
     return <Navigate to="/" replace />; // Redirect to login page
   }

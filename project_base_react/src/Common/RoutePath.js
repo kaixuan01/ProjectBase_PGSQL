@@ -3,6 +3,7 @@ import { faDashboard, faGear, faList, faShield, faUser } from "@fortawesome/free
 import Dashboard from "../View/Dashboard.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserListing from "../View/Admin/User/UserListing";
+import UserEdit from "../View/Admin/User/UserEdit.js";
 const myURLRoutes = [
     {
       path: '/',
@@ -12,7 +13,7 @@ const myURLRoutes = [
       subRoutes: [],
     },
     {
-      path: '/admin',
+      path: '/Admin',
       name: 'Admin',
       component: <Dashboard/>,
       icon: <FontAwesomeIcon icon={faUser}/>,
@@ -22,6 +23,13 @@ const myURLRoutes = [
           name: 'UserListing',
           icon: <FontAwesomeIcon icon={faList}/>,
           component: <UserListing/>,
+        },
+        {
+          path: '/userEdit/:userId',
+          name: 'UserEdit',
+          icon: <FontAwesomeIcon icon={faList}/>,
+          component: <UserEdit/>,
+          excludedMenu: true
         },
       ],
     },
