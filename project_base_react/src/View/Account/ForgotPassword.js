@@ -74,7 +74,7 @@ export default function Login() {
                         </HTTPReq>
                     </div>
                     <div className='d-flex'>
-                        <Link to="Login" className="btn btn-link mt-4">
+                        <Link to="/Login" className="btn btn-link mt-4">
                             Back to Login
                         </Link>
                     </div>

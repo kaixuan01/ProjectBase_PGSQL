@@ -134,6 +134,6 @@ app.MapControllers();
 
 // Auto Create Database or Update Database table
 // Not sure can use in production or not
-app.CreatOrUpdateDatabase();
+//app.CreatOrUpdateDatabase();
 
 app.Run();

@@ -1,5 +1,5 @@
 // AnonymousRoutePath.js
-import EmailConfirmation from "../View/EmailConfirmation.js";
+import EmailConfirmation from "../View/Account/EmailConfirmation.js";
 import ResetPassword from "../View/Account/ResetPassword.js";
 import ForgotPassword from "../View/Account/ForgotPassword.js";
 

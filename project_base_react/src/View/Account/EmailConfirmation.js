@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useFuncHTTPReq } from '../Hook/FuncHttpReq';
+import { useFuncHTTPReq } from '../../Hook/FuncHttpReq';
 import { useParams, useNavigate } from 'react-router-dom'; // import useNavigate
 import { Card, CardBody, CardHeader, Spinner, Button } from 'reactstrap';
-import MyAlert from '../Control/MyAlert';
+import MyAlert from '../../Control/MyAlert';
 
 export default function EmailConfirmation() {
     const { FuncHTTPReq } = useFuncHTTPReq();
