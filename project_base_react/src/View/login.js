@@ -4,6 +4,7 @@ import '../CSS/Login.css'; // Ensure you have the necessary styles here.
 import HTTPReq from '../Control/HTTPReq';
 import MyInputField from '../Control/MyInputField';
 import { useAuthHandlers } from '../Hook/AuthHandlers';
+import { showSuccessAlert } from '../Common/Common';
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -11,6 +12,10 @@ export default function Login() {
 
     const { handleLogin } = useAuthHandlers();
     const successLogin = useCallback(() => {
+        showSuccessAlert('1','2',
+             () => {
+            console.log('Confirmed!'); 
+          });
         handleLogin();
     }, [handleLogin]);
 
