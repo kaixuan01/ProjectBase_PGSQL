@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DBL.SystemConfig_Service;
 using E_commerce.Tools;
 using Microsoft.AspNetCore.Authorization;
@@ -26,20 +26,20 @@ namespace E_commerce.Controllers.SystemConfig_Controller
         [Route("GetSystemConfigList")]
         public async Task<IActionResult> GetSystemConfigList()
         {
-            ApiResponse<List<T_SystemConfig>>? apiResponse = null;
+            ApiResponse<List<TSystemConfig>>? apiResponse = null;
 
             try
             {
                 var result = await _systemConfigService.GetSystemConfigList();
 
                 // Create a success response using ApiResponse<T>
-                apiResponse = ApiResponse<List<T_SystemConfig>>.CreateSuccessResponse(result, "Get System Config List Successful");
+                apiResponse = ApiResponse<List<TSystemConfig>>.CreateSuccessResponse(result, "Get System Config List Successful");
             }
             catch (Exception ex)
             {
                 LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when System Config List, Message: {ex.Message}", ex);
 
-                apiResponse = ApiResponse<List<T_SystemConfig>>.CreateErrorResponse($"Get System Config Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<List<TSystemConfig>>.CreateErrorResponse($"Get System Config Failed. Exception: {ex.Message}");
             }
 
             return Ok(apiResponse);

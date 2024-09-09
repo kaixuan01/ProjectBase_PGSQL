@@ -1,9 +1,9 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 
 namespace DAL.Repository.UserRP.UserRole
 {
     public interface IUserRoleRepository
     {
-        Task<List<E_UserRole>> GetUserRoleListingAsync();
+        Task<List<EUserRole>> GetUserRoleListingAsync();
     }
 }

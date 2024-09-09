@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.UserRP.UserRepository;
 using DAL.Repository.UserRP.UserRepository.Class;
 using DAL.Shared.Class;
@@ -83,7 +83,7 @@ namespace DBL.User_Service.UserService
             return rtnValue;
         }
 
-        public async Task<T_User> GetByIdAsync(string id)
+        public async Task<TUser> GetByIdAsync(string id)
         {
             var oUser = await _userRepository.GetByIdAsync(id);
 
@@ -151,7 +151,7 @@ namespace DBL.User_Service.UserService
                     return rtnValue;
                 }
 
-                var createUser = new T_User
+                var createUser = new TUser
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     Username = oUser.username,
@@ -412,7 +412,7 @@ namespace DBL.User_Service.UserService
 
             try
             {
-                var oUser = new T_User();
+                var oUser = new TUser();
 
                 if (!string.IsNullOrEmpty(user.username) && !string.IsNullOrEmpty(user.password))
                 {
@@ -437,7 +437,7 @@ namespace DBL.User_Service.UserService
                         // Disable the check if max attemps == 0
                         if (maxAttempts != 0)
                         {
-                            if (oUser.iCountFailedLogin >= maxAttempts)
+                            if (oUser.ICountFailedLogin >= maxAttempts)
                             {
                                 rtnValue.Code = RespCode.RespCode_Failed;
                                 rtnValue.Message = "You have exceeded the maximum number of login attempts. Please contact the admin for further assistance.";
@@ -473,7 +473,7 @@ namespace DBL.User_Service.UserService
 
                     bool success = PasswordHelper.VerifyPassword(user.password, oUser.Password);
 
-                    var oLoginHistory = new T_UserLoginHistory()
+                    var oLoginHistory = new TUserLoginHistory()
                     {
                         Id = IdGeneratorHelper.GenerateId(),
                         UserId = oUser.Id,
@@ -483,7 +483,7 @@ namespace DBL.User_Service.UserService
                     if (success)
                     {
                         oLoginHistory.Remark = "Login Successfully";
-                        oUser.iCountFailedLogin = 0;
+                        oUser.ICountFailedLogin = 0;
 
                         rtnValue.Code = RespCode.RespCode_Success;
                         rtnValue.Message = $"Login Successfully";
@@ -491,11 +491,11 @@ namespace DBL.User_Service.UserService
                     else
                     {
                         oLoginHistory.Remark = $"Login Failed, Wrong Password.";
-                        oUser.iCountFailedLogin++;
+                        oUser.ICountFailedLogin++;
 
                         if (maxAttempts != 0)
                         {
-                            if (oUser.iCountFailedLogin >= maxAttempts)
+                            if (oUser.ICountFailedLogin >= maxAttempts)
                             {
                                 // Block the user if failed more than the system config setting
                                 oUser.IsBlocked = true;
@@ -638,8 +638,8 @@ namespace DBL.User_Service.UserService
 
             try
             {
-                T_User oUser = null;
-                T_UserTokens oUserTokens = null;
+                TUser oUser = null;
+                TUserToken oUserTokens = null;
 
                 if (!string.IsNullOrEmpty(oReq.Username))
                 {

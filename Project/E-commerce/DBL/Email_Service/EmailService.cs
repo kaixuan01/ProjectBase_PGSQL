@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.EmailRP;
 using DBL.SystemConfig_Service;
 using DBL.Tools;
@@ -29,7 +29,7 @@ namespace DBL.Email_Service
 
         #region [ Get Email List ]
 
-        public async Task<List<T_Email>> GetSendEmailListAsync()
+        public async Task<List<TEmail>> GetSendEmailListAsync()
         {
             var oSystemConfig = await _systemConfigService.GetSystemConfigList();
             int oRetryAttempt = 3;
@@ -69,7 +69,7 @@ namespace DBL.Email_Service
                 // Add Failed Count for Send Email Failed
                 if (email.Status.Contains(ConstantCode.Status.Code_Failed))
                 {
-                    email.ICntFailedSend++;
+                    email.IcntFailedSend++;
                 }
 
                 await _emailRepository.UpdateAsync(email);
@@ -87,7 +87,7 @@ namespace DBL.Email_Service
 
         #region [ Send Email Function ]
 
-        public async Task SendConfirmEmailAsync(T_User oUser)
+        public async Task SendConfirmEmailAsync(TUser oUser)
         {
             if (oUser == null)
             {
@@ -112,7 +112,7 @@ namespace DBL.Email_Service
 
                 var emailContent = await PrepareEmailContentAsync(ConstantCode.Resource.EmailTemplateDesign.ConfirmEmailTemplate, placeholders);
 
-                var email = new T_Email
+                var email = new TEmail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     EmailSubject = "Email Confirmation",
@@ -130,12 +130,11 @@ namespace DBL.Email_Service
             catch (Exception ex)
             {
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Send Confirm Email Failed. Recipient name: {oUser.Name}, recipient email: {oUser.Email}", ex);
-                throw;
             }
 
         }
 
-        public async Task SendResetPasswordEmailAsync(T_User oUser)
+        public async Task SendResetPasswordEmailAsync(TUser oUser)
         {
             if (oUser == null)
             {
@@ -160,7 +159,7 @@ namespace DBL.Email_Service
 
                 var emailContent = await PrepareEmailContentAsync(ConstantCode.Resource.EmailTemplateDesign.ResetPasswordEmailTemplate, placeholders);
 
-                var email = new T_Email
+                var email = new TEmail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     EmailSubject = "Reset Password",
@@ -178,7 +177,6 @@ namespace DBL.Email_Service
             catch (Exception ex)
             {
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Send Reset Password Email Failed. Recipient name: {oUser.Name}, recipient email: {oUser.Email}", ex);
-                throw;
             }
         }
 

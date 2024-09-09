@@ -1,4 +1,4 @@
-using DAL;
+using DAL.Models;
 using E_commerce.AttributeOrFilter;
 using E_commerce.Extension;
 using E_commerce.Middleware;
@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json.Serialization;
 using Utils.Enums;
 using Utils.Tools;
 
@@ -31,6 +32,12 @@ builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(CustomAuthorizeFilter)); // Add the custom authorization filter globally
 });
+
+builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -102,7 +109,7 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 var sqlConnString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddSqlServer<MyDbContext>(sqlConnString);
+builder.Services.AddSqlServer<AppDbContext>(sqlConnString);
 
 // Auto Add All Services
 builder.Services.AddAllService();
@@ -132,8 +139,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Auto Create Database or Update Database table
-// Not sure can use in production or not
-//app.CreatOrUpdateDatabase();
+// Auto insert seed data Database table
+app.InitializerSeedDataDatabase();
 
 app.Run();

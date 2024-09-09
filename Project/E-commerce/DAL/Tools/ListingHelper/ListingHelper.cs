@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 
 namespace DAL.Tools.ListingHelper
 {
     public class ListingHelper<TEntity> : IListingHelper<TEntity> where TEntity : class
     {
-        private readonly MyDbContext _context;
+        private readonly AppDbContext _context;
 
-        public ListingHelper(MyDbContext context)
+        public ListingHelper(AppDbContext context)
         {
             _context = context;
         }

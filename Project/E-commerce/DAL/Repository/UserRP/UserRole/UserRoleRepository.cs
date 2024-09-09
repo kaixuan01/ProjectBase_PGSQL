@@ -1,20 +1,20 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.UserRP.UserRole
 {
     public class UserRoleRepository : IUserRoleRepository
     {
-        private readonly MyDbContext _myDbContext;
+        private readonly AppDbContext _appDbContext;
 
-        public UserRoleRepository(MyDbContext context)
+        public UserRoleRepository(AppDbContext context)
         {
-            _myDbContext = context;
+            _appDbContext = context;
         }
 
-        public async Task<List<E_UserRole>> GetUserRoleListingAsync()
+        public async Task<List<EUserRole>> GetUserRoleListingAsync()
         {
-            return await _myDbContext.E_UserRole.ToListAsync();
+            return await _appDbContext.EUserRoles.ToListAsync();
         }
     }
 }

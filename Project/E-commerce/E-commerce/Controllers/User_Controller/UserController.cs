@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.UserRP.UserRepository.Class;
 using DAL.Tools.ListingHelper;
 using DBL.User_Service.UserService;
@@ -71,7 +71,7 @@ namespace E_commerce.Controllers.User_Controller
         [Route("ViewUser")]
         public async Task<IActionResult> ViewUser([FromQuery] string id)
         {
-            ApiResponse<T_User>? apiResponse = null;
+            ApiResponse<TUser>? apiResponse = null;
             LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request Get User List, User Id: {id}");
 
             try
@@ -79,13 +79,13 @@ namespace E_commerce.Controllers.User_Controller
                 var result = await _userService.GetByIdAsync(id);
 
                 // Create a success response using ApiResponse<T>
-                apiResponse = ApiResponse<T_User>.CreateSuccessResponse(result, "Get User Successful");
+                apiResponse = ApiResponse<TUser>.CreateSuccessResponse(result, "Get User Successful");
             }
             catch (Exception ex)
             {
                 LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when Get User, Message: {ex.Message}", ex);
 
-                apiResponse = ApiResponse<T_User>.CreateErrorResponse($"Get User Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<TUser>.CreateErrorResponse($"Get User Failed. Exception: {ex.Message}");
             }
 
             return Ok(apiResponse);

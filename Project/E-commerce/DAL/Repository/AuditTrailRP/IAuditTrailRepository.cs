@@ -1,10 +1,10 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Tools.ListingHelper;
 
 namespace DAL.Repository.AuditTrailRP
 {
-    public interface IAuditTrailRepository : IListingHelper<T_AuditTrail>
+    public interface IAuditTrailRepository : IListingHelper<TAuditTrail>
     {
-        Task CreateAsync(T_AuditTrail auditTrail);
+        Task CreateAsync(TAuditTrail auditTrail);
     }
 }

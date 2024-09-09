@@ -1,27 +1,27 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Tools.ListingHelper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.UserRP.UserLoginHistoryRepository
 {
-    public class UserLoginHistoryRepository : ListingHelper<T_UserLoginHistory>, IUserLoginHistoryRepository
+    public class UserLoginHistoryRepository : ListingHelper<TUserLoginHistory>, IUserLoginHistoryRepository
     {
-        private readonly MyDbContext _myDbContext;
+        private readonly AppDbContext _appDbContext;
 
-        public UserLoginHistoryRepository(MyDbContext context) : base(context)
+        public UserLoginHistoryRepository(AppDbContext context) : base(context)
         {
-            _myDbContext = context;
+            _appDbContext = context;
         }
 
-        public async Task CreateAsync(T_UserLoginHistory userLoginHistory)
+        public async Task CreateAsync(TUserLoginHistory userLoginHistory)
         {
-            await _myDbContext.T_UserLoginHistory.AddAsync(userLoginHistory);
-            await _myDbContext.SaveChangesAsync();
+            await _appDbContext.TUserLoginHistories.AddAsync(userLoginHistory);
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<T_UserLoginHistory> GetUserLoginHistoryByUserIdAsync(string UserId)
+        public async Task<TUserLoginHistory> GetUserLoginHistoryByUserIdAsync(string UserId)
         {
-            var latestLoginHistory = await _myDbContext.T_UserLoginHistory
+            var latestLoginHistory = await _appDbContext.TUserLoginHistories
                 .Where(x => x.UserId == UserId)
                 .OrderByDescending(x => x.LoginDateTime)
                 .FirstOrDefaultAsync();
@@ -29,16 +29,16 @@ namespace DAL.Repository.UserRP.UserLoginHistoryRepository
             return latestLoginHistory;
         }
 
-        public async Task UpdateAsync(T_UserLoginHistory oRec)
+        public async Task UpdateAsync(TUserLoginHistory oRec)
         {
             // Attach the user entity to the context
-            _myDbContext.Attach(oRec);
+            _appDbContext.Attach(oRec);
 
             // Mark all properties as modified
-            _myDbContext.Entry(oRec).State = EntityState.Modified;
+            _appDbContext.Entry(oRec).State = EntityState.Modified;
 
             // Save changes to the database
-            await _myDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
         }
 
     }

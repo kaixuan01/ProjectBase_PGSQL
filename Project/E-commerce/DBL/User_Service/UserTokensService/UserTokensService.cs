@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.UserRP.UserTokens;
 using DBL.AuditTrail_Service;
 using DBL.SystemConfig_Service;
@@ -22,7 +22,7 @@ namespace DBL.User_Service.UserTokensService
             _systemConfigService = systemConfigService;
         }
 
-        public async Task<T_UserTokens> CreateAsync(string UserId, string TokenType)
+        public async Task<TUserToken> CreateAsync(string UserId, string TokenType)
         {
             if (string.IsNullOrEmpty(UserId) || string.IsNullOrEmpty(TokenType))
             {
@@ -35,7 +35,7 @@ namespace DBL.User_Service.UserTokensService
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Receive Request to Generate Token. User Id: {UserId}, Token Type: {TokenType}");
                 var oUserTokenExpiration = await _systemConfigService.GetSystemConfigByKeyAsync(ConstantCode.SystemConfig_Key.UserTokenExpiration);
 
-                var newToken = new T_UserTokens
+                var newToken = new TUserToken
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     UserId = UserId,
@@ -61,9 +61,6 @@ namespace DBL.User_Service.UserTokensService
                 // ## Create User Record
                 await _userTokensRepository.CreateAsync(newToken);
 
-                // Insert Audit Trail Record
-                await _auditTrailService.CreateAuditTrailAsync(ConstantCode.Module.UserTokens, ConstantCode.Action.Create, null, newToken);
-
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"{RespCode.RespMessage_Insert_Successful}. User Id: {UserId}");
 
                 return newToken;
@@ -71,21 +68,21 @@ namespace DBL.User_Service.UserTokensService
             catch (Exception ex)
             {
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Exception when insert user's token. User Id: {UserId}, Token Type: {TokenType}", ex);
-                throw;
+                return null;
             }
         }
 
-        public async Task<T_UserTokens> GetByTokenAsync(string token)
+        public async Task<TUserToken> GetByTokenAsync(string token)
         {
             return await _userTokensRepository.GetByTokenAsync(token);
         }
 
-        public async Task<T_UserTokens> GetByUserIdAsync(string UserId)
+        public async Task<TUserToken> GetByUserIdAsync(string UserId)
         {
             return await _userTokensRepository.GetByUserIdAsync(UserId);
         }
 
-        public async Task UpdateAsync(T_UserTokens userTokens)
+        public async Task UpdateAsync(TUserToken userTokens)
         {
             await _userTokensRepository.UpdateAsync(userTokens);
         }

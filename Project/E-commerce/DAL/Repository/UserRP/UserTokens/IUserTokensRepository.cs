@@ -1,12 +1,12 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 
 namespace DAL.Repository.UserRP.UserTokens
 {
     public interface IUserTokensRepository
     {
-        Task<T_UserTokens> GetByTokenAsync(string token);
-        Task<T_UserTokens> GetByUserIdAsync(string UserId);
-        Task CreateAsync(T_UserTokens userTokens);
-        Task UpdateAsync(T_UserTokens userTokens);
+        Task<TUserToken> GetByTokenAsync(string token);
+        Task<TUserToken> GetByUserIdAsync(string UserId);
+        Task CreateAsync(TUserToken userTokens);
+        Task UpdateAsync(TUserToken userTokens);
     }
 }

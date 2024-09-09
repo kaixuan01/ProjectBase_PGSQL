@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.UserRP.UserRole;
 using DBL.Tools;
 using Newtonsoft.Json;
@@ -15,11 +15,9 @@ namespace DBL.User_Service.UserRoleService
             _userRoleRepository = userRoleRepository;
         }
 
-        public async Task<List<E_UserRole>> GetUserRoleListingAsync()
+        public async Task<List<EUserRole>> GetUserRoleListingAsync()
         {
             var result = await _userRoleRepository.GetUserRoleListingAsync();
-
-            LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Response User Role List: {JsonConvert.SerializeObject(result)}");
 
             return result;
         }

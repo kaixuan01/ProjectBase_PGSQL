@@ -1,28 +1,23 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Tools.ListingHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Repository.AuditTrailRP
 {
-    public class AuditTrailRepository : ListingHelper<T_AuditTrail>, IAuditTrailRepository
+    public class AuditTrailRepository : ListingHelper<TAuditTrail>, IAuditTrailRepository
     {
-        private readonly MyDbContext _myDbContext;
+        private readonly AppDbContext _appDbContext;
 
-        public AuditTrailRepository(MyDbContext context) : base(context)
+        public AuditTrailRepository(AppDbContext context) : base(context)
         {
-            _myDbContext = context;
+            _appDbContext = context;
         }
 
-        public async Task CreateAsync(T_AuditTrail auditTrail)
+        public async Task CreateAsync(TAuditTrail auditTrail)
         {
-            await _myDbContext.T_AuditTrail.AddAsync(auditTrail);
+            await _appDbContext.TAuditTrails.AddAsync(auditTrail);
 
             // Save changes to the database
-            await _myDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

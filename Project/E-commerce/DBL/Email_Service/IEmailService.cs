@@ -1,14 +1,14 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 
 namespace DBL.Email_Service
 {
     public interface IEmailService
     {
-        Task SendConfirmEmailAsync(T_User oUser);
-        Task SendResetPasswordEmailAsync(T_User oUser);
+        Task SendConfirmEmailAsync(TUser oUser);
+        Task SendResetPasswordEmailAsync(TUser oUser);
 
         Task UpdateEmailAsync(string oId, string oStatus, string oRemark);
-        Task<List<T_Email>> GetSendEmailListAsync();
+        Task<List<TEmail>> GetSendEmailListAsync();
 
     }
 }

@@ -1,26 +1,26 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.UserRP.UserTokens
 {
     public class UserTokensRepository : IUserTokensRepository
     {
-        private readonly MyDbContext _myDbContext;
+        private readonly AppDbContext _appDbContext;
 
-        public UserTokensRepository(MyDbContext context)
+        public UserTokensRepository(AppDbContext context)
         {
-            _myDbContext = context;
+            _appDbContext = context;
         }
 
-        public async Task CreateAsync(T_UserTokens userTokens)
+        public async Task CreateAsync(TUserToken userTokens)
         {
-            await _myDbContext.T_UserTokens.AddAsync(userTokens);
-            await _myDbContext.SaveChangesAsync();
+            await _appDbContext.TUserTokens.AddAsync(userTokens);
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<T_UserTokens> GetByTokenAsync(string token)
+        public async Task<TUserToken> GetByTokenAsync(string token)
         {
-            var oUserToken = await _myDbContext.T_UserTokens
+            var oUserToken = await _appDbContext.TUserTokens
                 .Where(x => x.Token == token)
                 .OrderByDescending(x => x.CreatedDateTime)
                 .FirstOrDefaultAsync();
@@ -28,9 +28,9 @@ namespace DAL.Repository.UserRP.UserTokens
             return oUserToken;
         }
 
-        public async Task<T_UserTokens> GetByUserIdAsync(string UserId)
+        public async Task<TUserToken> GetByUserIdAsync(string UserId)
         {
-            var oUserToken = await _myDbContext.T_UserTokens
+            var oUserToken = await _appDbContext.TUserTokens
                            .Where(x => x.UserId == UserId)
                            .OrderByDescending(x => x.CreatedDateTime)
                            .FirstOrDefaultAsync();
@@ -38,16 +38,16 @@ namespace DAL.Repository.UserRP.UserTokens
             return oUserToken;
         }
 
-        public async Task UpdateAsync(T_UserTokens userTokens)
+        public async Task UpdateAsync(TUserToken userTokens)
         {
             // Attach the user entity to the context
-            _myDbContext.Attach(userTokens);
+            _appDbContext.Attach(userTokens);
 
             // Mark all properties as modified
-            _myDbContext.Entry(userTokens).State = EntityState.Modified;
+            _appDbContext.Entry(userTokens).State = EntityState.Modified;
 
             // Save changes to the database
-            await _myDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

@@ -11,8 +11,14 @@ namespace DBL.Tools
                 return default(T);
             }
 
-            var serializedObject = JsonConvert.SerializeObject(source);
-            return JsonConvert.DeserializeObject<T>(serializedObject);
+            var serializerSettings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            };
+
+            var serializedObject = JsonConvert.SerializeObject(source, serializerSettings);
+            return JsonConvert.DeserializeObject<T>(serializedObject, serializerSettings);
         }
     }
 }

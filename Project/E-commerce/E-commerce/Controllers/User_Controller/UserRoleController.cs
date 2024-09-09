@@ -1,14 +1,10 @@
-﻿using DAL.Repository.UserRP.UserRepository.Class;
+﻿using DAL.Models;
 using DBL.User_Service.UserRoleService;
-using DBL.User_Service.UserService;
+using E_commerce.Tools;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Utils.Enums;
 using Utils.Model;
-using Utils;
-using E_commerce.Tools;
-using DAL.Entity;
 
 namespace E_commerce.Controllers.User_Controller
 {
@@ -28,19 +24,19 @@ namespace E_commerce.Controllers.User_Controller
         [Route("GetRoleList")]
         public async Task<IActionResult> GetRoleList()
         {
-            ApiResponse<List<E_UserRole>>? apiResponse = null;
+            ApiResponse<List<EUserRole>>? apiResponse = null;
             LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request Get User Role List.");
 
             try
             {
                 var oResp = await _userRoleService.GetUserRoleListingAsync();
-                apiResponse = ApiResponse<List<E_UserRole>>.CreateSuccessResponse(oResp, "Get User Role List Successful");
+                apiResponse = ApiResponse<List<EUserRole>>.CreateSuccessResponse(oResp, "Get User Role List Successful");
             }
             catch (Exception ex)
             {
                 LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when Get User Role List, Message: {ex.Message}", ex);
 
-                apiResponse = ApiResponse<List<E_UserRole>>.CreateErrorResponse($"Get User Role List Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<List<EUserRole>>.CreateErrorResponse($"Get User Role List Failed. Exception: {ex.Message}");
             }
 
             return Ok(apiResponse);

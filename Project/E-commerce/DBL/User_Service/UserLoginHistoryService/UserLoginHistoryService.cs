@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.UserRP.UserLoginHistoryRepository;
 using DAL.Shared.Class;
 using DAL.Tools.ListingHelper;
@@ -17,7 +17,7 @@ namespace DBL.User_Service.UserLoginHistoryService
             _userLoginHistoryRepository = userLoginHistoryRepository;
         }
 
-        public async Task<ShareResp> CreateAsync(T_UserLoginHistory oUserLoginHistory)
+        public async Task<ShareResp> CreateAsync(TUserLoginHistory oUserLoginHistory)
         {
             var rtnValue = new ShareResp();
 
@@ -38,7 +38,7 @@ namespace DBL.User_Service.UserLoginHistoryService
             return rtnValue;
         }
 
-        public async Task<PagedResult<T_UserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false)
+        public async Task<PagedResult<TUserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false)
         {
             var oUserLoginHistoryList = await _userLoginHistoryRepository.GetPagedListAsync(filterParameters, includeForeignRelationship);
 

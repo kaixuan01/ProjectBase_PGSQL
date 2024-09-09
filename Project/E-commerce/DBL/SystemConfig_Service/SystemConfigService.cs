@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.SystemConfigRP;
 using DAL.Shared.Class;
 using DBL.AuditTrail_Service;
@@ -18,12 +18,12 @@ namespace DBL.SystemConfig_Service
             _auditTrailService = auditTrailService;
         }
 
-        public async Task<T_SystemConfig> GetSystemConfigByKeyAsync(string key)
+        public async Task<TSystemConfig> GetSystemConfigByKeyAsync(string key)
         {
             return await _systemConfigRepository.GetByKeyAsync(key);
         }
 
-        public async Task<List<T_SystemConfig>> GetSystemConfigList()
+        public async Task<List<TSystemConfig>> GetSystemConfigList()
         {
             var result = await _systemConfigRepository.GetAllAsync();
             return result;

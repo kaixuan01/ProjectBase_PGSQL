@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DBL.Email_Service;
 using DBL.SystemConfig_Service;
 using Serilog;
@@ -164,7 +164,7 @@ namespace Background_WorkerService.Worker
             return Task.CompletedTask;
         }
 
-        private async Task<(int SuccessCount, int FailureCount)> SendEmailAsync(T_Email oEmail)
+        private async Task<(int SuccessCount, int FailureCount)> SendEmailAsync(TEmail oEmail)
         {
             int successCount = 0;
             int failureCount = 0;

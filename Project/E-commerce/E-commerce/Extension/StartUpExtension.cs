@@ -1,25 +1,18 @@
-﻿using DAL;
-using DAL.Data;
+﻿using DAL.Data;
+using DAL.Models;
 using DBL.User_Service.UserService;
-using EFCore.AutomaticMigrations;
 using System.Reflection;
 
 namespace E_commerce.Extension
 {
     public static class StartUpExtension
     {
-        public static void CreatOrUpdateDatabase(this IHost host)
+        public static void InitializerSeedDataDatabase(this IHost host)
         {
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
 
-            var myContext = services.GetRequiredService<MyDbContext>();
-            // Create database if there is no exist
-            myContext.Database.EnsureCreated();
-
-            // Upgrate database to latest version
-            myContext.MigrateToLatestVersion(new DbMigrationsOptions { ResetDatabaseSchema = true });
-            //myContext.MigrateToLatestVersion();
+            var myContext = services.GetRequiredService<AppDbContext>();
 
             // Auto insert default data
             DBInitializerSeedData.InitializeDatabase(myContext);
@@ -31,9 +24,8 @@ namespace E_commerce.Extension
             var assembliesToScan = new List<Assembly>
             {
                 typeof(Program).Assembly, // Main assembly
-                typeof(MyDbContext).Assembly, // DAL assembly
+                typeof(AppDbContext).Assembly, // DAL assembly
                 typeof(UserService).Assembly // DBL assembly
-
             };
 
             foreach (var assembly in assembliesToScan)

@@ -1,5 +1,5 @@
 ﻿using DAL;
-using DAL.Entity;
+using DAL.Models;
 using DAL.Repository.AuditTrailRP;
 using DAL.Tools.ListingHelper;
 using DBL.Tools;
@@ -13,14 +13,14 @@ namespace DBL.AuditTrail_Service
     public class AuditTrailService : IAuditTrailService
     {
         private IAuditTrailRepository _auditTrailRepository;
-        private readonly MyDbContext _myDbContext;
+        private readonly AppDbContext _appDbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private string username = string.Empty;
 
-        public AuditTrailService(IAuditTrailRepository auditTrailRepository, MyDbContext myDbContext, IHttpContextAccessor httpContextAccessor)
+        public AuditTrailService(IAuditTrailRepository auditTrailRepository, AppDbContext AppDbContext, IHttpContextAccessor httpContextAccessor)
         {
             _auditTrailRepository = auditTrailRepository;
-            _myDbContext = myDbContext;
+            _appDbContext = AppDbContext;
             _httpContextAccessor = httpContextAccessor;
             if (_httpContextAccessor.HttpContext != null)
             {
@@ -34,7 +34,7 @@ namespace DBL.AuditTrail_Service
             try
             {
                 // Get the primary key property name
-                var keyName = _myDbContext.Model.FindEntityType(typeof(T))?
+                var keyName = _appDbContext.Model.FindEntityType(typeof(T))?
                     .FindPrimaryKey()?
                     .Properties
                     .Select(x => x.Name)
@@ -59,16 +59,16 @@ namespace DBL.AuditTrail_Service
                             : null;
                 }
 
-                var auditTrail = new T_AuditTrail
+                var auditTrail = new TAuditTrail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     Module = module,
                     TableName = typeof(T).Name,
                     Action = action,
-                    Username = username,
+                    Username = username != null ? username : "Empty",
                     Remark = $"{action} {typeof(T).Name} record, id: {primaryKeyValue}",
                     CreatedDate = DateTime.Now,
-                    AuditTrailDetails = new List<T_AuditTrailDetails>()
+                    TAuditTrailDetails = new List<TAuditTrailDetail>()
                 };
 
                 // Compare the original and new objects if both are not null
@@ -86,15 +86,15 @@ namespace DBL.AuditTrail_Service
 
                         if (originalValue != newValue)
                         {
-                            var auditTrailDetail = new T_AuditTrailDetails
+                            var auditTrailDetail = new TAuditTrailDetail
                             {
                                 Id = IdGeneratorHelper.GenerateId(),
                                 Field = property.Name,
-                                Original_Data = originalValue,
-                                New_Data = newValue
+                                OriginalData = originalValue,
+                                NewData = newValue
                             };
 
-                            auditTrail.AuditTrailDetails.Add(auditTrailDetail);
+                            auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
                         }
                     }
                 }
@@ -110,15 +110,15 @@ namespace DBL.AuditTrail_Service
                             break;
                         }
 
-                        var auditTrailDetail = new T_AuditTrailDetails
+                        var auditTrailDetail = new TAuditTrailDetail
                         {
                             Id = IdGeneratorHelper.GenerateId(),
                             Field = property.Name,
-                            Original_Data = null,  // No original data for Create
-                            New_Data = newValue
+                            OriginalData = null,  // No original data for Create
+                            NewData = newValue
                         };
 
-                        auditTrail.AuditTrailDetails.Add(auditTrailDetail);
+                        auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
                     }
                 }
                 // If newObject is null, it's a Delete action
@@ -133,15 +133,15 @@ namespace DBL.AuditTrail_Service
                             break;
                         }
 
-                        var auditTrailDetail = new T_AuditTrailDetails
+                        var auditTrailDetail = new TAuditTrailDetail
                         {
                             Id = IdGeneratorHelper.GenerateId(),
                             Field = property.Name,
-                            Original_Data = originalValue,
-                            New_Data = null  // No new data for Delete
+                            OriginalData = originalValue,
+                            NewData = null  // No new data for Delete
                         };
 
-                        auditTrail.AuditTrailDetails.Add(auditTrailDetail);
+                        auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
                     }
                 }
 
@@ -160,7 +160,7 @@ namespace DBL.AuditTrail_Service
         {
             try
             {
-                var auditTrail = new T_AuditTrail
+                var auditTrail = new TAuditTrail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     Module = module,
@@ -169,7 +169,7 @@ namespace DBL.AuditTrail_Service
                     Username = username,
                     Remark = $"{action} {module}.",
                     CreatedDate = DateTime.Now,
-                    AuditTrailDetails = new List<T_AuditTrailDetails>()
+                    TAuditTrailDetails = new List<TAuditTrailDetail>()
                 };
 
                 // Compare the original and new objects
@@ -182,14 +182,14 @@ namespace DBL.AuditTrail_Service
 
                         if (originalValue != newValue)
                         {
-                            var auditTrailDetail = new T_AuditTrailDetails
+                            var auditTrailDetail = new TAuditTrailDetail
                             {
                                 Id = IdGeneratorHelper.GenerateId(),
                                 Field = key,
-                                Original_Data = originalValue,
-                                New_Data = newValue
+                                OriginalData = originalValue,
+                                NewData = newValue
                             };
-                            auditTrail.AuditTrailDetails.Add(auditTrailDetail);
+                            auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
                         }
                     }
                 }
@@ -205,7 +205,7 @@ namespace DBL.AuditTrail_Service
             }
         }
 
-        public async Task<PagedResult<T_AuditTrail>> GetPagedListAsync(FilterParameters filterParameters)
+        public async Task<PagedResult<TAuditTrail>> GetPagedListAsync(FilterParameters filterParameters)
         {
             var rtnValue = await _auditTrailRepository.GetPagedListAsync(filterParameters, true);
 

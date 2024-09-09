@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Shared.Class;
 
 namespace DBL.SystemConfig_Service
@@ -7,8 +7,8 @@ namespace DBL.SystemConfig_Service
     {
         Task<ShareResp> UpdateAsync(UpdateSystemConfig_REQ oReq);
 
-        Task<List<T_SystemConfig>> GetSystemConfigList();
+        Task<List<TSystemConfig>> GetSystemConfigList();
 
-        Task<T_SystemConfig> GetSystemConfigByKeyAsync(string key);
+        Task<TSystemConfig> GetSystemConfigByKeyAsync(string key);
     }
 }

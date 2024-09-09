@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Tools.ListingHelper;
 
 namespace DBL.AuditTrail_Service
@@ -18,6 +18,6 @@ namespace DBL.AuditTrail_Service
         /// <returns></returns>
         Task CreateAuditTrailAsync(string module, string action, string tableName, Dictionary<string, string> originalObject, Dictionary<string, string> newObject);
 
-        Task<PagedResult<T_AuditTrail>> GetPagedListAsync(FilterParameters filterParameters);
+        Task<PagedResult<TAuditTrail>> GetPagedListAsync(FilterParameters filterParameters);
     }
 }

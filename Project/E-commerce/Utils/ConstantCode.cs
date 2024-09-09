@@ -42,14 +42,14 @@
 
         public class TableName
         {
-            public const string SystemConfig = "T_SystemConfig";
-            public const string User = "T_User";
-            public const string UserTokens = "T_UserTokens";
-            public const string UserLoginHistory = "T_UserLoginHistory";
-            public const string UserRole = "E_UserRole";
-            public const string AuditTrail = "T_AuditTrail";
-            public const string AuditTrailDetails = "T_AuditTrailDetails";
-            public const string Email = "T_Email";
+            public const string SystemConfig = "TSystemConfig";
+            public const string User = "TUser";
+            public const string UserTokens = "TUserTokens";
+            public const string UserLoginHistory = "TUserLoginHistory";
+            public const string UserRole = "EUserRole";
+            public const string AuditTrail = "TAuditTrail";
+            public const string AuditTrailDetails = "TAuditTrailDetails";
+            public const string Email = "TEmail";
         }
 
         public class Resource

@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.UserRP.UserRepository.Class;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
@@ -8,17 +8,17 @@ namespace DAL.Repository.UserRP.UserRepository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly MyDbContext _myDbContext;
+        private readonly AppDbContext _appDbContext;
 
-        public UserRepository(MyDbContext context)
+        public UserRepository(AppDbContext context)
         {
-            _myDbContext = context;
+            _appDbContext = context;
         }
 
         public async Task<IQueryable<UserL>> GetUserListing(UserListing_REQ oReq)
         {
-            var query = _myDbContext.T_User
-                .Include(u => u.UserRole) // Include UserRole for role name mapping
+            var query = _appDbContext.TUsers
+                .Include(u => u.UserRole) // Include the UserRole navigation property
                 .AsQueryable();
 
             // Apply filters
@@ -84,19 +84,19 @@ namespace DAL.Repository.UserRP.UserRepository
 
         #region [ Get User ]
 
-        public async Task<T_User> GetByIdAsync(string id)
+        public async Task<TUser> GetByIdAsync(string id)
         {
-            return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.Id == id);
+            return await _appDbContext.TUsers.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<T_User> GetByUsernameAsync(string username)
+        public async Task<TUser> GetByUsernameAsync(string username)
         {
-            return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.Username == username);
+            return await _appDbContext.TUsers.FirstOrDefaultAsync(x => x.Username == username);
         }
 
-        public async Task<T_User> GetByEmailAsync(string email)
+        public async Task<TUser> GetByEmailAsync(string email)
         {
-            return await _myDbContext.T_User.FirstOrDefaultAsync(x => x.Email == email);
+            return await _appDbContext.TUsers.FirstOrDefaultAsync(x => x.Email == email);
         }
 
         #endregion
@@ -105,7 +105,7 @@ namespace DAL.Repository.UserRP.UserRepository
 
         public async Task<int> GetUserRoleByUsernameAsync(string username)
         {
-            return await _myDbContext.T_User
+            return await _appDbContext.TUsers
                 .Where(x => x.Username == username)
                 .Select(x => x.UserRoleId)
                 .FirstOrDefaultAsync();
@@ -113,38 +113,38 @@ namespace DAL.Repository.UserRP.UserRepository
 
         #endregion
 
-        public async Task CreateAsync(T_User user)
+        public async Task CreateAsync(TUser user)
         {
-            await _myDbContext.T_User.AddAsync(user);
-            await _myDbContext.SaveChangesAsync();
+            await _appDbContext.TUsers.AddAsync(user);
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(T_User oUser)
+        public async Task UpdateAsync(TUser oUser)
         {
             // Attach the user entity to the context
-            _myDbContext.Attach(oUser);
+            _appDbContext.Attach(oUser);
 
             // Mark all properties as modified
-            _myDbContext.Entry(oUser).State = EntityState.Modified;
+            _appDbContext.Entry(oUser).State = EntityState.Modified;
 
             // Save changes to the database
-            await _myDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(T_User user)
+        public async Task DeleteAsync(TUser user)
         {
-            _myDbContext.T_User.Remove(user);
-            await _myDbContext.SaveChangesAsync();
+            _appDbContext.TUsers.Remove(user);
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task<bool> IsUsernameExistAsync(string username)
         {
-            return await _myDbContext.T_User.AnyAsync(user => user.Username == username);
+            return await _appDbContext.TUsers.AnyAsync(user => user.Username == username);
         }
 
         public async Task<bool> IsEmailExistAsync(string email, string? userId = null)
         {
-            return await _myDbContext.T_User
+            return await _appDbContext.TUsers
                 .AnyAsync(user => user.Email == email && (userId == null ? true : user.Id != userId));
         }
     }

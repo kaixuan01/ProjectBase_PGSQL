@@ -1,4 +1,4 @@
-﻿using DAL;
+﻿using DAL.Models;
 using DBL.User_Service.UserService;
 using System.Reflection;
 
@@ -11,7 +11,7 @@ namespace Background_WorkerService.Extension
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
 
-            var myContext = services.GetRequiredService<MyDbContext>();
+            var myContext = services.GetRequiredService<AppDbContext>();
 
             // Auto insert default data
             // DBInitializerSeedData.InitializeDatabase(myContext);
@@ -23,7 +23,7 @@ namespace Background_WorkerService.Extension
             var assembliesToScan = new List<Assembly>
             {
                 typeof(Program).Assembly, // Main assembly
-                typeof(MyDbContext).Assembly, // DAL assembly
+                typeof(AppDbContext).Assembly, // DAL assembly
                 typeof(UserService).Assembly // DBL assembly
 
             };

@@ -1,4 +1,4 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using DAL.Repository.UserRP.UserRepository.Class;
 using DAL.Shared.Class;
 using DBL.User_Service.UserService.UserActionClass;
@@ -9,7 +9,7 @@ namespace DBL.User_Service.UserService
     {
         // ## Get User
         Task<UserListing_RESP> GetUserListingAsync(UserListing_REQ oReq);
-        Task<T_User> GetByIdAsync(string id);
+        Task<TUser> GetByIdAsync(string id);
 
         // ## Get User's Role
         Task<int> GetUserRoleByUsernameAsync(string username);

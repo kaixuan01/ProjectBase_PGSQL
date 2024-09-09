@@ -1,35 +1,35 @@
-﻿using DAL.Entity;
+﻿using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.SystemConfigRP
 {
     public class SystemConfigRepository :  ISystemConfigRepository
     {
-        private readonly MyDbContext _myDbContext;
+        private readonly AppDbContext _appDbContext;
 
-        public SystemConfigRepository(MyDbContext context)
+        public SystemConfigRepository(AppDbContext context)
         {
-            _myDbContext = context;
+            _appDbContext = context;
         }
 
-        public async Task UpdateAsync(T_SystemConfig config)
+        public async Task UpdateAsync(TSystemConfig config)
         {
             // Attach the user entity to the context
-            _myDbContext.Attach(config);
+            _appDbContext.Attach(config);
 
             // Mark all properties as modified
-            _myDbContext.Entry(config).State = EntityState.Modified;
-            await _myDbContext.SaveChangesAsync();
+            _appDbContext.Entry(config).State = EntityState.Modified;
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<T_SystemConfig> GetByKeyAsync(string key)
+        public async Task<TSystemConfig> GetByKeyAsync(string key)
         {
-            return await _myDbContext.T_SystemConfig.FirstOrDefaultAsync(c => c.Key == key);
+            return await _appDbContext.TSystemConfigs.FirstOrDefaultAsync(c => c.Key == key);
         }
 
-        public async Task<List<T_SystemConfig>> GetAllAsync()
+        public async Task<List<TSystemConfig>> GetAllAsync()
         {
-            return await _myDbContext.T_SystemConfig.ToListAsync();
+            return await _appDbContext.TSystemConfigs.ToListAsync();
         }
     }
 }
