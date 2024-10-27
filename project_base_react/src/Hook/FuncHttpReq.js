@@ -30,7 +30,7 @@ export const useFuncHTTPReq = () => {
   const FuncHTTPReq = useCallback(({
     method = 'GET',
     url,
-    baseUrl = 'http://localhost:2030',
+    baseUrl = 'https://localhost:7032',
     data = null,
     credentials = 'include',
     headers = {},

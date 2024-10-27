@@ -1,0 +1,650 @@
+2024-08-22 21:59:59.384 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 21:59:59.453 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 21:59:59.453 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 21:59:59.516 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822215217940187","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:00:02.567 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":"role","SortDescending":false}
+2024-08-22 22:00:02.618 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "role")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:00:09.889 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:00:09.889 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:00:09.893 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:00:09.898 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822215217940187","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:00:10.662 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":"role","SortDescending":false}
+2024-08-22 22:00:10.679 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "role")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:01:45.738 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:01:51.240 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:01:51.250 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:01:52.874 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822220135774732","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:01:58.757 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":"role","SortDescending":false}
+2024-08-22 22:02:06.588 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "role")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:03:58.076 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":"phone","SortDescending":false}
+2024-08-22 22:03:58.091 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "phone")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:04:00.607 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":"phone","SortDescending":true}
+2024-08-22 22:04:00.622 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "phone")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:04:27.674 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:05:09.173 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822220135774732","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:05:20.305 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":4,"SortBy":null,"SortDescending":false}
+2024-08-22 22:05:20.309 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822220135774732","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822220135806999","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822220136138299","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:05:21.841 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":4,"SortBy":"phone","SortDescending":false}
+2024-08-22 22:05:21.857 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "phone")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:05:26.048 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":4,"SortBy":"phone","SortDescending":true}
+2024-08-22 22:06:43.973 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "phone")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:06:43.982 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:06:45.742 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:06:45.746 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822220135774732","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:06:45.746 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:12:02.076 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":"role","SortDescending":false}
+2024-08-22 22:12:02.095 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "role")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:12:56.612 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":"UserRoleId","SortDescending":true}
+2024-08-22 22:12:57.901 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "UserRoleId")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:13:15.274 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822220136138299","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:22:43.797 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:22:46.028 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:22:46.028 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:22:46.087 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:22:49.584 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortBy":null,"SortDescending":false}
+2024-08-22 22:22:49.588 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411667269","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411418976","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:22:54.511 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":"0","Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortBy":null,"SortDescending":false}
+2024-08-22 22:22:54.545 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411667269","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:22:56.157 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":"0,1","Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortBy":null,"SortDescending":false}
+2024-08-22 22:22:56.165 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411667269","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411418976","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:22:56.437 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":"0,1,2","Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortBy":null,"SortDescending":false}
+2024-08-22 22:22:56.446 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411667269","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411418976","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:25:52.499 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:25:52.499 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:25:52.504 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:25:52.506 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:39:05.698 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:39:05.703 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:39:05.706 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:39:05.706 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:39:09.953 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:39:09.955 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:39:09.985 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:39:09.987 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:39:11.293 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 22:39:11.313 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 22:39:32.042 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:39:32.042 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:39:32.046 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:39:32.049 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:39:39.858 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:39:39.858 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortBy":null,"SortDescending":false}
+2024-08-22 22:39:39.861 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:39:39.865 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:39:41.582 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortBy":null,"SortDescending":false}
+2024-08-22 22:39:41.585 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822221410611358","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411667269","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822221411418976","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:39:43.988 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortBy":"name","SortDescending":false}
+2024-08-22 22:39:44.023 +08:00 [ERR] DBL (GetUserListingAsync) | Exception Message: Translation of 'EF.Property<object>(new UserL{ 
+    Id = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Id, 
+    Username = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Username, 
+    Name = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Name, 
+    Email = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Email, 
+    Phone = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .Phone, 
+    Role = StructuralTypeShaperExpression: 
+        DAL.Entity.E_UserRole
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Inner
+        IsNullable: False
+    .Name, 
+    Status = StructuralTypeShaperExpression: 
+        DAL.Entity.T_User
+        ValueBufferExpression: 
+            ProjectionBindingExpression: Outer
+        IsNullable: False
+    .IsBlocked ? "Blocked" : "Active" 
+}
+, "name")' failed. Either the query source is not an entity type, or the specified property does not exist on the entity type.
+2024-08-22 22:40:31.680 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:40:31.719 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:31.719 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:40:31.779 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:33.868 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:33.874 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:34.507 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Name"}
+2024-08-22 22:40:34.518 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:35.207 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Name"}
+2024-08-22 22:40:35.216 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:35.998 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:36.003 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:36.392 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Name"}
+2024-08-22 22:40:36.397 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:36.967 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Name"}
+2024-08-22 22:40:36.973 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:37.455 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:37.460 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:38.230 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Name"}
+2024-08-22 22:40:38.235 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:38.990 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Name"}
+2024-08-22 22:40:38.994 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:40.150 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:40.154 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:40.574 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Name"}
+2024-08-22 22:40:40.577 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:44.238 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Email"}
+2024-08-22 22:40:44.244 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:45.445 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Email"}
+2024-08-22 22:40:45.453 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:46.934 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:46.937 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:48.310 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Phone"}
+2024-08-22 22:40:48.317 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:48.742 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Phone"}
+2024-08-22 22:40:48.749 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:49.149 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:49.151 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:49.916 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Phone"}
+2024-08-22 22:40:49.919 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:50.629 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Phone"}
+2024-08-22 22:40:50.632 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:51.221 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:51.224 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:52.069 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":"Role"}
+2024-08-22 22:40:52.078 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:52.518 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Role"}
+2024-08-22 22:40:52.524 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"},{"Id":"20240822224020695940","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224019661789","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:40:54.246 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":"1","Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":true,"SortBy":"Role"}
+2024-08-22 22:40:54.278 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:40:55.925 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":"1","Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 22:40:55.935 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224020370904","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 22:41:05.610 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 22:41:05.618 +08:00 [ERR] DBL (UpdateUserLogoutByUserIdAsync) | Login History not found. User Id: 20240822224019661789
+2024-08-22 22:42:37.140 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 22:42:38.749 +08:00 [ERR] DBL (UpdateUserLogoutByUserIdAsync) | Login History not found. User Id: 20240822224019661789
+2024-08-22 22:42:56.284 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 22:42:56.306 +08:00 [ERR] DBL (UpdateUserLogoutByUserIdAsync) | Login History not found. User Id: 20240822224246919026
+2024-08-22 22:43:03.113 +08:00 [ERR] DBL (UpdateUserLogoutAsync) | Exception Message: Object reference not set to an instance of an object.
+2024-08-22 22:43:03.160 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:43:03.190 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 22:43:03.190 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:43:03.244 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:43:12.298 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:43:12.301 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:43:12.304 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 22:43:12.308 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:43:14.599 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 22:43:14.610 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 22:44:32.127 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 22:44:32.128 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 22:44:32.131 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 22:44:32.134 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 22:48:03.053 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 22:48:03.061 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 23:12:46.295 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 23:12:46.302 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 23:13:39.480 +08:00 [INF] Main (Logout) | Update User Login History, Username: Admin1
+2024-08-22 23:13:39.487 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: Admin1
+2024-08-22 23:13:57.568 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 23:13:57.574 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 23:17:15.179 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 23:17:15.185 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 23:18:47.974 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 23:18:47.981 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 23:19:25.068 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 23:19:25.075 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 23:20:30.095 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-08-22 23:20:30.102 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-08-22 23:32:50.269 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:32:50.272 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:32:50.273 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:32:50.279 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:33:07.899 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:33:07.899 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:33:07.904 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:33:07.905 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:33:11.631 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:33:11.632 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:33:11.637 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:33:11.638 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:33:15.257 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:33:15.258 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:33:15.260 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:33:15.264 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:33:39.770 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:33:39.771 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:33:39.772 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:33:39.777 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:33:46.990 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":3,"SortDescending":false,"SortBy":null}
+2024-08-22 23:33:46.995 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224247298270","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224247179689","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 23:33:51.751 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":5,"SortDescending":false,"SortBy":null}
+2024-08-22 23:33:51.754 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224247298270","Name":"Admin 2","Username":"admin2","Email":"kaixuan0131@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"},{"Id":"20240822224247179689","Name":"Merchant 1","Username":"merchant1","Email":"merchant@merchant.com","Phone":"0123456789","Role":"Merchant","Status":"Active"}]
+2024-08-22 23:54:41.670 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:54:41.675 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:54:41.676 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:54:41.677 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:56:10.077 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:56:10.078 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:56:10.080 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:56:10.083 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:57:33.924 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:57:33.927 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:57:33.929 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:57:33.932 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:57:55.982 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:57:55.982 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:57:55.984 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:57:55.987 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]
+2024-08-22 23:58:01.925 +08:00 [INF] Main (GetUserList) | Receive Request Get User List, User Listing Request: {"Username":null,"Name":null,"Email":null,"Phone":null,"Role":null,"Status":null,"SearchTerm":null,"PageNumber":1,"PageSize":1,"SortDescending":false,"SortBy":null}
+2024-08-22 23:58:01.926 +08:00 [INF] Main (GetRoleList) | Receive Request Get User Role List.
+2024-08-22 23:58:01.928 +08:00 [INF] DBL (GetUserRoleListingAsync) | Response User Role List: [{"Id":0,"Name":"Admin","Description":"Administrator"},{"Id":1,"Name":"Merchant","Description":"Merchant Account"},{"Id":2,"Name":"Normal User","Description":"Customer Account"}]
+2024-08-22 23:58:01.932 +08:00 [INF] DBL (GetUserListingAsync) | Response User List: [{"Id":"20240822224246919026","Name":"Admin 1","Username":"admin1","Email":"woonyap616@gmail.com","Phone":"0123456789","Role":"Admin","Status":"Active"}]

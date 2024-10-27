@@ -1,0 +1,12 @@
+2024-09-01 21:44:52.926 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-09-01 21:44:52.949 +08:00 [ERR] DBL (UpdateUserLogoutByUserIdAsync) | Login History not found. User Id: 20240901214259236817
+2024-09-01 21:45:30.419 +08:00 [ERR] DBL (UpdateUserLogoutAsync) | Exception Message: Object reference not set to an instance of an object.
+2024-09-01 21:45:30.509 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-09-01 21:45:30.515 +08:00 [ERR] DBL (UpdateUserLogoutByUserIdAsync) | Login History not found. User Id: 20240901214259236817
+2024-09-01 21:45:31.929 +08:00 [ERR] DBL (UpdateUserLogoutAsync) | Exception Message: Object reference not set to an instance of an object.
+2024-09-01 21:46:25.106 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-09-01 21:46:25.128 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-09-01 21:57:58.364 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-09-01 21:57:58.374 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
+2024-09-01 22:00:01.197 +08:00 [INF] Main (Logout) | Update User Login History, Username: admin1
+2024-09-01 22:00:01.204 +08:00 [INF] DBL (UpdateUserLogoutAsync) | Record Update Successful. User Name: admin1
