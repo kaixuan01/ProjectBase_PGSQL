@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {}
+    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\DAL.csproj": {
+    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\DAL.csproj",
+        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\DAL.csproj",
+        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\obj\\",
+        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj"
+              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
+                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
               }
             }
           }
@@ -99,14 +99,14 @@
         }
       }
     },
-    "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DBL\\DBL.csproj": {
+    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DBL\\DBL.csproj",
+        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj",
         "projectName": "DBL",
-        "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DBL\\DBL.csproj",
+        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DBL\\obj\\",
+        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -128,11 +128,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\DAL.csproj": {
-                "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\DAL.csproj"
+              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
+                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj"
               },
-              "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj"
+              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
+                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
               }
             }
           }
@@ -181,14 +181,14 @@
         }
       }
     },
-    "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {
+    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
+        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
         "projectName": "E-commerce",
-        "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
+        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\obj\\",
+        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -210,14 +210,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\DAL.csproj": {
-                "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\DAL.csproj"
+              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
+                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj"
               },
-              "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DBL\\DBL.csproj": {
-                "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DBL\\DBL.csproj"
+              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj": {
+                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj"
               },
-              "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj"
+              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
+                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
               }
             }
           }
@@ -287,14 +287,14 @@
         }
       }
     },
-    "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj": {
+    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj",
+        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj",
         "projectName": "Utils",
-        "projectPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Utils.csproj",
+        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\obj\\",
+        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

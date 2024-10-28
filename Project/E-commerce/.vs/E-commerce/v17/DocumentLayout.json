@@ -1,69 +1,69 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\",
+  "WorkspaceRootPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\user_controller\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\controllers\\user_controller\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\user_controller\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\dal\\models\\tuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\dal\\models\\tuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\models\\tuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\dal\\models\\euserrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\dal\\models\\euserrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\models\\euserrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\audittrail_controller\\audittrailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\controllers\\audittrail_controller\\audittrailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\audittrail_controller\\audittrailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\utils\\model\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\utils\\model\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|solutionrelative:utils\\model\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\utils\\enums\\enum_userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\utils\\enums\\enum_userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|solutionrelative:utils\\enums\\enum_userrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\oauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\controllers\\oauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\oauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\utils\\enums\\enum_loglevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\utils\\enums\\enum_loglevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}|Utils\\Utils.csproj|solutionrelative:utils\\enums\\enum_loglevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\user_controller\\userrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\controllers\\user_controller\\userrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\user_controller\\userrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\baseapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\controllers\\baseapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\baseapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\controllers\\user_controller\\userloginhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\controllers\\user_controller\\userloginhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\controllers\\user_controller\\userloginhistorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\dal\\data\\dbinitializerseeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\dal\\data\\dbinitializerseeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\data\\dbinitializerseeddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D55671AC-A185-4A40-9552-5350B43A0C2F}|Background_WorkerService\\Background_WorkerService.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\background_workerservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{D55671AC-A185-4A40-9552-5350B43A0C2F}|Background_WorkerService\\Background_WorkerService.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\background_workerservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{D55671AC-A185-4A40-9552-5350B43A0C2F}|Background_WorkerService\\Background_WorkerService.csproj|solutionrelative:background_workerservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\dal\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\dal\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{94430D16-6AE9-4C88-A488-2EE0F2C555B3}|DAL\\DAL.csproj|solutionrelative:dal\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase\\project\\e-commerce\\e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|c:\\users\\user\\projectbase_pgsql\\project\\e-commerce\\e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8C21D6F2-D5E4-49CA-B6B9-4AA728EC965D}|E-commerce\\E-commerce.csproj|solutionrelative:e-commerce\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -80,9 +80,9 @@
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "OAuthController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\OAuthController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\OAuthController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\OAuthController.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\OAuthController.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\OAuthController.cs",
               "RelativeToolTip": "E-commerce\\Controllers\\OAuthController.cs",
               "ViewState": "AQIAABQAAAAAAAAAAAD4v1YAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -94,88 +94,82 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\User_Controller\\UserController.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserController.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserController.cs",
               "RelativeToolTip": "E-commerce\\Controllers\\User_Controller\\UserController.cs",
               "ViewState": "AQIAABMAAAAAAAAAAAAAACUAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-01T13:59:30.935Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-01T13:59:30.935Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "Enum_UserRole.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Enums\\Enum_UserRole.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Enums\\Enum_UserRole.cs",
               "RelativeDocumentMoniker": "Utils\\Enums\\Enum_UserRole.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Enums\\Enum_UserRole.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Enums\\Enum_UserRole.cs",
               "RelativeToolTip": "Utils\\Enums\\Enum_UserRole.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:15:50.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:15:50.404Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "BaseAPIController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\BaseAPIController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\BaseAPIController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\BaseAPIController.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\BaseAPIController.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\BaseAPIController.cs",
               "RelativeToolTip": "E-commerce\\Controllers\\BaseAPIController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:03:09.544Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:03:09.544Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "DBInitializerSeedData.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
               "RelativeDocumentMoniker": "DAL\\Data\\DBInitializerSeedData.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Data\\DBInitializerSeedData.cs",
               "RelativeToolTip": "DAL\\Data\\DBInitializerSeedData.cs",
               "ViewState": "AQIAABQAAAAAAAAAAAApwCAAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T08:50:13.201Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T08:50:13.201Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Models\\AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Models\\AppDbContext.cs",
               "RelativeDocumentMoniker": "DAL\\Models\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Models\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Models\\AppDbContext.cs",
               "RelativeToolTip": "DAL\\Models\\AppDbContext.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAAACUAAABGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T08:49:02.512Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T08:49:02.512Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Background_WorkerService\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Background_WorkerService\\appsettings.json",
               "RelativeDocumentMoniker": "Background_WorkerService\\appsettings.json",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Background_WorkerService\\appsettings.json",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Background_WorkerService\\appsettings.json",
               "RelativeToolTip": "Background_WorkerService\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAACSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-20T08:48:44.072Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T08:48:44.072Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\appsettings.json",
               "RelativeDocumentMoniker": "E-commerce\\appsettings.json",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\appsettings.json*",
-              "RelativeToolTip": "E-commerce\\appsettings.json*",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\appsettings.json",
+              "RelativeToolTip": "E-commerce\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-08-28T14:30:47.159Z",
@@ -185,105 +179,97 @@
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "UserLoginHistoryController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserLoginHistoryController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserLoginHistoryController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\User_Controller\\UserLoginHistoryController.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserLoginHistoryController.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserLoginHistoryController.cs",
               "RelativeToolTip": "E-commerce\\Controllers\\User_Controller\\UserLoginHistoryController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:03:59.31Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:03:59.31Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "UserRoleController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserRoleController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserRoleController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\User_Controller\\UserRoleController.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserRoleController.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\User_Controller\\UserRoleController.cs",
               "RelativeToolTip": "E-commerce\\Controllers\\User_Controller\\UserRoleController.cs",
               "ViewState": "AQIAAA4AAAAAAAAAAAAAwB4AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T08:30:30.651Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T08:30:30.651Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "APIResponse.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Model\\APIResponse.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Model\\APIResponse.cs",
               "RelativeDocumentMoniker": "Utils\\Model\\APIResponse.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Model\\APIResponse.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Model\\APIResponse.cs",
               "RelativeToolTip": "Utils\\Model\\APIResponse.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:13:46.027Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:13:46.027Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "AuditTrailController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\AuditTrail_Controller\\AuditTrailController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\AuditTrail_Controller\\AuditTrailController.cs",
               "RelativeDocumentMoniker": "E-commerce\\Controllers\\AuditTrail_Controller\\AuditTrailController.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Controllers\\AuditTrail_Controller\\AuditTrailController.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Controllers\\AuditTrail_Controller\\AuditTrailController.cs",
               "RelativeToolTip": "E-commerce\\Controllers\\AuditTrail_Controller\\AuditTrailController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:16:15.51Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:16:15.51Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "EUserRole.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Models\\EUserRole.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Models\\EUserRole.cs",
               "RelativeDocumentMoniker": "DAL\\Models\\EUserRole.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Models\\EUserRole.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Models\\EUserRole.cs",
               "RelativeToolTip": "DAL\\Models\\EUserRole.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:16:19.941Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:16:19.941Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "TUser.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Models\\TUser.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Models\\TUser.cs",
               "RelativeDocumentMoniker": "DAL\\Models\\TUser.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\DAL\\Models\\TUser.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\Models\\TUser.cs",
               "RelativeToolTip": "DAL\\Models\\TUser.cs",
               "ViewState": "AQIAABwAAAAAAAAAAADwvyMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:16:26.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:16:26.717Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Enum_LogLevel.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Enums\\Enum_LogLevel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Enums\\Enum_LogLevel.cs",
               "RelativeDocumentMoniker": "Utils\\Enums\\Enum_LogLevel.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\Utils\\Enums\\Enum_LogLevel.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Enums\\Enum_LogLevel.cs",
               "RelativeToolTip": "Utils\\Enums\\Enum_LogLevel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T09:13:21.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T09:13:21.266Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Program.cs",
               "RelativeDocumentMoniker": "E-commerce\\Program.cs",
-              "ToolTip": "C:\\Users\\User\\projectBase\\Project\\E-commerce\\E-commerce\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\Program.cs",
               "RelativeToolTip": "E-commerce\\Program.cs",
               "ViewState": "AQIAAIEAAAAAAAAAAAAAAIoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-28T14:34:35.844Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-28T14:34:35.844Z"
             }
           ]
         }
