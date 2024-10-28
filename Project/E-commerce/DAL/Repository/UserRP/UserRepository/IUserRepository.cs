@@ -1,6 +1,5 @@
 ﻿using DAL.Models;
 using DAL.Repository.UserRP.UserRepository.Class;
-using DAL.Tools.ListingHelper;
 
 namespace DAL.Repository.UserRP.UserRepository
 {

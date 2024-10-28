@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.UserRP.UserLoginHistoryRepository
 {
-    public class UserLoginHistoryRepository : ListingHelper<TUserLoginHistory>, IUserLoginHistoryRepository
+    public class UserLoginHistoryRepository : ListingHelper<TUserloginhistory>, IUserLoginHistoryRepository
     {
         private readonly AppDbContext _appDbContext;
 
@@ -13,23 +13,23 @@ namespace DAL.Repository.UserRP.UserLoginHistoryRepository
             _appDbContext = context;
         }
 
-        public async Task CreateAsync(TUserLoginHistory userLoginHistory)
+        public async Task CreateAsync(TUserloginhistory userLoginHistory)
         {
-            await _appDbContext.TUserLoginHistories.AddAsync(userLoginHistory);
+            await _appDbContext.TUserloginhistories.AddAsync(userLoginHistory);
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<TUserLoginHistory> GetUserLoginHistoryByUserIdAsync(string UserId)
+        public async Task<TUserloginhistory> GetUserLoginHistoryByUserIdAsync(string UserId)
         {
-            var latestLoginHistory = await _appDbContext.TUserLoginHistories
+            var latestLoginHistory = await _appDbContext.TUserloginhistories
                 .Where(x => x.UserId == UserId)
-                .OrderByDescending(x => x.LoginDateTime)
+                .OrderByDescending(x => x.LoginDatetime)
                 .FirstOrDefaultAsync();
 
             return latestLoginHistory;
         }
 
-        public async Task UpdateAsync(TUserLoginHistory oRec)
+        public async Task UpdateAsync(TUserloginhistory oRec)
         {
             // Attach the user entity to the context
             _appDbContext.Attach(oRec);

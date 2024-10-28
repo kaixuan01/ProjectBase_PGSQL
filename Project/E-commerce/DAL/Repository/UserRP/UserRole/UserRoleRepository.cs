@@ -12,9 +12,9 @@ namespace DAL.Repository.UserRP.UserRole
             _appDbContext = context;
         }
 
-        public async Task<List<EUserRole>> GetUserRoleListingAsync()
+        public async Task<List<EUserrole>> GetUserRoleListingAsync()
         {
-            return await _appDbContext.EUserRoles.ToListAsync();
+            return await _appDbContext.EUserroles.ToListAsync();
         }
     }
 }

@@ -18,12 +18,12 @@ namespace DBL.SystemConfig_Service
             _auditTrailService = auditTrailService;
         }
 
-        public async Task<TSystemConfig> GetSystemConfigByKeyAsync(string key)
+        public async Task<TSystemconfig> GetSystemConfigByKeyAsync(string key)
         {
             return await _systemConfigRepository.GetByKeyAsync(key);
         }
 
-        public async Task<List<TSystemConfig>> GetSystemConfigList()
+        public async Task<List<TSystemconfig>> GetSystemConfigList()
         {
             var result = await _systemConfigRepository.GetAllAsync();
             return result;

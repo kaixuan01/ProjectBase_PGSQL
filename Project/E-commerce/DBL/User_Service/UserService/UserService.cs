@@ -437,7 +437,7 @@ namespace DBL.User_Service.UserService
                         // Disable the check if max attemps == 0
                         if (maxAttempts != 0)
                         {
-                            if (oUser.ICountFailedLogin >= maxAttempts)
+                            if (oUser.IcountFailedLogin >= maxAttempts)
                             {
                                 rtnValue.Code = RespCode.RespCode_Failed;
                                 rtnValue.Message = "You have exceeded the maximum number of login attempts. Please contact the admin for further assistance.";
@@ -473,17 +473,17 @@ namespace DBL.User_Service.UserService
 
                     bool success = PasswordHelper.VerifyPassword(user.password, oUser.Password);
 
-                    var oLoginHistory = new TUserLoginHistory()
+                    var oLoginHistory = new TUserloginhistory()
                     {
                         Id = IdGeneratorHelper.GenerateId(),
                         UserId = oUser.Id,
-                        LoginDateTime = DateTime.Now
+                        LoginDatetime = DateTime.Now
                     };
 
                     if (success)
                     {
                         oLoginHistory.Remark = "Login Successfully";
-                        oUser.ICountFailedLogin = 0;
+                        oUser.IcountFailedLogin = 0;
 
                         rtnValue.Code = RespCode.RespCode_Success;
                         rtnValue.Message = $"Login Successfully";
@@ -491,11 +491,11 @@ namespace DBL.User_Service.UserService
                     else
                     {
                         oLoginHistory.Remark = $"Login Failed, Wrong Password.";
-                        oUser.ICountFailedLogin++;
+                        oUser.IcountFailedLogin++;
 
                         if (maxAttempts != 0)
                         {
-                            if (oUser.ICountFailedLogin >= maxAttempts)
+                            if (oUser.IcountFailedLogin >= maxAttempts)
                             {
                                 // Block the user if failed more than the system config setting
                                 oUser.IsBlocked = true;
@@ -586,7 +586,7 @@ namespace DBL.User_Service.UserService
                     return rtnValue;
                 }
 
-                if (oUserToken.IsUsed || oUserToken.ExpiresDateTime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.EmailConfirmation)
+                if (oUserToken.IsUsed || oUserToken.ExpiresDatetime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.EmailConfirmation)
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
                     rtnValue.Message = "Invalid or expired confirm email link.";
@@ -639,7 +639,7 @@ namespace DBL.User_Service.UserService
             try
             {
                 TUser oUser = null;
-                TUserToken oUserTokens = null;
+                TUsertoken oUserTokens = null;
 
                 if (!string.IsNullOrEmpty(oReq.Username))
                 {
@@ -808,7 +808,7 @@ namespace DBL.User_Service.UserService
                     return rtnValue;
                 }
 
-                if (oUserToken.IsUsed || oUserToken.ExpiresDateTime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.ResetPassword)
+                if (oUserToken.IsUsed || oUserToken.ExpiresDatetime < DateTime.Now || oUserToken.TokenType != ConstantCode.UserTokenType.ResetPassword)
                 {
                     rtnValue.Code = RespCode.RespCode_Failed;
                     rtnValue.Message = "Invalid or expired reset password email link.";

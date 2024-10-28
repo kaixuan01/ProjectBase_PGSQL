@@ -17,7 +17,7 @@ namespace DBL.User_Service.UserLoginHistoryService
             _userLoginHistoryRepository = userLoginHistoryRepository;
         }
 
-        public async Task<ShareResp> CreateAsync(TUserLoginHistory oUserLoginHistory)
+        public async Task<ShareResp> CreateAsync(TUserloginhistory oUserLoginHistory)
         {
             var rtnValue = new ShareResp();
 
@@ -38,7 +38,7 @@ namespace DBL.User_Service.UserLoginHistoryService
             return rtnValue;
         }
 
-        public async Task<PagedResult<TUserLoginHistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false)
+        public async Task<PagedResult<TUserloginhistory>> GetLoginHistoryList(FilterParameters filterParameters, bool includeForeignRelationship = false)
         {
             var oUserLoginHistoryList = await _userLoginHistoryRepository.GetPagedListAsync(filterParameters, includeForeignRelationship);
 
@@ -54,7 +54,7 @@ namespace DBL.User_Service.UserLoginHistoryService
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Error, $"Login History not found. User Id: {UserId}");
             }
 
-            record.LogoutDateTime = DateTime.Now;
+            record.LogoutDatetime = DateTime.Now;
 
             await _userLoginHistoryRepository.UpdateAsync(record);
         }

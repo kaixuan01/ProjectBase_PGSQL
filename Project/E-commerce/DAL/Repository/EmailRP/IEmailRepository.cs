@@ -1,5 +1,4 @@
 ﻿using DAL.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository.EmailRP
 {

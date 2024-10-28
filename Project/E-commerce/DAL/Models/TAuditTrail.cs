@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace DAL.Models;
 
-public partial class TAuditTrail
+public partial class TAudittrail
 {
     public string Id { get; set; } = null!;
 
     public string Module { get; set; } = null!;
 
-    public string TableName { get; set; } = null!;
+    public string Tablename { get; set; } = null!;
 
     public string Action { get; set; } = null!;
 
@@ -19,5 +19,5 @@ public partial class TAuditTrail
 
     public DateTime? CreatedDate { get; set; }
 
-    public virtual ICollection<TAuditTrailDetail> TAuditTrailDetails { get; set; } = new List<TAuditTrailDetail>();
+    public virtual ICollection<TAudittraildetail> TAudittraildetails { get; set; } = new List<TAudittraildetail>();
 }

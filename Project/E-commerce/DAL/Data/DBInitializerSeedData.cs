@@ -12,14 +12,14 @@ namespace DAL.Data
         {
             #region [ Seed Data ]
 
-            var userRoles = new List<EUserRole>
+            var userRoles = new List<EUserrole>
             {
                 CreateUserRole(Enum_UserRole.Admin, "Admin", "Administrator"),
                 CreateUserRole(Enum_UserRole.Merchant, "Merchant", "Merchant Account"),
                 CreateUserRole(Enum_UserRole.NormalUser, "Normal User", "Customer Account"),
             };
 
-            var systemConfig = new List<TSystemConfig>
+            var systemConfig = new List<TSystemconfig>
             {
                 CreateSystemConfig(ConstantCode.SystemConfig_Key.MaxLoginFailedAttempt, "3", "The maximum number of failed login attempts allowed before a user account is locked. Set this value to 0 to disable the lockout feature."),
                 CreateSystemConfig(ConstantCode.SystemConfig_Key.EnableSendEmail_Background, "1", "Enables or disables the background email sending function. Set this value to 0 to disable or 1 to enable the function."),
@@ -41,21 +41,24 @@ namespace DAL.Data
 
             // 1. If there is no exist user role id, then add new record
             // 2. If there is exist user role id and name not equal, then update name and description
-            foreach (var item in userRoles)
+            if (userRoles.Count > 0)
             {
-                var oUserRole = AppDbContext.EUserRoles.FirstOrDefault(i => i.Id == item.Id);
-                if (oUserRole == null)
+                foreach (var item in userRoles)
                 {
-                    AppDbContext.EUserRoles.Add(item);
-                }
-                else if (oUserRole.Name != item.Name && oUserRole.Description != oUserRole.Description)
-                {
-                    oUserRole.Name = item.Name;
-                    oUserRole.Description = item.Description;
-                    AppDbContext.EUserRoles.Update(oUserRole);
+                    var oUserRole = AppDbContext.EUserroles.FirstOrDefault(i => i.Id == item.Id);
+                    if (oUserRole == null)
+                    {
+                        AppDbContext.EUserroles.Add(item);
+                    }
+                    else if (oUserRole.Name != item.Name && oUserRole.Description != oUserRole.Description)
+                    {
+                        oUserRole.Name = item.Name;
+                        oUserRole.Description = item.Description;
+                        AppDbContext.EUserroles.Update(oUserRole);
+                    }
                 }
             }
-
+           
             // If there is no default user exist, add the user list
             if(!AppDbContext.TUsers.Any())
             {
@@ -65,10 +68,10 @@ namespace DAL.Data
             // 1. If there is no exist system config key, then add new record
             foreach (var item in systemConfig)
             {
-                var oSystemConfig = AppDbContext.TSystemConfigs.FirstOrDefault(i => i.Key == item.Key);
+                var oSystemConfig = AppDbContext.TSystemconfigs.FirstOrDefault(i => i.Key == item.Key);
                 if (oSystemConfig == null)
                 {
-                    AppDbContext.TSystemConfigs.Add(item);
+                    AppDbContext.TSystemconfigs.Add(item);
                 }
             }
 
@@ -93,9 +96,9 @@ namespace DAL.Data
             };
         }
 
-        private static EUserRole CreateUserRole(Enum_UserRole role, string name, string description)
+        private static EUserrole CreateUserRole(Enum_UserRole role, string name, string description)
         {
-            return new EUserRole
+            return new EUserrole
             {
                 Id = (int)role,
                 Name = name,
@@ -103,9 +106,9 @@ namespace DAL.Data
             };
         }
 
-        private static TSystemConfig CreateSystemConfig(string key, string value, string description)
+        private static TSystemconfig CreateSystemConfig(string key, string value, string description)
         {
-            return new TSystemConfig
+            return new TSystemconfig
             {
                 Id = IdGeneratorHelper.GenerateId(),
                 Key = key,

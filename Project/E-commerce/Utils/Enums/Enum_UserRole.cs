@@ -5,12 +5,12 @@ namespace Utils.Enums
     public enum Enum_UserRole 
     {
         [Description("Admin")]
-        Admin = 0,
+        Admin = 1,
 
         [Description("Merchant")]
-        Merchant = 1,
+        Merchant = 2,
 
         [Description("Normal User")]
-        NormalUser = 2
+        NormalUser = 3
     }
 }

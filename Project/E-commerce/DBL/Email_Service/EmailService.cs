@@ -107,7 +107,7 @@ namespace DBL.Email_Service
                 {
                     { ConstantCode.EmailPlaceholder.RecipientName, oUser.Name },
                     { ConstantCode.EmailPlaceholder.ConfirmEmailUrl, confirmEmailUrl },
-                    { ConstantCode.EmailPlaceholder.ExpiresDateTime, oUserToken.ExpiresDateTime.ToString("MMMM dd, yyyy hh:mm tt") },
+                    { ConstantCode.EmailPlaceholder.ExpiresDatetime, oUserToken.ExpiresDatetime.ToString("MMMM dd, yyyy hh:mm tt") },
                 };
 
                 var emailContent = await PrepareEmailContentAsync(ConstantCode.Resource.EmailTemplateDesign.ConfirmEmailTemplate, placeholders);
@@ -120,7 +120,7 @@ namespace DBL.Email_Service
                     RecipientName = oUser.Name,
                     RecipientEmail = oUser.Email,
                     Status = ConstantCode.Status.Code_Pending,
-                    CreatedDateTime = DateTime.Now
+                    CreatedDatetime = DateTime.Now
                 };
 
                 await _emailRepository.CreateAsync(email);
@@ -154,7 +154,7 @@ namespace DBL.Email_Service
                 {
                     { ConstantCode.EmailPlaceholder.RecipientName, oUser.Name },
                     { ConstantCode.EmailPlaceholder.ResetPasswordUrl, resetPasswordEmailUrl },
-                    { ConstantCode.EmailPlaceholder.ExpiresDateTime, oUserToken.ExpiresDateTime.ToString("MMMM dd, yyyy hh:mm tt") },
+                    { ConstantCode.EmailPlaceholder.ExpiresDatetime, oUserToken.ExpiresDatetime.ToString("MMMM dd, yyyy hh:mm tt") },
                 };
 
                 var emailContent = await PrepareEmailContentAsync(ConstantCode.Resource.EmailTemplateDesign.ResetPasswordEmailTemplate, placeholders);
@@ -167,7 +167,7 @@ namespace DBL.Email_Service
                     RecipientName = oUser.Name,
                     RecipientEmail = oUser.Email,
                     Status = ConstantCode.Status.Code_Pending,
-                    CreatedDateTime = DateTime.Now
+                    CreatedDatetime = DateTime.Now
                 };
 
                 await _emailRepository.CreateAsync(email);

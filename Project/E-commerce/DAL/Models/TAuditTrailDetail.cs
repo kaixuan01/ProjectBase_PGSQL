@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DAL.Models;
 
-public partial class TAuditTrailDetail
+public partial class TAudittraildetail
 {
     public string Id { get; set; } = null!;
 
@@ -15,5 +15,5 @@ public partial class TAuditTrailDetail
 
     public string? NewData { get; set; }
 
-    public virtual TAuditTrail AuditTrail { get; set; } = null!;
+    public virtual TAudittrail AuditTrail { get; set; } = null!;
 }

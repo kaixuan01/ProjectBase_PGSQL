@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DAL.Models;
 
-public partial class EUserRole
+public partial class EUserrole
 {
     public int Id { get; set; }
 

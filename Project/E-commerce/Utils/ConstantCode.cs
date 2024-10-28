@@ -42,13 +42,13 @@
 
         public class TableName
         {
-            public const string SystemConfig = "TSystemConfig";
+            public const string SystemConfig = "TSystemconfig";
             public const string User = "TUser";
             public const string UserTokens = "TUserTokens";
-            public const string UserLoginHistory = "TUserLoginHistory";
-            public const string UserRole = "EUserRole";
-            public const string AuditTrail = "TAuditTrail";
-            public const string AuditTrailDetails = "TAuditTrailDetails";
+            public const string UserLoginHistory = "TUserloginhistory";
+            public const string UserRole = "EUserrole";
+            public const string AuditTrail = "TAudittrail";
+            public const string AuditTrailDetails = "TAudittraildetails";
             public const string Email = "TEmail";
         }
 
@@ -65,7 +65,7 @@
         {
             public const string RecipientName = "RecipientName";
             public const string ConfirmEmailUrl = "ConfirmEmailUrl";
-            public const string ExpiresDateTime = "ExpiresDateTime";
+            public const string ExpiresDatetime = "ExpiresDatetime";
             public const string ResetPasswordUrl = "ResetPasswordUrl";
 
             

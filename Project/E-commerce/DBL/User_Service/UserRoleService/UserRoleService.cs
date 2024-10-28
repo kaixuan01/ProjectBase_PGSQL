@@ -15,7 +15,7 @@ namespace DBL.User_Service.UserRoleService
             _userRoleRepository = userRoleRepository;
         }
 
-        public async Task<List<EUserRole>> GetUserRoleListingAsync()
+        public async Task<List<EUserrole>> GetUserRoleListingAsync()
         {
             var result = await _userRoleRepository.GetUserRoleListingAsync();
 

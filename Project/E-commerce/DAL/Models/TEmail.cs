@@ -16,10 +16,7 @@ public partial class TEmail
     public string? RecipientEmail { get; set; }
 
     /// <summary>
-    /// Status of the email
-    /// P - Pending
-    /// C - Completed
-    /// F - Failed
+    /// Status of the email: P - Pending, C - Completed, F - Failed
     /// </summary>
     public string? Status { get; set; }
 
@@ -27,7 +24,7 @@ public partial class TEmail
 
     public int IcntFailedSend { get; set; }
 
-    public DateTime? CreatedDateTime { get; set; }
+    public DateTime? CreatedDatetime { get; set; }
 
-    public DateTime? SentDateTime { get; set; }
+    public DateTime? SentDatetime { get; set; }
 }

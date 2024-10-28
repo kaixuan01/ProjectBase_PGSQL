@@ -12,7 +12,7 @@ namespace DAL.Repository.SystemConfigRP
             _appDbContext = context;
         }
 
-        public async Task UpdateAsync(TSystemConfig config)
+        public async Task UpdateAsync(TSystemconfig config)
         {
             // Attach the user entity to the context
             _appDbContext.Attach(config);
@@ -22,14 +22,14 @@ namespace DAL.Repository.SystemConfigRP
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<TSystemConfig> GetByKeyAsync(string key)
+        public async Task<TSystemconfig> GetByKeyAsync(string key)
         {
-            return await _appDbContext.TSystemConfigs.FirstOrDefaultAsync(c => c.Key == key);
+            return await _appDbContext.TSystemconfigs.FirstOrDefaultAsync(c => c.Key == key);
         }
 
-        public async Task<List<TSystemConfig>> GetAllAsync()
+        public async Task<List<TSystemconfig>> GetAllAsync()
         {
-            return await _appDbContext.TSystemConfigs.ToListAsync();
+            return await _appDbContext.TSystemconfigs.ToListAsync();
         }
     }
 }

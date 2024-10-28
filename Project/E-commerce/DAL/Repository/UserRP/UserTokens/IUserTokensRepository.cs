@@ -4,9 +4,9 @@ namespace DAL.Repository.UserRP.UserTokens
 {
     public interface IUserTokensRepository
     {
-        Task<TUserToken> GetByTokenAsync(string token);
-        Task<TUserToken> GetByUserIdAsync(string UserId);
-        Task CreateAsync(TUserToken userTokens);
-        Task UpdateAsync(TUserToken userTokens);
+        Task<TUsertoken> GetByTokenAsync(string token);
+        Task<TUsertoken> GetByUserIdAsync(string UserId);
+        Task CreateAsync(TUsertoken userTokens);
+        Task UpdateAsync(TUsertoken userTokens);
     }
 }

@@ -7,8 +7,8 @@ namespace DBL.SystemConfig_Service
     {
         Task<ShareResp> UpdateAsync(UpdateSystemConfig_REQ oReq);
 
-        Task<List<TSystemConfig>> GetSystemConfigList();
+        Task<List<TSystemconfig>> GetSystemConfigList();
 
-        Task<TSystemConfig> GetSystemConfigByKeyAsync(string key);
+        Task<TSystemconfig> GetSystemConfigByKeyAsync(string key);
     }
 }

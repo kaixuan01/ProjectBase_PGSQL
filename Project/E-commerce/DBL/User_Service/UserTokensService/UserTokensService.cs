@@ -22,7 +22,7 @@ namespace DBL.User_Service.UserTokensService
             _systemConfigService = systemConfigService;
         }
 
-        public async Task<TUserToken> CreateAsync(string UserId, string TokenType)
+        public async Task<TUsertoken> CreateAsync(string UserId, string TokenType)
         {
             if (string.IsNullOrEmpty(UserId) || string.IsNullOrEmpty(TokenType))
             {
@@ -35,14 +35,14 @@ namespace DBL.User_Service.UserTokensService
                 LogHelper.RaiseLogEvent(Enum_LogLevel.Information, $"Receive Request to Generate Token. User Id: {UserId}, Token Type: {TokenType}");
                 var oUserTokenExpiration = await _systemConfigService.GetSystemConfigByKeyAsync(ConstantCode.SystemConfig_Key.UserTokenExpiration);
 
-                var newToken = new TUserToken
+                var newToken = new TUsertoken
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     UserId = UserId,
                     Token = AuthToken.GenerateToken(),
                     TokenType = TokenType,
-                    CreatedDateTime = DateTime.Now,
-                    ExpiresDateTime = DateTime.Now.AddHours(1), // By Default set it 1 hour
+                    CreatedDatetime = DateTime.Now,
+                    ExpiresDatetime = DateTime.Now.AddHours(1), // By Default set it 1 hour
                     IsUsed = false
                 };
 
@@ -53,7 +53,7 @@ namespace DBL.User_Service.UserTokensService
                     {
                         if (expirationHours > 0) // Expiration hours cant be 0
                         {
-                            newToken.ExpiresDateTime = DateTime.Now.AddHours(expirationHours);
+                            newToken.ExpiresDatetime = DateTime.Now.AddHours(expirationHours);
                         }
                     }
                 }
@@ -72,17 +72,17 @@ namespace DBL.User_Service.UserTokensService
             }
         }
 
-        public async Task<TUserToken> GetByTokenAsync(string token)
+        public async Task<TUsertoken> GetByTokenAsync(string token)
         {
             return await _userTokensRepository.GetByTokenAsync(token);
         }
 
-        public async Task<TUserToken> GetByUserIdAsync(string UserId)
+        public async Task<TUsertoken> GetByUserIdAsync(string UserId)
         {
             return await _userTokensRepository.GetByUserIdAsync(UserId);
         }
 
-        public async Task UpdateAsync(TUserToken userTokens)
+        public async Task UpdateAsync(TUsertoken userTokens)
         {
             await _userTokensRepository.UpdateAsync(userTokens);
         }

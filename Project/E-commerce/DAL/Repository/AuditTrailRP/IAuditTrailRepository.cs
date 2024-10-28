@@ -3,8 +3,8 @@ using DAL.Tools.ListingHelper;
 
 namespace DAL.Repository.AuditTrailRP
 {
-    public interface IAuditTrailRepository : IListingHelper<TAuditTrail>
+    public interface IAuditTrailRepository : IListingHelper<TAudittrail>
     {
-        Task CreateAsync(TAuditTrail auditTrail);
+        Task CreateAsync(TAudittrail auditTrail);
     }
 }

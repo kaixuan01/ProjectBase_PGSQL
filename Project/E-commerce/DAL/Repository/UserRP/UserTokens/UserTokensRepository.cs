@@ -12,33 +12,33 @@ namespace DAL.Repository.UserRP.UserTokens
             _appDbContext = context;
         }
 
-        public async Task CreateAsync(TUserToken userTokens)
+        public async Task CreateAsync(TUsertoken userTokens)
         {
-            await _appDbContext.TUserTokens.AddAsync(userTokens);
+            await _appDbContext.TUsertokens.AddAsync(userTokens);
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<TUserToken> GetByTokenAsync(string token)
+        public async Task<TUsertoken> GetByTokenAsync(string token)
         {
-            var oUserToken = await _appDbContext.TUserTokens
+            var oUserToken = await _appDbContext.TUsertokens
                 .Where(x => x.Token == token)
-                .OrderByDescending(x => x.CreatedDateTime)
+                .OrderByDescending(x => x.CreatedDatetime)
                 .FirstOrDefaultAsync();
 
             return oUserToken;
         }
 
-        public async Task<TUserToken> GetByUserIdAsync(string UserId)
+        public async Task<TUsertoken> GetByUserIdAsync(string UserId)
         {
-            var oUserToken = await _appDbContext.TUserTokens
+            var oUserToken = await _appDbContext.TUsertokens
                            .Where(x => x.UserId == UserId)
-                           .OrderByDescending(x => x.CreatedDateTime)
+                           .OrderByDescending(x => x.CreatedDatetime)
                            .FirstOrDefaultAsync();
 
             return oUserToken;
         }
 
-        public async Task UpdateAsync(TUserToken userTokens)
+        public async Task UpdateAsync(TUsertoken userTokens)
         {
             // Attach the user entity to the context
             _appDbContext.Attach(userTokens);

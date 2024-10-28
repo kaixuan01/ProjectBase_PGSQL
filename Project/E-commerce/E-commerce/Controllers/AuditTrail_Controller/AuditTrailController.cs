@@ -23,18 +23,18 @@ namespace E_commerce.Controllers.AuditTrail_Controller
         [Route("GetAuditTrailList")]
         public async Task<IActionResult> GetAuditTrailList([FromQuery] FilterParameters filterParameters)
         {
-            ApiResponse<PagedResult<TAuditTrail>>? apiResponse = null;
+            ApiResponse<PagedResult<TAudittrail>>? apiResponse = null;
 
             try
             {
                 var result = await _auditTrailService.GetPagedListAsync(filterParameters);
 
                 // Create a success response using ApiResponse<T>
-                apiResponse = ApiResponse<PagedResult<TAuditTrail>>.CreateSuccessResponse(result, "Get Audit Trail List Successful");
+                apiResponse = ApiResponse<PagedResult<TAudittrail>>.CreateSuccessResponse(result, "Get Audit Trail List Successful");
             }
             catch (Exception ex)
             {
-                apiResponse = ApiResponse<PagedResult<TAuditTrail>>.CreateErrorResponse($"Get Audit Trail List Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<PagedResult<TAudittrail>>.CreateErrorResponse($"Get Audit Trail List Failed. Exception: {ex.Message}");
             }
 
 

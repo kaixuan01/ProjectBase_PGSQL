@@ -18,19 +18,17 @@ public partial class TUser
     public string? Phone { get; set; }
 
     /// <summary>
-    /// User role id in E_UserRole table
+    /// User role ID in e_userrole table
     /// </summary>
     public int UserRoleId { get; set; }
 
     /// <summary>
-    /// Used to count user login failed attempt.
+    /// Used to count user login failed attempts.
     /// </summary>
-    public int ICountFailedLogin { get; set; }
+    public int IcountFailedLogin { get; set; }
 
     /// <summary>
-    /// User Status
-    /// False (0) - Active
-    /// True (1)  - Blocked
+    /// User status: False (0) - Active, True (1) - Blocked
     /// </summary>
     public bool IsBlocked { get; set; }
 
@@ -38,9 +36,9 @@ public partial class TUser
 
     public DateTime? CreatedDate { get; set; }
 
-    public virtual ICollection<TUserLoginHistory> TUserLoginHistories { get; set; } = new List<TUserLoginHistory>();
+    public virtual ICollection<TUserloginhistory> TUserloginhistories { get; set; } = new List<TUserloginhistory>();
 
-    public virtual ICollection<TUserToken> TUserTokens { get; set; } = new List<TUserToken>();
+    public virtual ICollection<TUsertoken> TUsertokens { get; set; } = new List<TUsertoken>();
 
-    public virtual EUserRole UserRole { get; set; } = null!;
+    public virtual EUserrole UserRole { get; set; } = null!;
 }

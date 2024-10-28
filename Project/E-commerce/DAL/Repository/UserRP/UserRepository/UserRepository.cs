@@ -1,8 +1,6 @@
 ﻿using DAL.Models;
 using DAL.Repository.UserRP.UserRepository.Class;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata;
-using Utils;
 
 namespace DAL.Repository.UserRP.UserRepository
 {

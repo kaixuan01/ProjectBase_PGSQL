@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {}
+    "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
+    "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj",
+        "projectUniqueName": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\obj\\",
+        "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\yurich lim\\.nuget\\packages\\",
+        "outputPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\yurich lim\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,15 +22,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
+              "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
+                "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
               }
             }
           }
@@ -56,23 +51,23 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.7, )"
+              "version": "[8.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.7, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[8.0.7, )"
+              "version": "[8.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.7, )"
+              "version": "[8.0.10, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             },
             "System.Linq.Dynamic.Core": {
               "target": "Package",
@@ -95,25 +90,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj": {
+    "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj",
+        "projectUniqueName": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj",
         "projectName": "DBL",
-        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\obj\\",
+        "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj",
+        "packagesPath": "C:\\Users\\yurich lim\\.nuget\\packages\\",
+        "outputPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DBL\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\yurich lim\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -121,18 +112,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
-                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj"
+              "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
+                "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj"
               },
-              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
+              "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
+                "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
               }
             }
           }
@@ -177,25 +167,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {
+    "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
+        "projectUniqueName": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
         "projectName": "E-commerce",
-        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\E-commerce\\obj\\",
+        "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\E-commerce\\E-commerce.csproj",
+        "packagesPath": "C:\\Users\\yurich lim\\.nuget\\packages\\",
+        "outputPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\E-commerce\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\yurich lim\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -203,21 +189,20 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
-                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj"
+              "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj": {
+                "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DAL\\DAL.csproj"
               },
-              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj": {
-                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj"
+              "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj": {
+                "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\DBL\\DBL.csproj"
               },
-              "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
-                "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
+              "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
+                "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj"
               }
             }
           }
@@ -246,6 +231,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             },
             "Serilog": {
               "target": "Package",
@@ -283,25 +272,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
+    "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj",
+        "projectUniqueName": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj",
         "projectName": "Utils",
-        "projectPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\ProjectBase_PGSQL\\Project\\E-commerce\\Utils\\obj\\",
+        "projectPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\Utils.csproj",
+        "packagesPath": "C:\\Users\\yurich lim\\.nuget\\packages\\",
+        "outputPath": "D:\\Kai Xuan\\Project_Base_PGSQL\\Project\\E-commerce\\Utils\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\yurich lim\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -309,7 +294,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -362,7 +346,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

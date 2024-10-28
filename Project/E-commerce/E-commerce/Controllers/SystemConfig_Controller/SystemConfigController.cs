@@ -26,20 +26,20 @@ namespace E_commerce.Controllers.SystemConfig_Controller
         [Route("GetSystemConfigList")]
         public async Task<IActionResult> GetSystemConfigList()
         {
-            ApiResponse<List<TSystemConfig>>? apiResponse = null;
+            ApiResponse<List<TSystemconfig>>? apiResponse = null;
 
             try
             {
                 var result = await _systemConfigService.GetSystemConfigList();
 
                 // Create a success response using ApiResponse<T>
-                apiResponse = ApiResponse<List<TSystemConfig>>.CreateSuccessResponse(result, "Get System Config List Successful");
+                apiResponse = ApiResponse<List<TSystemconfig>>.CreateSuccessResponse(result, "Get System Config List Successful");
             }
             catch (Exception ex)
             {
                 LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when System Config List, Message: {ex.Message}", ex);
 
-                apiResponse = ApiResponse<List<TSystemConfig>>.CreateErrorResponse($"Get System Config Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<List<TSystemconfig>>.CreateErrorResponse($"Get System Config Failed. Exception: {ex.Message}");
             }
 
             return Ok(apiResponse);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DAL.Models;
 
-public partial class TSystemConfig
+public partial class TSystemconfig
 {
     public string Id { get; set; } = null!;
 

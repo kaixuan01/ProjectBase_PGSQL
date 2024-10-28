@@ -24,19 +24,19 @@ namespace E_commerce.Controllers.User_Controller
         [Route("GetRoleList")]
         public async Task<IActionResult> GetRoleList()
         {
-            ApiResponse<List<EUserRole>>? apiResponse = null;
+            ApiResponse<List<EUserrole>>? apiResponse = null;
             LogHelper.FormatMainLogMessage(Enum_LogLevel.Information, $"Receive Request Get User Role List.");
 
             try
             {
                 var oResp = await _userRoleService.GetUserRoleListingAsync();
-                apiResponse = ApiResponse<List<EUserRole>>.CreateSuccessResponse(oResp, "Get User Role List Successful");
+                apiResponse = ApiResponse<List<EUserrole>>.CreateSuccessResponse(oResp, "Get User Role List Successful");
             }
             catch (Exception ex)
             {
                 LogHelper.FormatMainLogMessage(Enum_LogLevel.Error, $"Exception when Get User Role List, Message: {ex.Message}", ex);
 
-                apiResponse = ApiResponse<List<EUserRole>>.CreateErrorResponse($"Get User Role List Failed. Exception: {ex.Message}");
+                apiResponse = ApiResponse<List<EUserrole>>.CreateErrorResponse($"Get User Role List Failed. Exception: {ex.Message}");
             }
 
             return Ok(apiResponse);

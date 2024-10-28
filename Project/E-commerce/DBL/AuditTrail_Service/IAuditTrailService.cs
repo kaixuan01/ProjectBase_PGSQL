@@ -18,6 +18,6 @@ namespace DBL.AuditTrail_Service
         /// <returns></returns>
         Task CreateAuditTrailAsync(string module, string action, string tableName, Dictionary<string, string> originalObject, Dictionary<string, string> newObject);
 
-        Task<PagedResult<TAuditTrail>> GetPagedListAsync(FilterParameters filterParameters);
+        Task<PagedResult<TAudittrail>> GetPagedListAsync(FilterParameters filterParameters);
     }
 }

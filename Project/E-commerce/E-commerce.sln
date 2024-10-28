@@ -16,7 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Utils\Utils.csproj", "{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PgDbConnectionTest", "PgDbConnectionTest\PgDbConnectionTest.csproj", "{947C42A4-5234-483A-9FE0-786E92F8A653}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72DA26B2-0AD8-42CA-B6FD-C96A16C7E162}.Release|Any CPU.Build.0 = Release|Any CPU
+		{947C42A4-5234-483A-9FE0-786E92F8A653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947C42A4-5234-483A-9FE0-786E92F8A653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947C42A4-5234-483A-9FE0-786E92F8A653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947C42A4-5234-483A-9FE0-786E92F8A653}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

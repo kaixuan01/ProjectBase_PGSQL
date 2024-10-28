@@ -59,16 +59,16 @@ namespace DBL.AuditTrail_Service
                             : null;
                 }
 
-                var auditTrail = new TAuditTrail
+                var auditTrail = new TAudittrail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     Module = module,
-                    TableName = typeof(T).Name,
+                    Tablename = typeof(T).Name,
                     Action = action,
                     Username = username != null ? username : "Empty",
                     Remark = $"{action} {typeof(T).Name} record, id: {primaryKeyValue}",
                     CreatedDate = DateTime.Now,
-                    TAuditTrailDetails = new List<TAuditTrailDetail>()
+                    TAudittraildetails = new List<TAudittraildetail>()
                 };
 
                 // Compare the original and new objects if both are not null
@@ -86,7 +86,7 @@ namespace DBL.AuditTrail_Service
 
                         if (originalValue != newValue)
                         {
-                            var auditTrailDetail = new TAuditTrailDetail
+                            var auditTrailDetail = new TAudittraildetail
                             {
                                 Id = IdGeneratorHelper.GenerateId(),
                                 Field = property.Name,
@@ -94,7 +94,7 @@ namespace DBL.AuditTrail_Service
                                 NewData = newValue
                             };
 
-                            auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
+                            auditTrail.TAudittraildetails.Add(auditTrailDetail);
                         }
                     }
                 }
@@ -110,7 +110,7 @@ namespace DBL.AuditTrail_Service
                             break;
                         }
 
-                        var auditTrailDetail = new TAuditTrailDetail
+                        var auditTrailDetail = new TAudittraildetail
                         {
                             Id = IdGeneratorHelper.GenerateId(),
                             Field = property.Name,
@@ -118,7 +118,7 @@ namespace DBL.AuditTrail_Service
                             NewData = newValue
                         };
 
-                        auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
+                        auditTrail.TAudittraildetails.Add(auditTrailDetail);
                     }
                 }
                 // If newObject is null, it's a Delete action
@@ -133,7 +133,7 @@ namespace DBL.AuditTrail_Service
                             break;
                         }
 
-                        var auditTrailDetail = new TAuditTrailDetail
+                        var auditTrailDetail = new TAudittraildetail
                         {
                             Id = IdGeneratorHelper.GenerateId(),
                             Field = property.Name,
@@ -141,7 +141,7 @@ namespace DBL.AuditTrail_Service
                             NewData = null  // No new data for Delete
                         };
 
-                        auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
+                        auditTrail.TAudittraildetails.Add(auditTrailDetail);
                     }
                 }
 
@@ -160,16 +160,16 @@ namespace DBL.AuditTrail_Service
         {
             try
             {
-                var auditTrail = new TAuditTrail
+                var auditTrail = new TAudittrail
                 {
                     Id = IdGeneratorHelper.GenerateId(),
                     Module = module,
-                    TableName = tableName,
+                    Tablename = tableName,
                     Action = action,
                     Username = username,
                     Remark = $"{action} {module}.",
                     CreatedDate = DateTime.Now,
-                    TAuditTrailDetails = new List<TAuditTrailDetail>()
+                    TAudittraildetails = new List<TAudittraildetail>()
                 };
 
                 // Compare the original and new objects
@@ -182,14 +182,14 @@ namespace DBL.AuditTrail_Service
 
                         if (originalValue != newValue)
                         {
-                            var auditTrailDetail = new TAuditTrailDetail
+                            var auditTrailDetail = new TAudittraildetail
                             {
                                 Id = IdGeneratorHelper.GenerateId(),
                                 Field = key,
                                 OriginalData = originalValue,
                                 NewData = newValue
                             };
-                            auditTrail.TAuditTrailDetails.Add(auditTrailDetail);
+                            auditTrail.TAudittraildetails.Add(auditTrailDetail);
                         }
                     }
                 }
@@ -205,7 +205,7 @@ namespace DBL.AuditTrail_Service
             }
         }
 
-        public async Task<PagedResult<TAuditTrail>> GetPagedListAsync(FilterParameters filterParameters)
+        public async Task<PagedResult<TAudittrail>> GetPagedListAsync(FilterParameters filterParameters)
         {
             var rtnValue = await _auditTrailRepository.GetPagedListAsync(filterParameters, true);
 

@@ -3,11 +3,11 @@ using DAL.Tools.ListingHelper;
 
 namespace DAL.Repository.UserRP.UserLoginHistoryRepository
 {
-    public interface IUserLoginHistoryRepository : IListingHelper<TUserLoginHistory>
+    public interface IUserLoginHistoryRepository : IListingHelper<TUserloginhistory>
     {
-        Task CreateAsync(TUserLoginHistory user);
-        Task UpdateAsync(TUserLoginHistory oRec);
-        Task<TUserLoginHistory> GetUserLoginHistoryByUserIdAsync(string UserId);
+        Task CreateAsync(TUserloginhistory user);
+        Task UpdateAsync(TUserloginhistory oRec);
+        Task<TUserloginhistory> GetUserLoginHistoryByUserIdAsync(string UserId);
 
     }
 }
